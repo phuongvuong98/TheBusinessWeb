@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 const Product = require("../models/product");
 
 exports.getAddProduct = (req, res, next) => {

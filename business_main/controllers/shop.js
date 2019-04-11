@@ -1,5 +1,3 @@
-/* eslint-disable no-console */
-/* eslint-disable no-undef */
 const Product = require("../models/product");
 
 // User duoc tao ra tu models/user de thuc hien cau leng tao bang thong qua method sync o app.js
@@ -41,7 +39,12 @@ exports.getIndex = (req, res, next) => {
     Product.fetchAll()
         .then(products => {
             // console.log("[CHECK ALL PROD]==> OK");
-            res.render("shop/index", {
+            // res.render("shop/index", {
+            //     prods: products,
+            //     pageTitle: "Shop",
+            //     path: "/"
+            // });
+            res.render("index.ejs", {
                 prods: products,
                 pageTitle: "Shop",
                 path: "/"
