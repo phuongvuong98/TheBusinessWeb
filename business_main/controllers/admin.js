@@ -1,14 +1,41 @@
 const Product = require("../models/product");
 
 exports.getAddProduct = (req, res, next) => {
-  res.render("admin/edit-product", {
+  const product = new Product({
+    name: "test1",
+    category: "men",
+    model:[{
+      colour:[{
+          name: "Green",
+          imageUrl: "huhu"
+      }],
+      size:[{
+          val: "XL",
+          price: 100
+      }]
+    }],
+    description: "huhu",
+    userId: req.user
+  });
+  product.save();
+  console.log("Add get sucessfully");
+
+
+  res.render("index", {
     pageTitle: "Add Product",
     path: "/admin/add-product",
     editing: false
   });
+
+  // res.render("admin/edit-product", {
+  //   pageTitle: "Add Product",
+  //   path: "/admin/add-product",
+  //   editing: false
+  // });
 };
 
 exports.postAddProduct = (req, res, next) => {
+  console.log("Add post sucessfully");
   const title = req.body.title;
   const imageUrl = req.body.imageUrl;
   const price = req.body.price;
