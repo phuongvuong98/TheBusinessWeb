@@ -55,9 +55,9 @@ exports.getIndex = (req, res, next) => {
     //     });
 
     console.log("GET index!");
-    res.render("index.ejs", {
+    res.render("shop/index.ejs", {
         // prods: products,
-        // pageTitle: "Shop",
+        pageTitle: "Shop"
         // path: "/"
     });
 };
