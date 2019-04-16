@@ -1,24 +1,42 @@
 const Product = require("../models/product");
 
+
 exports.getAddProduct = (req, res, next) => {
-  const product = new Product({
-    name: "test1",
-    category: "men",
-    model:[{
-      colour:[{
-          name: "Green",
-          imageUrl: "5cb55e61b9257e084a83979d"
-      }],
-      size:[{
-          val: "XL",
-          price: 100
-      }]
-    }],
-    description: "huhu",
-    userId: req.user
+  // const product = new Product({
+  //   name: "test1",
+  //   category: "men",
+  //   model:[{
+  //     colour:[{
+  //         name: "Green",
+  //         imageUrl: "5cb55e61b9257e084a83979d"
+  //     }],
+  //     size:[{
+  //         val: "XL",
+  //         price: 100
+  //     }]
+  //   }],
+  //   description: "huhu",
+  //   userId: req.user
+  // });
+  // product.save();
+  // console.log("Add get sucessfully");
+
+  // var unirest = require('unirest');
+  // unirest.get("https://systran-systran-platform-for-language-processing-v1.p.rapidapi.com/translation/text/translate?source=auto&target=vi&input=Never%20give%20up")
+  // .header("X-RapidAPI-Host", "systran-systran-platform-for-language-processing-v1.p.rapidapi.com")
+  // .header("X-RapidAPI-Key", "2f85eb9b04mshcc4dde50d754643p15ca1ejsn0ae51417a015")
+  // .end(function (result) {
+  //   console.log(result.status, result.headers, result.body);
+  // });
+
+  const translate = require("translate");
+  const bar = translate('Home,shop,shopping cart,blog,cart', { to: 'vi', engine: 'google', key: 'AIzaSyA9oA2ivdWXD9aMEGdKLMIPFv3A_Vff2Ms' })
+  .then(result => {
+    console.log("GET TRANSLATE!");
+    console.log(result);
   });
-  product.save();
-  console.log("Add get sucessfully");
+  
+
 
   res.redirect("/");
   // res.render("shop/index.ejs", {
