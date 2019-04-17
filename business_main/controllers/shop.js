@@ -36,23 +36,30 @@ exports.getProduct = (req, res, next) => {
 };
 
 exports.getIndex = (req, res, next) => {
-    Product.fetchAll()
-        .then(products => {
-            // console.log("[CHECK ALL PROD]==> OK");
-            // res.render("shop/index", {
-            //     prods: products,
-            //     pageTitle: "Shop",
-            //     path: "/"
-            // });
-            res.render("index.ejs", {
-                prods: products,
-                pageTitle: "Shop",
-                path: "/"
-            });
-        })
-        .catch(err => {
-            console.log(err);
-        });
+    // Product.fetchAll()
+    //     .then(products => {
+    //         // console.log("[CHECK ALL PROD]==> OK");
+    //         // res.render("shop/index", {
+    //         //     prods: products,
+    //         //     pageTitle: "Shop",
+    //         //     path: "/"
+    //         // });
+    //         res.render("index.ejs", {
+    //             prods: products,
+    //             pageTitle: "Shop",
+    //             path: "/"
+    //         });
+    //     })
+    //     .catch(err => {
+    //         console.log(err);
+    //     });
+
+    console.log("GET index!");
+
+    res.render("shop/index", {
+        pageTitle: "Shop",
+        path: "/"
+    });
 };
 
 exports.getCart = (req, res, next) => {
