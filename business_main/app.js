@@ -66,9 +66,9 @@ mongoose.
             items: []
           },
           role: "admin"
-        })
+        });
         user.save();
       }
-    })
+    });
     app.listen(3000);
-  })
+  });
