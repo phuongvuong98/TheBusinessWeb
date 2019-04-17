@@ -35,7 +35,11 @@ const userSchema = new Schema({
     type: Date
   },
   delete_at: {
+<<<<<<< HEAD
     type: Date  
+=======
+    type: Date
+>>>>>>> 92528863a207769c84ac76f1c5362b4a03585bd2
   },
   role: {
     type: String,
@@ -46,6 +50,7 @@ const userSchema = new Schema({
   }
 })
 
+<<<<<<< HEAD
 module.exports = mongoose.model("User", userSchema);
 
 
@@ -199,3 +204,6 @@ module.exports = mongoose.model("User", userSchema);
 // }
 
 // module.exports = User;
+=======
+module.exports = mongoose.model("User", userSchema);
+>>>>>>> 92528863a207769c84ac76f1c5362b4a03585bd2
