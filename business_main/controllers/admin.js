@@ -15,17 +15,6 @@ exports.getAddProduct = (req, res, next) => {
   console.log("Add get sucessfully");
 
   res.redirect("/");
-  // res.render("shop/index.ejs", {
-  //   pageTitle: "Shop",
-  //   path: "/",
-  //   // editing: false
-  // });
-
-  // res.render("admin/edit-product", {
-  //   pageTitle: "Add Product",
-  //   path: "/admin/add-product",
-  //   editing: false
-  // });
 };
 
 // exports.postAddProduct = (req, res, next) => {
