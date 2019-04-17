@@ -10,20 +10,23 @@
 
 					<div class="right-top-bar flex-w h-full">
 						<a href="#" class="flex-c-m trans-04 p-lr-25">
-							My Balance: <font color="yellow"> 5218.25$</font>
+							<div class="translate">My Balance:</div> <font color="yellow" class="translate"> 100$ </font>
 						</a>
 
-						<a href="#" class="flex-c-m trans-04 p-lr-25">
+						<a href="#" class="flex-c-m trans-04 p-lr-25 translate">
 							My Account
 						</a>
 
-						<a href="#" class="flex-c-m trans-04 p-lr-25">
+
+						<a href="#" class="flex-c-m trans-04 p-lr-25 transEN">
 							EN
 						</a>
 
-						<a href="#" class="flex-c-m trans-04 p-lr-25">
-							USD
+						<a href="#" class="flex-c-m trans-04 p-lr-25 transVI">
+							VI
 						</a>
+
+
 					</div>
 				</div>
 			</div>
@@ -40,32 +43,32 @@
 					<div class="menu-desktop">
 						<ul class="main-menu">
 							<li class="active-menu">
-								<a href="index.html">Home</a>
-								<ul class="sub-menu">
+								<a class="translate <%= path === '/' ? 'active' : '' %>" name="trans3" href="/">Home</a>
+								<!-- <ul class="sub-menu">
 									<li><a href="index.html">Homepage 1</a></li>
 									<li><a href="home-02.html">Homepage 2</a></li>
 									<li><a href="home-03.html">Homepage 3</a></li>
-								</ul>
+								</ul> -->
 							</li>
 
 							<li>
-								<a href="product.html">Shop</a>
+								<a href="product.html" class="translate">Shop</a>
 							</li>
 
 							<li class="label1" data-label1="hot">
-								<a href="shoping-cart.html">Shopping Cart</a>
+								<a href="shoping-cart.html" class="translate">Shopping Cart</a>
 							</li>
 
 							<li>
-								<a href="blog.html">Blog</a>
+								<a href="blog.html" class="translate">Blog</a>
 							</li>
 
 							<li>
-								<a href="about.html">About</a>
+								<a href="about.html" class="translate">About</a>
 							</li>
 
 							<li>
-								<a href="contact.html">Contact</a>
+								<a href="contact.html" class="translate">Contact</a>
 							</li>
 						</ul>
 					</div>	
@@ -126,26 +129,26 @@
 			<ul class="topbar-mobile">
 				<li>
 					<div class="left-top-bar">
-						<font color="red">Free shipping</font> for standard order over $100. <a href="#">Click here</a>
+						<font color="red" class="translate">Free shipping</font> <div class="translate">for standard order over $100. </div><a href="#" class="translate">Click here</a>
 					</div>
 				</li>
 
 				<li>
 					<div class="right-top-bar flex-w h-full">
-						<a href="#" class="flex-c-m p-lr-10 trans-04">
+						<a href="#" class="flex-c-m p-lr-10 trans-04 translate">
 							Help & FAQs
 						</a>
 
-						<a href="#" class="flex-c-m p-lr-10 trans-04">
+						<a href="#" class="flex-c-m p-lr-10 trans-04 translate">
 							My Account
 						</a>
 
-						<a href="#" class="flex-c-m p-lr-10 trans-04">
+						<a href="#" class="flex-c-m p-lr-10 trans-04 transEN">
 							EN
 						</a>
 
-						<a href="#" class="flex-c-m p-lr-10 trans-04">
-							USD
+						<a href="#" class="flex-c-m p-lr-10 trans-04 transVI">
+							VI
 						</a>
 					</div>
 				</li>
@@ -153,35 +156,35 @@
 
 			<ul class="main-menu-m">
 				<li>
-					<a href="index.html">Home</a>
-					<ul class="sub-menu-m">
+					<a href="index.html" class="translate">Home</a>
+					<!-- <ul class="sub-menu-m">
 						<li><a href="index.html">Homepage 1</a></li>
 						<li><a href="home-02.html">Homepage 2</a></li>
 						<li><a href="home-03.html">Homepage 3</a></li>
-					</ul>
+					</ul> -->
 					<span class="arrow-main-menu-m">
 						<i class="fa fa-angle-right" aria-hidden="true"></i>
 					</span>
 				</li>
 
 				<li>
-					<a href="product.html">Shop</a>
+					<a href="product.html" class="translate">Shop</a>
 				</li>
 
 				<li>
-					<a href="shoping-cart.html" class="label1 rs1" data-label1="hot">Features</a>
+					<a href="shoping-cart.html" class="label1 rs1" data-label1="hot" class="translate">Features</a>
 				</li>
 
 				<li>
-					<a href="blog.html">Blog</a>
+					<a href="blog.html" class="translate">Blog</a>
 				</li>
 
 				<li>
-					<a href="about.html">About</a>
+					<a href="about.html" class="translate">About</a>
 				</li>
 
 				<li>
-					<a href="contact.html">Contact</a>
+					<a href="contact.html" class="translate">Contact</a>
 				</li>
 			</ul>
 		</div>
