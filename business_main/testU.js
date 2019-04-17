@@ -32,7 +32,7 @@
 //     // })
 
 
-var uploadcare = require('./lib/main.js')('0aa82163e56c80641cbe', 'f3724b192b85cc5aee6e'),
+var uploadcare = require('./util/uploadCare.js')('0aa82163e56c80641cbe', 'f3724b192b85cc5aee6e'),
 fs = require('fs');
 
 function handler(method) {
