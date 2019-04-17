@@ -23,8 +23,19 @@ const userSchema = new Schema({
     type: String,
     require: true
   },
-  comment: {
-    type: Object
+  commentBox: {
+    //items: [{productId:"sss",comment:"huhu"}]
+    items: []
+  },
+  create_at: {
+    type: Date,
+    default: Date.now
+  },
+  update_at: {
+    type: Date
+  },
+  delete_at: {
+    type: Date  
   },
   role: {
     type: String,
@@ -36,6 +47,7 @@ const userSchema = new Schema({
 })
 
 module.exports = mongoose.model("User", userSchema);
+
 
 // class User {
 //   constructor(username, email, cart, id) {

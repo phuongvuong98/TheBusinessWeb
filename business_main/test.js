@@ -1,11 +1,11 @@
 // var uploadcare = require('./lib/main')('0aa82163e56c80641cbe', 'f3724b192b85cc5aee6e'),
 //         fs = require('fs');
 
-    
+
 //     // handler is a callback function
 //     // in the form function(err, data) { // code to handle response }
-    
-    
+
+
 //     //API interaction
 //     // uploadcare.files.info('file_id', handler);
 //     // uploadcare.files.store('file_id', handler);
@@ -32,12 +32,12 @@
 //     // })
 
 
-var uploadcare = require('./lib/main.js')('0aa82163e56c80641cbe', 'f3724b192b85cc5aee6e'),
-fs = require('fs');
+var uploadcare = require('./util/uploadCare.js')('0aa82163e56c80641cbe', 'f3724b192b85cc5aee6e'),
+  fs = require('fs');
 
 function handler(method) {
-  return function(error, response) {
-    if(error) {
+  return function (error, response) {
+    if (error) {
       console.log('Error in ' + method);
       console.log('Error: ' + error);
       console.log('Response: ' + JSON.stringify(response));
@@ -47,35 +47,35 @@ function handler(method) {
   };
 }
 
-var path = 'product-01.jpg';
+var path = 'product-02.jpg';
 // Upload file
-uploadcare.file.upload(fs.createReadStream(path), function(err,res){
-    handler('file.upload')(err, res);
-    if(err) return;
-    
-    // The only thing returned when uploading is the file property.
+uploadcare.file.upload(fs.createReadStream(path), function (err, res) {
+  handler('file.upload')(err, res);
+  if (err) return;
 
-    //https://ucarecdn.com/272ec093-6531-4cbf-babb-8773b71c9e90/test.jpg
+  // The only thing returned when uploading is the file property.
 
-    url = "https://ucarecdn.com/" + res.file.toString() + "/" + path;
-    console.log(url);
+  //https://ucarecdn.com/272ec093-6531-4cbf-babb-8773b71c9e90/test.jpg
 
-    uploadcare.files.store(res.file, function(error, response) {
-        handler('file.upload.store')(error, response);
-        
-        // setTimeout(function() {
-        //     // Store to S3
-        //     uploadcare.files.storeCustom(res.file, 'uploadcare-node-test', function(error, response) {
-        //         handler('file.upload.storeCustom')(error, response);
-                
-        //         // Remove the file
-        //         //uploadcare.files.remove(res.file, handler('file.upload.remove'));
-        //     });
-        // }, 1000);
-    });
+  url = "https://ucarecdn.com/" + res.file.toString() + "/" + path;
+  console.log(url);
 
-    // Info on file
-    uploadcare.files.info(res.file, handler('file.upload.info'));
+  uploadcare.files.store(res.file, function (error, response) {
+    handler('file.upload.store')(error, response);
+
+    // setTimeout(function() {
+    //     // Store to S3
+    //     uploadcare.files.storeCustom(res.file, 'uploadcare-node-test', function(error, response) {
+    //         handler('file.upload.storeCustom')(error, response);
+
+    //         // Remove the file
+    //         //uploadcare.files.remove(res.file, handler('file.upload.remove'));
+    //     });
+    // }, 1000);
+  });
+
+  // Info on file
+  uploadcare.files.info(res.file, handler('file.upload.info'));
 });
 
 
@@ -92,3 +92,4 @@ uploadcare.file.upload(fs.createReadStream(path), function(err,res){
 //     // Remove the file
 //     uploadcare.files.remove(res.uuid, handler('file.fromUrl.remove'));
 // });
+
