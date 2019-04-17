@@ -32,6 +32,7 @@ app.set("views", "views");
 
 const adminRoutes = require("./routes/admin");
 const shopRoutes = require("./routes/shop");
+const utilRoutes = require("./routes/util");
 
 app.use(
   bodyParser.urlencoded({
@@ -43,6 +44,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/admin", adminRoutes);
 app.use(shopRoutes);
+app.use(utilRoutes);
 
 app.use(errorController.get404);
 
