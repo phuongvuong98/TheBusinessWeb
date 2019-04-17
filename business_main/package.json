@@ -1,21 +1,23 @@
 {
-  "name": "nodejs-complete-guide",
+  "name": "TheBusinessWeb",
   "version": "1.0.0",
-  "description": "Complete Node.js Guide",
+  "description": "The business web - combile NodeJS and MongoDB",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon app.js",
     "start-server": "node app.js"
   },
-  "author": "Maximilian Schwarzmüller",
+  "author": "Nguyen Phuong Vuong",
   "license": "ISC",
   "devDependencies": {
+    "browserify": "^16.2.3",
     "nodemon": "^1.18.3",
     "translate": "^1.1.0"
   },
   "dependencies": {
     "body-parser": "^1.18.3",
+    "duplexer": "^0.1.1",
     "ejs": "^2.6.1",
     "express": "^4.16.3",
     "express-handlebars": "^3.0.0",

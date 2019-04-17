@@ -55,10 +55,10 @@ exports.getIndex = (req, res, next) => {
     //     });
 
     console.log("GET index!");
-    res.render("shop/index.ejs", {
-        // prods: products,
-        pageTitle: "Shop"
-        // path: "/"
+
+    res.render("shop/index", {
+        pageTitle: "Shop",
+        path: "/"
     });
 };
 
