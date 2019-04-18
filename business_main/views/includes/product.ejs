@@ -2,15 +2,15 @@
 <section class="bg0 p-t-23 p-b-140">
 		<div class="container">
 			<div class="p-b-10">
-				<h3 class="ltext-103 cl5 translate">
-					Product Overview
+				<h3 class="ltext-103 cl5">
+					<div class="translate">Product Overview</div>
 				</h3>
 			</div>
 
 			<div class="flex-w flex-sb-m p-b-52">
 				<div class="flex-w flex-l-m filter-tope-group m-tb-10">
-					<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1 translate" data-filter="*">
-						All Products
+					<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1" data-filter="*">
+						<div class="translate">All Products</div>
 					</button>
 
 					<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 translate" data-filter=".women">
@@ -32,19 +32,20 @@
 					<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 translate" data-filter=".watches">
 						Watches
 					</button>
+					
 				</div>
 
 				<div class="flex-w flex-c-m m-tb-10">
 					<div class="flex-c-m stext-106 cl6 size-104 bor4 pointer hov-btn3 trans-04 m-r-8 m-tb-4 js-show-filter">
 						<i class="icon-filter cl2 m-r-6 fs-15 trans-04 zmdi zmdi-filter-list"></i>
-						<i class="icon-close-filter cl2 m-r-6 fs-15 trans-04 zmdi zmdi-close dis-none translate"></i>
-						 Filter
+						<i class="icon-close-filter cl2 m-r-6 fs-15 trans-04 zmdi zmdi-close dis-none"></i>
+						<div class="translate">Filter</div>
 					</div>
 
 					<div class="flex-c-m stext-106 cl6 size-105 bor4 pointer hov-btn3 trans-04 m-tb-4 js-show-search">
 						<i class="icon-search cl2 m-r-6 fs-15 trans-04 zmdi zmdi-search"></i>
-						<i class="icon-close-search cl2 m-r-6 fs-15 trans-04 zmdi zmdi-close dis-none translate"></i>
-						Search
+						<i class="icon-close-search cl2 m-r-6 fs-15 trans-04 zmdi zmdi-close dis-none"></i>
+						<div class="translate">Search</div>
 					</div>
 				</div>
 				
@@ -76,31 +77,13 @@
 								</li>
 
 								<li class="p-b-6">
-									<a href="#" class="filter-link stext-106 trans-04 translate">
-										Popularity
-									</a>
-								</li>
-
-								<li class="p-b-6">
-									<a href="#" class="filter-link stext-106 trans-04 translate">
-										Average rating
-									</a>
-								</li>
-
-								<li class="p-b-6">
-									<a href="#" class="filter-link stext-106 trans-04 filter-link-active translate">
-										Newness
-									</a>
-								</li>
-
-								<li class="p-b-6">
-									<a href="#" class="filter-link stext-106 trans-04 translate">
+									<a href="#" class="filter-link stext-106 trans-04 translate price_LH">
 										Price: Low to High
 									</a>
 								</li>
 
 								<li class="p-b-6">
-									<a href="#" class="filter-link stext-106 trans-04 translate">
+									<a href="#" class="filter-link stext-106 trans-04 translate price_HL">
 										Price: High to Low
 									</a>
 								</li>
@@ -133,19 +116,7 @@
 
 								<li class="p-b-6">
 									<a href="#" class="filter-link stext-106 trans-04">
-										$100.00 - $150.00
-									</a>
-								</li>
-
-								<li class="p-b-6">
-									<a href="#" class="filter-link stext-106 trans-04">
-										$150.00 - $200.00
-									</a>
-								</li>
-
-								<li class="p-b-6">
-									<a href="#" class="filter-link stext-106 trans-04">
-										$200.00+
+										$100.00+
 									</a>
 								</li>
 							</ul>
@@ -159,14 +130,26 @@
 			
 			<div class="row isotope-grid">
 						<% if (products.length > 0) { %>
-						<% for (let product of products) { %>
+						
+						<!-- <script>
 							
+						(function ($) {
+							$(".price_LH").click(function(){
+									console.log("1");	
+									
+							  });
+						})(jQuery);
+							
+						</script> -->
+				
+						<% for (let product of products) { %>
+						
 						<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item <%= product.category %>">	
 							<div class="block2">
 								<div class="block2-pic hov-img0">
 									<img src="<%= product.imageUrl %>" alt="IMG-PRODUCT">
 
-									<a href="#" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1 translate">
+									<a href="#" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1 ">
 										Quick View
 									</a>
 								</div>
