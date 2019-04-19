@@ -1,5 +1,5 @@
 <!-- Header -->
-<header>
+<header class="<%= path === '/' ? '' : 'header-v4' %>">
 		<!-- Header desktop -->
 		<div class="container-menu-desktop">
 			<!-- Topbar -->
@@ -10,10 +10,10 @@
 
 					<div class="right-top-bar flex-w h-full">
 						<a href="#" class="flex-c-m trans-04 p-lr-25">
-							<div class="translate">My Balance:</div> <font color="yellow" class="translate"> 100$ </font>
+							<div class="translate">My Balance:</div> <font color="yellow"> 100$ </font>
 						</a>
 
-						<a href="#" class="flex-c-m trans-04 p-lr-25 translate">
+						<a href="/account" class="flex-c-m trans-04 p-lr-25 translate">
 							My Account
 						</a>
 
@@ -35,15 +35,16 @@
 				<nav class="limiter-menu-desktop container">
 					
 					<!-- Logo desktop -->		
-					<a href="#" class="logo">
-						<i class="fab fa-phoenix-squadron" style="color: #27ae60; font-size: 350%"></i>
+					<a href="/" class="logo">
+						<i class="fab fa-phoenix-squadron" style="color: #27ae60; font-size: 320%"></i>
 					</a>
 					<!-- rgba(39, 174, 95, 0.8) -->
 					<!-- Menu desktop -->
 					<div class="menu-desktop">
 						<ul class="main-menu">
-							<li class="active-menu">
-								<a class="translate <%= path === '/' ? 'active' : '' %>" name="trans3" href="/">Home</a>
+
+							<li class="<%= path === '/' ? 'active-menu' : '' %>">
+								<a class="translate" href="/">Home</a>
 								<!-- <ul class="sub-menu">
 									<li><a href="index.html">Homepage 1</a></li>
 									<li><a href="home-02.html">Homepage 2</a></li>
@@ -51,24 +52,24 @@
 								</ul> -->
 							</li>
 
-							<li>
-								<a href="product.html" class="translate">Shop</a>
+							<li class="<%= path === '/products' ? 'active-menu' : '' %>">
+								<a href="/products" class="translate">Shop</a>
 							</li>
 
-							<li class="label1" data-label1="hot">
-								<a href="shoping-cart.html" class="translate">Shopping Cart</a>
+							<li class="<%= path === '/cart' ? 'active-menu' : '' %>">
+								<a href="/cart" class="translate">Cart</a>
 							</li>
 
-							<li>
-								<a href="blog.html" class="translate">Blog</a>
+							<li class="<%= path === '/blog' ? 'active-menu' : '' %>">
+								<a href="/blog" class="translate">Blog</a>
 							</li>
 
-							<li>
-								<a href="about.html" class="translate">About</a>
+							<li class="<%= path === '/about' ? 'active-menu' : '' %>">
+								<a href="/about" class="translate">About</a>
 							</li>
 
-							<li>
-								<a href="contact.html" class="translate">Contact</a>
+							<li class="<%= path === '/contact' ? 'active-menu' : '' %>">
+								<a href="/contact" class="translate">Contact</a>
 							</li>
 						</ul>
 					</div>	
@@ -95,8 +96,8 @@
 		<div class="wrap-header-mobile">
 			<!-- Logo moblie -->		
 			<div class="logo-mobile">
-				<a href="index.html">
-					<i class="fab fa-phoenix-squadron" style="color: #27ae60; font-size: 300%"></i>
+				<a href="/">
+					<i class="fab fa-phoenix-squadron" style="color: #27ae60; font-size: 320%"></i>
 				</a>
 			</div>
 
@@ -135,19 +136,19 @@
 
 				<li>
 					<div class="right-top-bar flex-w h-full">
-						<a href="#" class="flex-c-m p-lr-10 trans-04 translate">
+						<a href="/" class="flex-c-m p-lr-10 trans-04 translate">
 							Help & FAQs
 						</a>
 
-						<a href="#" class="flex-c-m p-lr-10 trans-04 translate">
+						<a href="/" class="flex-c-m p-lr-10 trans-04 translate">
 							My Account
 						</a>
 
-						<a href="#" class="flex-c-m p-lr-10 trans-04 transEN">
+						<a href="/" class="flex-c-m p-lr-10 trans-04 transEN">
 							EN
 						</a>
 
-						<a href="#" class="flex-c-m p-lr-10 trans-04 transVI">
+						<a href="/" class="flex-c-m p-lr-10 trans-04 transVI">
 							VI
 						</a>
 					</div>
@@ -155,36 +156,33 @@
 			</ul>
 
 			<ul class="main-menu-m">
-				<li>
-					<a href="index.html" class="translate">Home</a>
-					<!-- <ul class="sub-menu-m">
+				<li class="<%= path === '/' ? 'active-menu' : '' %>">
+					<a class="translate" href="/">Home</a>
+					<!-- <ul class="sub-menu">
 						<li><a href="index.html">Homepage 1</a></li>
 						<li><a href="home-02.html">Homepage 2</a></li>
 						<li><a href="home-03.html">Homepage 3</a></li>
 					</ul> -->
-					<span class="arrow-main-menu-m">
-						<i class="fa fa-angle-right" aria-hidden="true"></i>
-					</span>
 				</li>
 
-				<li>
-					<a href="product.html" class="translate">Shop</a>
+				<li class="<%= path === '/products' ? 'active-menu' : '' %>">
+					<a href="/products" class="translate">Shop</a>
 				</li>
 
-				<li>
-					<a href="shoping-cart.html" class="label1 rs1" data-label1="hot" class="translate">Features</a>
+				<li class="<%= path === '/cart' ? 'active-menu' : '' %>">
+					<a href="/cart" class="translate">Cart</a>
 				</li>
 
-				<li>
-					<a href="blog.html" class="translate">Blog</a>
+				<li class="<%= path === '/blog' ? 'active-menu' : '' %>">
+					<a href="/blog" class="translate">Blog</a>
 				</li>
 
-				<li>
-					<a href="about.html" class="translate">About</a>
+				<li class="<%= path === '/about' ? 'active-menu' : '' %>">
+					<a href="/about" class="translate">About</a>
 				</li>
 
-				<li>
-					<a href="contact.html" class="translate">Contact</a>
+				<li class="<%= path === '/contact' ? 'active-menu' : '' %>">
+					<a href="/contact" class="translate">Contact</a>
 				</li>
 			</ul>
 		</div>
