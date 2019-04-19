@@ -47,7 +47,7 @@ function handler(method) {
   };
 }
 
-var path = 'product-01.jpg';
+var path = 'shoe-10.jpg';
 // Upload file
 uploadcare.file.upload(fs.createReadStream(path), function(err,res){
     handler('file.upload')(err, res);
