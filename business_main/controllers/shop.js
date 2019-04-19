@@ -88,6 +88,13 @@ exports.getContact = (req, res, next) => {
     });
 };
 
+exports.getAccount = (req, res, next) => {
+    res.render("shop/account", {
+        path: "/account",
+        pageTitle: "Your Account"
+    });
+};
+
 // // them san pham voi vao cart 
 exports.postCart = (req, res, next) => {    
     const prodId = req.body.productId;
