@@ -31,7 +31,6 @@
 //     //     console.log(err,res);
 //     // })
 
-
 var uploadcare = require('./util/uploadCare.js')('0aa82163e56c80641cbe', 'f3724b192b85cc5aee6e'),
 fs = require('fs');
 
@@ -47,7 +46,12 @@ function handler(method) {
   };
 }
 
+<<<<<<< HEAD
 var path = 'shoe-10.jpg';
+=======
+
+var path = 'product-01.jpg';
+>>>>>>> master
 // Upload file
 uploadcare.file.upload(fs.createReadStream(path), function(err,res){
     handler('file.upload')(err, res);

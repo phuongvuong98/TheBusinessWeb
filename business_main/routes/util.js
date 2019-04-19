@@ -6,6 +6,6 @@ const utilController = require("../controllers/util");
 
 const router = express.Router();
 
-// router.get("/translate/:typeTrans", utilController.getTranslate);
+router.get("/:kindFilter", utilController.getFilter);
 
 module.exports = router;
