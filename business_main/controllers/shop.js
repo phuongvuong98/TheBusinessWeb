@@ -95,6 +95,19 @@ exports.getAccount = (req, res, next) => {
     });
 };
 
+exports.getLogin = (req, res, next) => {
+    res.render("shop/login", {
+        path: "/login",
+        pageTitle: "Login"
+    });
+};
+
+exports.getRegister = (req, res, next) => {
+    res.render("shop/register", {
+        path: "/register",
+        pageTitle: "Rigister"
+    });
+};
 // // them san pham voi vao cart 
 exports.postCart = (req, res, next) => {    
     const prodId = req.body.productId;
