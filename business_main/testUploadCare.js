@@ -32,7 +32,7 @@
 //     // })
 
 
-var uploadcare = require('./lib/main.js')('0aa82163e56c80641cbe', 'f3724b192b85cc5aee6e'),
+var uploadcare = require('./util/uploadCare.js')('0aa82163e56c80641cbe', 'f3724b192b85cc5aee6e'),
 fs = require('fs');
 
 function handler(method) {
@@ -47,7 +47,7 @@ function handler(method) {
   };
 }
 
-var path = 'product-01.jpg';
+var path = 'watches-10.jpg';
 // Upload file
 uploadcare.file.upload(fs.createReadStream(path), function(err,res){
     handler('file.upload')(err, res);
