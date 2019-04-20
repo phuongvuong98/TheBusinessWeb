@@ -21,3 +21,9 @@
 .form-control textarea:focus {
   outline-color: #00695c;
 }
+.form-control text, .form-control button{
+  border: solid aqua 1px;
+  width: 500px;
+  height: 60px;
+  background-color: cyan;
+}

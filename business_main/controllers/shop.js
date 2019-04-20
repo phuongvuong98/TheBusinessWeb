@@ -1,21 +1,17 @@
 const Product = require("../models/product");
 
-// User duoc tao ra tu models/user de thuc hien cau leng tao bang thong qua method sync o app.js
-// const User = require("../models/user");
-
 exports.getProducts = (req, res, next) => {
-    Product.fetchAll()
-        .then(products => {
-            //console.log("[GET ALL PRODUCT]==> OK");
-            res.render("shop/product-list", {
-                prods: products,
-                pageTitle: "All Products",
-                path: "/products"
-            });
-        })
-        .catch(err => {
-            console.log(err);
-        });
+    Product.find()
+    .then(products => {
+      res.render('shop/products', {
+        products: products,
+        pageTitle: 'All Products',
+        path: '/products'
+      });
+    })
+    .catch(err => {
+      console.log(err);
+    });
 };
 
 exports.getProduct = (req, res, next) => {
@@ -36,39 +32,67 @@ exports.getProduct = (req, res, next) => {
 };
 
 exports.getIndex = (req, res, next) => {
-    Product.fetchAll()
-        .then(products => {
-            // console.log("[CHECK ALL PROD]==> OK");
-            // res.render("shop/index", {
-            //     prods: products,
-            //     pageTitle: "Shop",
-            //     path: "/"
-            // });
-            res.render("index.ejs", {
-                prods: products,
-                pageTitle: "Shop",
-                path: "/"
-            });
-        })
-        .catch(err => {
-            console.log(err);
-        });
+    Product.find()
+    .then(products => {
+      //console.log(products);
+      res.render('shop/index', {
+        products: products,
+        pageTitle: 'Shop',
+        path: '/'
+      });
+    })
+    .catch(err => {
+      console.log(err);
+    });
 };
 
 exports.getCart = (req, res, next) => {
-    req.user
-        .getCart()
-        .then(products => {
-			console.log("TCL: exports.getCart -> products", products)
-            res.render("shop/cart", {
-                path: "/cart",
-                pageTitle: "Your Cart",
-                products: products
-            });
-        })
-        .catch(err => {
-            console.log(err);
-        });
+    // req.user
+    //     .getCart()
+    //     .then(products => {
+	// 		console.log("TCL: exports.getCart -> products", products)
+    //         res.render("shop/cart", {
+    //             path: "/cart",
+    //             pageTitle: "Your Cart",
+    //             products: products
+    //         });
+    //     })
+    //     .catch(err => {
+    //         console.log(err);
+    //     });
+    res.render("shop/cart", {
+        path: "/cart",
+        pageTitle: "Your Cart"
+        //products: products
+    });
+};
+
+exports.getBlog = (req, res, next) => {
+    res.render("shop/blog", {
+        path: "/blog",
+        pageTitle: "Blog"
+    });
+};
+
+exports.getAbout = (req, res, next) => {
+    res.render("shop/about", {
+        path: "/about",
+        pageTitle: "About us"
+    });
+};
+
+exports.getContact = (req, res, next) => {
+    res.render("shop/contact", {
+        path: "/contact",
+        pageTitle: "Contact us"
+    });
+};
+
+exports.getAccount = (req, res, next) => {
+    res.render("shop/account", {
+        path: "/account",
+        pageTitle: "Your Account"
+    });
 };
 
 // // them san pham voi vao cart 

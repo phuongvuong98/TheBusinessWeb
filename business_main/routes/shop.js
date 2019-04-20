@@ -10,16 +10,24 @@ router.get("/", shopController.getIndex);
 
 router.get("/products", shopController.getProducts);
 
-router.get("/products/:productId", shopController.getProduct);
+// router.get("/products/:productId", shopController.getProduct);
 
 router.get("/cart", shopController.getCart);
 
-router.post("/cart", shopController.postCart);
+router.get("/blog", shopController.getBlog);
 
-router.post("/cart-delete-item", shopController.postCartDeleteProduct);
+router.get("/about", shopController.getAbout);
 
-router.get("/orders", shopController.getOrders);
+router.get("/contact", shopController.getContact);
 
-router.post("/create-order", shopController.postCreateOrder);
+router.get("/account", shopController.getAccount);
+
+// router.post("/cart", shopController.postCart);
+
+// router.post("/cart-delete-item", shopController.postCartDeleteProduct);
+
+// router.get("/orders", shopController.getOrders);
+
+// router.post("/create-order", shopController.postCreateOrder);
 
 module.exports = router;
