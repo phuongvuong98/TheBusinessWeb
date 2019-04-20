@@ -1058,6 +1058,24 @@ Input, textarea : 14px/1.6 '', 'Source Sans Pro', sans-serif;
 /*//////////////////////////////////////////////////////////////////
 [ Restyle Select2 ]*/
 
+#comment{
+  border: solid 1px gray;
+  width: 280px;
+  height: 40px;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  display: inline-block;
+}
+.c1{
+  display: inline-block;
+  
+}
+.c2{
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+    height: 400px;
+}
 .rs1-select2 .select2-container {
   display: block;
   max-width: 100% !important;
@@ -2414,6 +2432,10 @@ input.num-product::-webkit-inner-spin-button {
 
 /*//////////////////////////////////////////////////////////////////
 [ Size ]*/
+.size-100{
+  min-width: 130px;
+  height: 40px;
+}
 .size-101 {
   min-width: 161px;
   height: 46px;
@@ -3087,6 +3109,11 @@ input.num-product::-webkit-inner-spin-button {
   background-color: #fff;
   color: #27ae60;
 }
+.hov-btn2a:hover {
+  border-color: aquamarine;
+  background-color: aqua;
+  color: #27ae60;
+}
 
 /*---------------------------------------------*/
 .hov-btn3:hover {
@@ -3324,3 +3351,6 @@ input.num-product::-webkit-inner-spin-button {
   }
 
 }
+
+
+/*Comment*/
