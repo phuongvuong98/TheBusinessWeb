@@ -6,6 +6,13 @@ const utilController = require("../controllers/util");
 
 const router = express.Router();
 
-router.get("/:kindFilter", utilController.getFilter);
+router.get("/women", utilController.getWomen);
+
+router.get("/men", utilController.getMen);
+
+router.post("/women", utilController.postWomen);
+
+router.post("/men", utilController.postMen);
+
 
 module.exports = router;
