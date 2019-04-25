@@ -20,6 +20,12 @@ router.get("/about", shopController.getAbout);
 
 router.get("/contact", shopController.getContact);
 
+router.get("/account", shopController.getAccount);
+
+router.get("/login", shopController.getLogin);
+
+router.get("/register", shopController.getRegister);
+
 // router.post("/cart", shopController.postCart);
 
 // router.post("/cart-delete-item", shopController.postCartDeleteProduct);
