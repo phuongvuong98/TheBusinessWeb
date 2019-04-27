@@ -51,7 +51,7 @@ app.use(errorController.get404);
 mongoose.
   connect(
     'mongodb+srv://nodejs:Vuong0935986100@cluster0-aecmg.mongodb.net/test?retryWrites=true',
-    { useNewUrlParser: true}
+    { useNewUrlParser: true }
   )
   .then(result => {
     console.log("CONNECTED");
@@ -73,7 +73,4 @@ mongoose.
       }
     });
     app.listen(3000);
-  })
-  .catch(err => {
-    console.log(err);
   });

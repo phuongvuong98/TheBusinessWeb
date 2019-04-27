@@ -8,50 +8,30 @@
 			</div>
 
 			<div class="flex-w flex-sb-m p-b-52">
-
-				<% if (kind !== "all") { %>
-				<!-- breadcrumb -->
-				<div class="container" style="padding-left: 0px">
-					<div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg" style="padding-left: 0px">
-						<a href="/products" class="stext-109 cl8 hov-cl1 trans-04">
-							<span class="translate">All products</span>
-							<i class="fa fa-angle-right m-l-9 m-r-10"></i>
-						</a>
-	
-						<span class="stext-109 cl4">
-							<div class="translate">&nbsp;<%= kind %></div>
-						</span>
-					</div>
-				</div>
-				<% } %>
-
 				<div class="flex-w flex-l-m filter-tope-group m-tb-10">
-					<% if (kind == "all") { %>
 					<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1" data-filter="*">
 						<div class="translate">All Products</div>
 					</button>
-					
-					<a href="/women" class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 translate">
+
+					<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 translate" data-filter=".women">
 						Women
-					</a>
+					</button>
 
-					<a href="/men" class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 translate">
+					<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 translate" data-filter=".men">
 						Men
-					</a>
+					</button>
 
-					<a href="/bag" class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 translate">
+					<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 translate" data-filter=".bag">
 						Bag
-					</a>
+					</button>
 
-					<a href="/shoes" class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 translate">
+					<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 translate" data-filter=".shoes">
 						Shoes
-					</a>
+					</button>
 
-					<a href="/watches" class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 translate">
+					<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 translate" data-filter=".watches">
 						Watches
-					</a>
-
-					<% } %>
+					</button>					
 				</div>
 
 				<div class="flex-w flex-c-m m-tb-10">
@@ -82,212 +62,71 @@
 				<!-- Filter -->
 				<div class="dis-none panel-filter w-full p-t-10">
 					<div class="wrap-filter flex-w bg6 w-full p-lr-40 p-t-27 p-lr-15-sm">
-							<%
-							console.log("Check run back1:", kindFilter);
-							if (kindFilter === [""]) {
-							console.log("Check run back2:", kindFilter);
-							%>
-								<div class="filter-col1 p-r-15 p-b-27">
-										<div class="mtext-102 cl2 p-b-15 translate">
-											Sort By
-										</div>
-		
-										<ul>
-												<form action="/<%= kind %>" method="post">
-												<li class="p-b-6">
-													<button type="submit" class="filter-link stext-106 trans-04 translate">
-														Default
-													</button>
-													<input type="hidden" name="kindFilter" value="default">
-													<input type="hidden" name="kindFilter" value="<%= kindFilter %>">
-												</li>
-												</form>
-												<form action="/<%= kind %>" method="post">
-												<li class="p-b-6">
-													<button type="submit" class="filter-link stext-106 trans-04 translate">
-														Price: Low to High
-													</button>
-													<input type="hidden" name="kindFilter" value="filter-SB-LH">
-													<input type="hidden" name="kindFilter" value="<%= kindFilter %>">
-												</li>
-												</form>
-												<form action="/<%= kind %>" method="post">
-												<li class="p-b-6">
-													<button type="submit" class="filter-link stext-106 trans-04 translate">
-														Price: High to Low
-													</button>
-													<input type="hidden" name="kindFilter" value="filter-SB-HL">
-													<input type="hidden" name="kindFilter" value="<%= kindFilter %>">
-												</li>
-												</form>
-										</ul>
-								</div>
-								<div class="filter-col3 p-r-15 p-b-27">
-										<div class="mtext-102 cl2 p-b-15 translate">
-											Price
-										</div>
-		
-										<ul>
-											<form action="/<%= kind %>" method="post">
-											<li class="p-b-6">
-												<button type="submit" class="filter-link stext-106 trans-04 translate">
-														All
-												</button>
-												<input type="hidden" name="kindFilter" value="All">
-												<input type="hidden" name="kindFilter" value="<%= kindFilter %>">
-											</li>
-											</form>
-											<form action="/<%= kind %>" method="post">
-											<li class="p-b-6">
-												<button type="submit" class="filter-link stext-106 trans-04 translate">
-														$0.00 - $50.00
-												</button>
-												<input type="hidden" name="kindFilter" value="filter-P-0-50">
-												<input type="hidden" name="kindFilter" value="<%= kindFilter %>">
-											</li>
-											</form>
-											<form action="/<%= kind %>" method="post">
-											<li class="p-b-6">
-												<button type="submit" class="filter-link stext-106 trans-04 translate">
-														$50.00 - $100.00
-												</button>
-												<input type="hidden" name="kindFilter" value="filter-P-50-100">
-												<input type="hidden" name="kindFilter" value="<%= kindFilter %>">
-											</li>
-											</form>
-											<form action="/<%= kind %>" method="post">
-											<li class="p-b-6">
-												<button type="submit" class="filter-link stext-106 trans-04 translate">
-														$100+
-												</button>
-												<input type="hidden" name="kindFilter" value="filter-P-100+">
-												<input type="hidden" name="kindFilter" value="<%= kindFilter %>">
-											</li>
-											</form>
-										</ul>
-								</div>
-							<% } else { %>
-							%>
-							<%
-								var grKind1 = ["default", "filter-SB-LH", "filter-SB-HL"];
-								var grKind2 = ["All", "filter-P-0-50", "filter-P-50-100","filter-P-100+"];
-								var grKind = grKind1.concat(grKind2);
-								var checker = (arr, target) => target.every(v => arr.includes(v));
-								if (kindFilter.length < 2) {
-								if (!(checker(grKind1, kindFilter))) {
-								%>
-								<div class="filter-col1 p-r-15 p-b-27">
-									<div class="mtext-102 cl2 p-b-15 translate">
-										Sort By
-									</div>
+						
+						<div class="filter-col1 p-r-15 p-b-27">
+							<div class="mtext-102 cl2 p-b-15 translate">
+								Sort By
+							</div>
 
-									<ul>
-											<form action="/<%= kind %>" method="post">
-											<li class="p-b-6">
-												<button type="submit" class="filter-link stext-106 trans-04 translate">
-													Default
-												</button>
-												<input type="hidden" name="kindFilter" value="default">
-												<input type="hidden" name="kindFilter" value="<%= kindFilter %>">
-											</li>
-											</form>
-											<form action="/<%= kind %>" method="post">
-											<li class="p-b-6">
-												<button type="submit" class="filter-link stext-106 trans-04 translate">
-													Price: Low to High
-												</button>
-												<input type="hidden" name="kindFilter" value="filter-SB-LH">
-												<input type="hidden" name="kindFilter" value="<%= kindFilter %>">
-											</li>
-											</form>
-											<form action="/<%= kind %>" method="post">
-											<li class="p-b-6">
-												<button type="submit" class="filter-link stext-106 trans-04 translate">
-													Price: High to Low
-												</button>
-												<input type="hidden" name="kindFilter" value="filter-SB-HL">
-												<input type="hidden" name="kindFilter" value="<%= kindFilter %>">
-											</li>
-											</form>
-									</ul>
-								</div>
-								<% } %>
-								<% 
-								if (!(checker(grKind2, kindFilter))) {
-								%>
-								<div class="filter-col3 p-r-15 p-b-27">
-									<div class="mtext-102 cl2 p-b-15 translate">
-										Price
-									</div>
+							<ul>
+								<li class="p-b-6">
+									<a href="/products" class="filter-link stext-106 trans-04 translate">
+										Default
+									</a>
+								</li>
 
-									<ul>
-										<form action="/<%= kind %>" method="post">
-										<li class="p-b-6">
-											<button type="submit" class="filter-link stext-106 trans-04 translate">
-													All
-											</button>
-											<input type="hidden" name="kindFilter" value="All">
-											<input type="hidden" name="kindFilter" value="<%= kindFilter %>">
-										</li>
-										</form>
-										<form action="/<%= kind %>" method="post">
-										<li class="p-b-6">
-											<button type="submit" class="filter-link stext-106 trans-04 translate">
-													$0.00 - $50.00
-											</button>
-											<input type="hidden" name="kindFilter" value="filter-P-0-50">
-											<input type="hidden" name="kindFilter" value="<%= kindFilter %>">
-										</li>
-										</form>
-										<form action="/<%= kind %>" method="post">
-										<li class="p-b-6">
-											<button type="submit" class="filter-link stext-106 trans-04 translate">
-													$50.00 - $100.00
-											</button>
-											<input type="hidden" name="kindFilter" value="filter-P-50-100">
-											<input type="hidden" name="kindFilter" value="<%= kindFilter %>">
-										</li>
-										</form>
-										<form action="/<%= kind %>" method="post">
-										<li class="p-b-6">
-											<button type="submit" class="filter-link stext-106 trans-04 translate">
-													$100+
-											</button>
-											<input type="hidden" name="kindFilter" value="filter-P-100+">
-											<input type="hidden" name="kindFilter" value="<%= kindFilter %>">
-										</li>
-										</form>
-									</ul>
-								</div>
-								<% } %>
-							<% } %>
-						<% } %>
+								<li class="p-b-6">
+									<a href="/filter-SB-LH" class="filter-link stext-106 trans-04 translate">
+										Price: Low to High
+									</a>
+								</li>
+
+								<li class="p-b-6">
+									<a href="/filter-SB-HL" class="filter-link stext-106 trans-04 translate">
+										Price: High to Low
+									</a>
+								</li>
+							</ul>
+						</div>
+
+						<div class="filter-col2 p-r-15 p-b-27">
+							<div class="mtext-102 cl2 p-b-15 translate">
+								Price
+							</div>
+
+							<ul>
+								<li class="p-b-6">
+									<a href="/products" class="filter-link stext-106 trans-04 filter-link-active translate">
+										All
+									</a>
+								</li>
+
+								<li class="p-b-6">
+									<a href="/filter-P-0-50" class="filter-link stext-106 trans-04">
+										$0.00 - $50.00
+									</a>
+								</li>
+
+								<li class="p-b-6">
+									<a href="/filter-P-50-100" class="filter-link stext-106 trans-04">
+										$50.00 - $100.00
+									</a>
+								</li>
+
+								<li class="p-b-6">
+									<a href="/filter-P-100+" class="filter-link stext-106 trans-04">
+										$100.00+
+									</a>
+								</li>
+							</ul>
+						</div>
+
 					</div>
 				</div>
 			</div>
 
-			<%
-				if (!(kindFilter[0] == '')) {
-			%>
-			<div class="flex-w flex-c-m m-tb-10">
-				<% 
-				console.log("kindFilterSHOW:", kindFilter);
-				kindFilter.forEach(item => { 
-				%>
-					<div class="flex-c-m stext-106 cl6 size-104 bor4 hov-btn3 trans-04 m-r-8 m-tb-4">
-						<div class="translate"><%= item %>&nbsp;&nbsp;</div>
-						<form action="/<%= kind %>" method="post">
-							<button type="submit" class="filter-link stext-106 trans-04 translate">
-								<i class="icon-close-filter cl2 m-r-6 fs-20 trans-04 zmdi zmdi-close"></i>
-							</button>
-							<input type="hidden" name="kindFilterEdit" value="<%= item %>">
-							<input type="hidden" name="kindFilter" value="<%= kindFilter %>">
-						</form>
-					</div>
-				<% }); %>
-			</div>
-			<% } %>
 
+			
 			<div class="row isotope-grid">
 					<% if (products.length > 0) { %>
 						<% for (let product of products) { %>
@@ -328,10 +167,10 @@
 			</div>
 
 			<!-- Load more -->
-			<!-- <div class="flex-c-m flex-w w-full p-t-45">
+			<div class="flex-c-m flex-w w-full p-t-45">
 				<a href="#" class="flex-c-m stext-101 cl5 size-103 bg2 bor1 hov-btn1 p-lr-15 trans-04 translate">
 					Load More
 				</a>
-			</div> -->
+			</div>
 		</div>
 	</section>

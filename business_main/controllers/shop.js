@@ -6,9 +6,7 @@ exports.getProducts = (req, res, next) => {
       res.render('shop/products', {
         products: products,
         pageTitle: 'All Products',
-        path: '/products',
-        kind: "all",
-        kindFilter: []
+        path: '/products'
       });
     })
     .catch(err => {
@@ -40,9 +38,7 @@ exports.getIndex = (req, res, next) => {
       res.render('shop/index', {
         products: products,
         pageTitle: 'Shop',
-        path: '/',
-        kind: "all",
-        kindFilter: []
+        path: '/'
       });
     })
     .catch(err => {
