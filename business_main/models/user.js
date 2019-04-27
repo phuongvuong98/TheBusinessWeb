@@ -27,6 +27,9 @@ const userSchema = new Schema({
     //items: [{productId:"sss",comment:"huhu"}]
     items: []
   },
+  imageUrl: {
+    type: String
+  },
   create_at: {
     type: Date,
     default: Date.now
