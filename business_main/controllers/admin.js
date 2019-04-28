@@ -2,19 +2,17 @@ const Product = require("../models/product");
 
 
 exports.getAddProduct = (req, res, next) => {
-  for(let i = 1; i <= 10; i++){
-    const product = new Product({
-      name: "Bag " + i.toString(),
-      category: "bag",
-      imageUrl:"https://ucarecdn.com/9a56e72d-841b-4cb2-8ef2-688fee9b4baf/product-01.jpg",
-      price: "120",
-      size:["XL","S","M","L"],
-      description: "huhu",
-      userId: req.user
-    });
-    product.save();
-    console.log("Add get sucessfully");
-  }
+  const product = new Product({
+    name: "Bag " + i.toString(),
+    category: "bag",
+    imageUrl:"https://ucarecdn.com/9a56e72d-841b-4cb2-8ef2-688fee9b4baf/product-01.jpg",
+    price: "120",
+    size:["XL","S","M","L"],
+    description: "huhu",
+    userId: req.user
+  });
+  product.save();
+  console.log("Add get sucessfully");
 
   res.redirect("/");
 };

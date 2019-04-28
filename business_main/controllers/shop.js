@@ -8,7 +8,8 @@ exports.getProducts = (req, res, next) => {
         pageTitle: 'All Products',
         path: '/products',
         kind: "all",
-        kindFilter: []
+        kindFilter: [],
+        isAuthenticated: req.session.isLoggedIn
       });
     })
     .catch(err => {
@@ -42,7 +43,8 @@ exports.getIndex = (req, res, next) => {
         pageTitle: 'Shop',
         path: '/',
         kind: "all",
-        kindFilter: []
+        kindFilter: [],
+        isAuthenticated: req.session.isLoggedIn
       });
     })
     .catch(err => {
@@ -74,24 +76,40 @@ exports.getCart = (req, res, next) => {
 exports.getBlog = (req, res, next) => {
     res.render("shop/blog", {
         path: "/blog",
-        pageTitle: "Blog"
+        pageTitle: "Blog",
+        isAuthenticated: req.session.isLoggedIn
     });
 };
 
 exports.getAbout = (req, res, next) => {
     res.render("shop/about", {
         path: "/about",
-        pageTitle: "About us"
+        pageTitle: "About us",
+        isAuthenticated: req.session.isLoggedIn
     });
 };
 
 exports.getContact = (req, res, next) => {
     res.render("shop/contact", {
         path: "/contact",
-        pageTitle: "Contact us"
+        pageTitle: "Contact us",
+        isAuthenticated: req.session.isLoggedIn
     });
 };
 
+exports.getAccount = (req, res, next) => {
+    res.render("shop/account", {
+        path: "/account",
+        pageTitle: "Your Account"
+    });
+};
+
+exports.getRegister = (req, res, next) => {
+    res.render("shop/register", {
+        path: "/register",
+        pageTitle: "Rigister"
+    });
+};
 // // them san pham voi vao cart 
 exports.postCart = (req, res, next) => {    
     const prodId = req.body.productId;
