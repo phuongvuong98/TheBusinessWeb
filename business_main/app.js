@@ -4,6 +4,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const session = require('express-session');
 const MongoDBStore = require('connect-mongodb-session')(session);
+const flash = require('connect-flash');
 
 const mongoose = require("mongoose");
 
@@ -34,9 +35,7 @@ app.use(
     extended: false
   })
 );
-
 app.use(express.static(path.join(__dirname, "public")));
-
 
 // cấu hình cho session
 app.use(
@@ -48,13 +47,8 @@ app.use(
   })
 );
 
-
-
-app.use("/admin", adminRoutes);
-app.use(shopRoutes);
-app.use(utilRoutes);
-app.use(authRoutes);
-app.use(errorController.get404);
+// them flash de gui ve message error thong qua session
+app.use(flash());
 
 // Tao middleware cho user khi da start thanh cong SERVER voi PORT
 app.use((req, res, next) => {
@@ -69,6 +63,18 @@ app.use((req, res, next) => {
     .catch(err => console.log(err));
 });
 
+app.use((req, res, next) => {
+  // gui ve 1 bien trong moi 1 route
+  res.locals.isAuthenticated = req.session.isLoggedIn;
+  next();
+});
+
+app.use("/admin", adminRoutes);
+app.use(shopRoutes);
+app.use(utilRoutes);
+app.use(authRoutes);
+app.use(errorController.get404);
+
 mongoose.
   connect(
     MONGODB_URI,
@@ -76,23 +82,6 @@ mongoose.
   )
   .then(result => {
     console.log("CONNECTED");
-    User.findOne()
-    .then(user => {
-      if (!user) {
-        const user = new User({
-          username: "vuonglegend",
-          password: "1",
-          email: "vuonglegend@gmail.com",
-          address: "Binh Thanh",
-          birthday: "15/08/1998",
-          cart: {
-            items: []
-          },
-          role: "admin"
-        });
-        user.save();
-      }
-    });
     app.listen(3000);
   })
   .catch(err => {

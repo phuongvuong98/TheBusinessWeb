@@ -8,8 +8,7 @@ exports.getProducts = (req, res, next) => {
         pageTitle: 'All Products',
         path: '/products',
         kind: "all",
-        kindFilter: [],
-        isAuthenticated: req.session.isLoggedIn
+        kindFilter: []
       });
     })
     .catch(err => {
@@ -43,8 +42,7 @@ exports.getIndex = (req, res, next) => {
         pageTitle: 'Shop',
         path: '/',
         kind: "all",
-        kindFilter: [],
-        isAuthenticated: req.session.isLoggedIn
+        kindFilter: []
       });
     })
     .catch(err => {
@@ -76,24 +74,21 @@ exports.getCart = (req, res, next) => {
 exports.getBlog = (req, res, next) => {
     res.render("shop/blog", {
         path: "/blog",
-        pageTitle: "Blog",
-        isAuthenticated: req.session.isLoggedIn
+        pageTitle: "Blog"
     });
 };
 
 exports.getAbout = (req, res, next) => {
     res.render("shop/about", {
         path: "/about",
-        pageTitle: "About us",
-        isAuthenticated: req.session.isLoggedIn
+        pageTitle: "About us"
     });
 };
 
 exports.getContact = (req, res, next) => {
     res.render("shop/contact", {
         path: "/contact",
-        pageTitle: "Contact us",
-        isAuthenticated: req.session.isLoggedIn
+        pageTitle: "Contact us"
     });
 };
 
@@ -111,55 +106,55 @@ exports.getRegister = (req, res, next) => {
     });
 };
 // // them san pham voi vao cart 
-exports.postCart = (req, res, next) => {    
-    const prodId = req.body.productId;
-    console.log("[ProdId]==>", prodId);
-    Product.findById(prodId)
-    .then(product => {
-        return req.user.addToCart(product);
-    })
-    .then(result => {
-        res.redirect("/cart");
-    })
-};
+// exports.postCart = (req, res, next) => {    
+//     const prodId = req.body.productId;
+//     console.log("[ProdId]==>", prodId);
+//     Product.findById(prodId)
+//     .then(product => {
+//         return req.user.addToCart(product);
+//     })
+//     .then(result => {
+//         res.redirect("/cart");
+//     })
+// };
 
-exports.postCartDeleteProduct = (req, res, next) => {
-    const prodId = req.body.productId;
-    req.user
-        .deleteItemFromCart(prodId)
-        .then(result => {
-            console.log(result);
-            res.redirect("/cart");
-        })
-        .catch(err => {
-            console.log(err);
-        });
-};
+// exports.postCartDeleteProduct = (req, res, next) => {
+//     const prodId = req.body.productId;
+//     req.user
+//         .deleteItemFromCart(prodId)
+//         .then(result => {
+//             console.log(result);
+//             res.redirect("/cart");
+//         })
+//         .catch(err => {
+//             console.log(err);
+//         });
+// };
 
-exports.postCreateOrder = (req, res, next) => {
-    // truy cap vao 1 user
-    req.user
-        .addOrder()
-        .then(() => {
-            return res.redirect("/cart");
-        })
-        .catch(err => {
-            console.log(err);
-        });
-};
+// exports.postCreateOrder = (req, res, next) => {
+//     // truy cap vao 1 user
+//     req.user
+//         .addOrder()
+//         .then(() => {
+//             return res.redirect("/cart");
+//         })
+//         .catch(err => {
+//             console.log(err);
+//         });
+// };
 
-exports.getOrders = (req, res, next) => {
-    req.user
-        // truy cap bang product trong cart (1 user co nhieu ORDER)
-        .getOrders()
-        .then(orders => {
-            res.render("shop/orders", {
-                path: "/orders",
-                pageTitle: "Your Orders",
-                orders: orders
-            });
-        })
-        .catch(err => {
-            console.log(err);
-        });
-};
+// exports.getOrders = (req, res, next) => {
+//     req.user
+//         // truy cap bang product trong cart (1 user co nhieu ORDER)
+//         .getOrders()
+//         .then(orders => {
+//             res.render("shop/orders", {
+//                 path: "/orders",
+//                 pageTitle: "Your Orders",
+//                 orders: orders
+//             });
+//         })
+//         .catch(err => {
+//             console.log(err);
+//         });
+// };

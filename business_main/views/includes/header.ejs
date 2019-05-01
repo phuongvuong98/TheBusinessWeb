@@ -13,6 +13,10 @@
 							<a href="/login" class="<%= path === '/login' ? 'flex-c-m trans-04 p-lr-25 translate active-top' : 'flex-c-m trans-04 p-lr-25 translate' %>">
 								Login
 							</a>
+
+							<a href="/signup" class="<%= path === '/signup' ? 'flex-c-m trans-04 p-lr-25 translate active-top' : 'flex-c-m trans-04 p-lr-25 translate' %>">
+								Sign Up
+							</a>
 						<% } else { %>
 							<form action="/logout" method="POST">
 								<button type="submit" class="flex-c-m trans-04 p-lr-25 translate form-in-a active-top">
@@ -154,6 +158,9 @@
 						<a href="/login" class="<%= path === '/login' ? 'flex-c-m trans-04 p-lr-10 translate active-top' : 'flex-c-m trans-04 p-lr-10 translate' %>">
 							Login
 						</a>
+						<a href="/signup" class="<%= path === '/signup' ? 'flex-c-m trans-04 p-lr-10 translate active-top' : 'flex-c-m trans-04 p-lr-10 translate' %>">
+							Sign up
+						</a>
 						<% } else { %>
 
 							<form action="/logout" method="POST">
@@ -185,21 +192,17 @@
 			<ul class="main-menu-m">
 				<li class="<%= path === '/' ? 'active-menu' : '' %>">
 					<a class="translate" href="/">Home</a>
-					<!-- <ul class="sub-menu">
-						<li><a href="index.html">Homepage 1</a></li>
-						<li><a href="home-02.html">Homepage 2</a></li>
-						<li><a href="home-03.html">Homepage 3</a></li>
-					</ul> -->
 				</li>
 
 				<li class="<%= path === '/products' ? 'active-menu' : '' %>">
 					<a href="/products" class="translate">Shop</a>
 				</li>
 
-				<li class="<%= path === '/cart' ? 'active-menu' : '' %>">
-					<a href="/cart" class="translate">Cart</a>
-				</li>
-
+				<% if (isAuthenticated) { %>
+					<li class="<%= path === '/cart' ? 'active-menu' : '' %>">
+						<a href="/cart" class="translate">Cart</a>
+					</li>
+				<% } %>
 				<li class="<%= path === '/blog' ? 'active-menu' : '' %>">
 					<a href="/blog" class="translate">Blog</a>
 				</li>
