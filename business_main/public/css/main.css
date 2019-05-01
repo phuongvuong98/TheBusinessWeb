@@ -33,63 +33,10 @@ Input, textarea : 14px/1.6 '', 'Source Sans Pro', sans-serif;
 /*//////////////////////////////////////////////////////////////////
 [ FONT ]*/
 
-@font-face {
-   font-family: 'Source Sans Pro', sans-serif;
-  src: url('../fonts/Poppins/Poppins-Regular.ttf'); 
-}
-
-@font-face {
-  font-family: Poppins-Light;
-  src: url('../fonts/Poppins/Poppins-Light.ttf'); 
-}
-
-@font-face {
-  font-family: Poppins-ExtraLight;
-  src: url('../fonts/Poppins/Poppins-ExtraLight.ttf'); 
-}
-
-@font-face {
-  font-family: 'Source Sans Pro', sans-serif;
-  src: url('../fonts/Poppins/Poppins-Medium.ttf'); 
-}
-
-@font-face {
-  font-family: Poppins-Italic;
-  src: url('../fonts/Poppins/Poppins-Italic.ttf'); 
-}
-
-@font-face {
-   font-family: 'Source Sans Pro', sans-serif;
-  src: url('../fonts/Poppins/Poppins-Bold.ttf'); 
-}
-
-@font-face {
-   font-family: 'Source Sans Pro', sans-serif;
-  src: url('../fonts/Poppins/Poppins-SemiBold.ttf'); 
-}
-
-
-/*---------------------------------------------*/
-@font-face {
-  font-family: PlayfairDisplay-Regular;
-  src: url('../fonts/PlayfairDisplay/PlayfairDisplay-Regular.ttf'); 
-}
-
-@font-face {
-  font-family: 'Source Sans Pro', sans-serif;
-  src: url('../fonts/PlayfairDisplay/PlayfairDisplay-Bold.ttf'); 
-}
-
-/*---------------------------------------------*/
-@font-face {
-  font-family: Montserrat-Regular;
-  src: url('../fonts/Montserrat/Montserrat-Regular.ttf'); 
-}
-
-@font-face {
+/* @font-face {
   font-family: Montserrat-Bold;
   src: url('../fonts/Montserrat/Montserrat-Bold.ttf'); 
-}
+} */
 
 
 /*//////////////////////////////////////////////////////////////////
@@ -252,7 +199,7 @@ MESSAGE */
 /*---------------------------------------------*/
 .right-top-bar a {
    font-family: 'Source Sans Pro', sans-serif;
-  font-size: 12px;
+  font-size: 14px;
   line-height: 1.8;
 
   height: 100%;
@@ -380,7 +327,7 @@ MESSAGE */
 
 .main-menu > li > a {
   font-family: 'Source Sans Pro',sans-serif;
-  font-size: 14px;
+  font-size: 16px;
   color: #333;
   padding: 5px 0px;
   transition: all 0.4s;
@@ -2195,7 +2142,7 @@ input.num-product::-webkit-inner-spin-button {
 
 .stext-106 {
    font-family: 'Source Sans Pro', sans-serif;
-  font-size: 15px;
+  font-size: 16px;
   line-height: 1.2;
 }
 
@@ -2206,7 +2153,7 @@ input.num-product::-webkit-inner-spin-button {
 }
 
 .stext-108 {
-  font-family: Poppins-Light;
+  font-family: 'Source Sans Pro', sans-serif;
   font-size: 14px;
   line-height: 1.7143;
 }
@@ -2236,13 +2183,13 @@ input.num-product::-webkit-inner-spin-button {
 }
 
 .stext-113 {
-  font-family: Poppins-Light;
+  font-family: 'Source Sans Pro', sans-serif;
   font-size: 14px;
   line-height: 1.7857;
 }
 
 .stext-114 {
-  font-family: Poppins-Italic;
+  font-family: 'Source Sans Pro', sans-serif;
   font-size: 15px;
   line-height: 1.666667;
 }
@@ -2260,7 +2207,7 @@ input.num-product::-webkit-inner-spin-button {
 }
 
 .stext-117 {
-  font-family: Poppins-Light;
+  font-family: 'Source Sans Pro', sans-serif;
   font-size: 15px;
   line-height: 1.666667;
 }
@@ -2268,8 +2215,9 @@ input.num-product::-webkit-inner-spin-button {
 
 /*---------------------------------------------*/
 .stext-301 {
-  font-family: Montserrat-Bold;
-  font-size: 15px;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 16px;
+  font-weight: bold;
   line-height: 1.6;
   text-transform: uppercase;
 }
@@ -2427,7 +2375,7 @@ input.num-product::-webkit-inner-spin-button {
 }
 
 .ltext-202 {
-  font-family: PlayfairDisplay-Regular;
+  font-family: 'Source Sans Pro', sans-serif;
   font-size: 28px;
   line-height: 1.2857;
 }

@@ -1,5 +1,4 @@
 const path = require("path");
-
 const express = require("express");
 const bodyParser = require("body-parser");
 const session = require('express-session');
@@ -30,12 +29,8 @@ const shopRoutes = require("./routes/shop");
 const utilRoutes = require("./routes/util");
 const authRoutes = require("./routes/auth");
 
-app.use(
-  bodyParser.urlencoded({
-    extended: false
-  })
-);
-app.use(express.static(path.join(__dirname, "public")));
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // cấu hình cho session
 app.use(

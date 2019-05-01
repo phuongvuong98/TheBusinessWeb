@@ -17,13 +17,17 @@ exports.getProducts = (req, res, next) => {
 };
 
 exports.getProduct = (req, res, next) => {
-    const prodId = req.params.productId;
-    console.log("[GET DETAILED PRODUCT]==> OK");
-    Product.findById(prodId)
+    const productId = req.params.productId;
+    console.log("[GET DETAILED PRODUCT]:", productId);
+
+    Product.find()
+    .then(products => {
+        Product.findById(productId)
         .then((product) => {
-            //console.log("[GET DETAILED PRODUCT]==> OK");
+            console.log("Get product sucessfully");
             res.render("shop/product-detail", {
                 product: product,
+                products: products,
                 pageTitle: product.title,
                 path: "/products"
             });
@@ -31,6 +35,10 @@ exports.getProduct = (req, res, next) => {
         .catch(err => {
             console.log(err)
         });
+    })
+    .catch(err => {
+        console.log(err);
+    })
 };
 
 exports.getIndex = (req, res, next) => {
