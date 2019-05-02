@@ -59,24 +59,35 @@ exports.getIndex = (req, res, next) => {
 };
 
 exports.getCart = (req, res, next) => {
-    // req.user
-    //     .getCart()
-    //     .then(products => {
-	// 		console.log("TCL: exports.getCart -> products", products)
-    //         res.render("shop/cart", {
-    //             path: "/cart",
-    //             pageTitle: "Your Cart",
-    //             products: products
-    //         });
-    //     })
-    //     .catch(err => {
-    //         console.log(err);
-    //     });
-    res.render("shop/cart", {
-        path: "/cart",
-        pageTitle: "Your Cart"
-        //products: products
-    });
+    req.user
+      .populate("cart.items.productId")
+      .execPopulate()
+      .then(user => {
+        const products = user.cart.items;
+        console.log(products);
+        console.log(user.cart.sum);
+        
+        res.render("shop/cart", {
+          path: "/cart",
+          pageTitle: "Your Cart",
+          products: products,
+          sum: user.cart.sum
+        });
+      })
+      .catch(err => console.log(err));
+};
+
+// them san pham voi vao cart 
+exports.postCart = (req, res, next) => {    
+    const productId = req.body.productId;
+    console.log("[ProdId]==>", productId);
+    Product.findById(productId)
+    .then(product => {
+        return req.user.addToCart(product, 1);
+    })
+    .then(result => {
+        res.redirect("/cart");
+    })
 };
 
 exports.getBlog = (req, res, next) => {
@@ -113,18 +124,7 @@ exports.getRegister = (req, res, next) => {
         pageTitle: "Rigister"
     });
 };
-// // them san pham voi vao cart 
-// exports.postCart = (req, res, next) => {    
-//     const prodId = req.body.productId;
-//     console.log("[ProdId]==>", prodId);
-//     Product.findById(prodId)
-//     .then(product => {
-//         return req.user.addToCart(product);
-//     })
-//     .then(result => {
-//         res.redirect("/cart");
-//     })
-// };
+
 
 // exports.postCartDeleteProduct = (req, res, next) => {
 //     const prodId = req.body.productId;

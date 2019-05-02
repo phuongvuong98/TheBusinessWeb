@@ -16,6 +16,8 @@ router.get("/products/:productId", shopController.getProduct);
 
 router.get("/cart", isAuth, shopController.getCart);
 
+router.post("/cart", isAuth, shopController.postCart);
+
 router.get("/blog", shopController.getBlog);
 
 router.get("/about", shopController.getAbout);
@@ -26,7 +28,7 @@ router.get("/account", shopController.getAccount);
 
 router.get("/register", shopController.getRegister);
 
-// router.post("/cart", shopController.postCart);
+
 
 // router.post("/cart-delete-item", shopController.postCartDeleteProduct);
 
