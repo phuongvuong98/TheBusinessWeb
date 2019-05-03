@@ -42,17 +42,19 @@
                             <div class="add-product">
                                 <a href="/admin/add-product">Add Product</a>
                             </div>
-                            <table>
+                            <div class="table-responsive">
+                            <table class="table table-bordered">
                                 <tr>
                                     <th>Id</th>
                                     <th>Image</th>
                                     <th>Name</th>
-                                    <th>Status</th>
                                     <th>Category</th>
                                     <th>Description</th>
                                     <th>Price</th>
-                                    <th>Create_at</th>
                                     <th>Size</th>
+                                    <th>Create_at</th>
+                                    <th>Update_at</th>
+                                    <th>Delete_at</th>
                                     <th>Setting</th>
                                 </tr>
                                 <% if(products.length > 0 ) {%>
@@ -61,22 +63,33 @@
                                     <td> <%= p._id %> </td>
                                     <td><img src="<%= p.imageUrl %>" alt="" /></td>
                                     <td> <%= p.name %> </td>
-                                    <td>
+                                    <!-- <td>
                                         <button class="pd-setting">Active</button>
-                                    </td>
+                                    </td> -->
                                     <td> <%= p.category %> </td>
                                     <td> <%= p.description %> </td>
                                     <td> <%= p.price %> </td>
-                                    <td> <%= p.create_at.toDateString() %> </td>
                                     <td> <%= p.size %> </td>
+                        
+                                    <td> <%= p.create_at.toDateString() %> </td>
+                                    <td> <%= p.update_at == null ? "null" : p.update_at.toDateString() %> </td>
+                                    <td> <%= p.delete_at == null ? "null" : p.delete_at.toDateString() %> </td>
                                     <td>
-                                        <button data-toggle="tooltip" title="Edit" class="pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+
+                                        <button data-toggle="tooltip" title="Edit" class="pd-setting-ed">
+                                            <a href="/admin/edit-product/<%= p._id %>?edit=true">
+                                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                        </a>
+                                        </button>
+
+
                                         <button data-toggle="tooltip" title="Trash" class="pd-setting-ed"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
                                     </td>
                                 </tr>
                                 <% }) %>
                                 <% } %>
                             </table>
+                            </div>
                             <div class="custom-pagination">
                                 <nav aria-label="Page navigation example">
                                     <ul class="pagination">

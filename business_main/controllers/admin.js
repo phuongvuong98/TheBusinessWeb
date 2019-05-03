@@ -97,10 +97,10 @@ exports.postDeleteUser = (req, res, next) => {
   });
 };
 
+
 exports.getProducts = (req, res, next) => {
   Product.find()
   .then(products => {
-    //console.log(products);
     res.render("admin/product-list", {
       pageTitle: "ALL PRODUCTS",
       products: products
@@ -109,10 +109,66 @@ exports.getProducts = (req, res, next) => {
 };
 
 exports.getAddProduct = (req, res, next) => {
-  res.render("admin/product-add", {
-    pageTitle: "Add Product",
-    path: "/"
+  res.render("admin/product-edit", {
+    pageTitle: "ADD PRODUCT",
+    editing: false
 });
+};
+
+exports.postAddProduct = (req, res, next) => {
+  const name = req.body.name;
+  const category = req.body.category;
+  const description = req.body.description;
+  const price = req.body.price;
+  const size = req.body.size;
+  const sizeArr = size.split(",");
+  const create_at = new Date();
+  
+  const image = req.file;
+
+  if (image) {
+    imageUrl = "/" + image.path;
+  } else {
+    imageUrl = "https://ucarecdn.com/5d276379-552f-4a08-97e7-744a15f71477/ava.png";
+  }
+
+
+  const product = new Product({
+    name: name,
+    category: category,
+    description: description,
+    price: price,
+    size: sizeArr,
+    imageUrl: imageUrl,
+    create_at: create_at,
+    userId: req.user
+  });
+  product.save();
+  
+  return res.redirect("/admin/products");
+};
+
+exports.getEditProduct = (req, res, next) => {
+  const editMode = req.query.edit;
+  if (!editMode) {
+    return res.redirect('/admin/products');
+  }
+  const productId = req.params.productId;
+  console.log("TCL: exports.getEditProduct -> productId", productId);
+  Product.findById(productId)
+    .then(product => {
+      if (!product) {
+        return res.redirect('/admin/products');
+      }
+      res.render('admin/product-edit', {
+        pageTitle: 'EDIT PRODUCT',
+        editing: editMode,
+        product: product
+      });
+    })
+    .catch(err => {
+			console.log("TCL: exports.getEditProduct -> err", err)  
+    });
 };
 
 exports.getOrders = (req, res, next) => {
