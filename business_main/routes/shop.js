@@ -10,7 +10,7 @@ router.get("/", shopController.getIndex);
 
 router.get("/products", shopController.getProducts);
 
-// router.get("/products/:productId", shopController.getProduct);
+//router.get("/products/:productId", shopController.getProduct);
 
 router.get("/cart", shopController.getCart);
 
@@ -29,5 +29,7 @@ router.get("/account", shopController.getAccount);
 // router.get("/orders", shopController.getOrders);
 
 // router.post("/create-order", shopController.postCreateOrder);
-
+function escapeRegex(text) {
+    return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+};
 module.exports = router;
