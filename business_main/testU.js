@@ -33,7 +33,6 @@
 
 var uploadcare = require('./util/uploadCare.js')('0aa82163e56c80641cbe', 'f3724b192b85cc5aee6e'),
 fs = require('fs');
-
 function handler(method) {
   return function(error, response) {
     if(error) {
@@ -45,8 +44,7 @@ function handler(method) {
     }
   };
 }
-
-var path = 'product-01.jpg';
+var path = 'women-01.jpg';
 // Upload file
 uploadcare.file.upload(fs.createReadStream(path), function(err,res){
     handler('file.upload')(err, res);

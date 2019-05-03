@@ -30,6 +30,9 @@ const userSchema = new Schema({
   imageUrl: {
     type: String
   },
+  phone: {
+    type: String
+  },
   create_at: {
     type: Date,
     default: Date.now

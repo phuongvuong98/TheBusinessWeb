@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const session = require('express-session');
 const MongoDBStore = require('connect-mongodb-session')(session);
 const flash = require('connect-flash');
+const multer = require('multer');
 
 const mongoose = require("mongoose");
 
@@ -20,6 +21,29 @@ const store = new MongoDBStore({
   collection: 'sessions'
 });
 
+// chinh image dc luu trong server va ten cua no
+const fileStorage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'images');
+  },
+  filename: (req, file, cb) => {
+    cb(null, new Date().toISOString() + '-' + file.originalname);
+  }
+});
+
+// dieu chinh format upload hop le
+const fileFilter = (req, file, cb) => {
+  if (
+    file.mimetype === 'image/png' ||
+    file.mimetype === 'image/jpg' ||
+    file.mimetype === 'image/jpeg'
+  ) {
+    cb(null, true);
+  } else {
+    cb(null, false);
+  }
+};
+
 // Them templating engine de render html, css
 app.set("view engine", "ejs");
 app.set("views", "views");
@@ -30,7 +54,13 @@ const utilRoutes = require("./routes/util");
 const authRoutes = require("./routes/auth");
 
 app.use(bodyParser.urlencoded({ extended: false }));
+// dung multer de loc file 
+app.use(
+  multer({ storage: fileStorage, fileFilter: fileFilter }).single('image')
+);
 app.use(express.static(path.join(__dirname, 'public')));
+// them 1 static duong dan public
+app.use('/images', express.static(path.join(__dirname, 'images')));
 
 // cấu hình cho session
 app.use(

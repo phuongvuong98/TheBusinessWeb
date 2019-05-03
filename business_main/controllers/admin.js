@@ -1,4 +1,5 @@
 const Product = require("../models/product");
+const User = require("../models/user");
 
 exports.getIndex = (req, res, next) => {
   res.render("admin/index", {
@@ -8,90 +9,115 @@ exports.getIndex = (req, res, next) => {
 };
 
 exports.getUser = (req, res, next) => {
-  res.render("admin/user-list", {
-      pageTitle: "User",
-      path: "/"
+  User.find()
+  .then(users => {
+    //console.log(users);
+    res.render("admin/user-list", {
+      pageTitle: "ALL USERS",
+      users: users
+  });
+  })
+};
+
+exports.getEditUser = (req, res, next) => {
+  const userId = req.params.userId;
+  console.log("TCL: exports.getEditUser -> userId", userId);
+  
+  User.findById(userId)
+  .then(user => {
+    if (!user) {
+      return res.redirect("/admin");
+    }
+    res.render("admin/user-edit", {
+      pageTitle: "Edit user",
+      user: user
+    });
+  })
+  .catch(err => {
+		console.log("TCL: exports.getEditUser -> err", err)
   });
 };
 
-exports.getAddUser = (req, res, next) => {
-  res.render("admin/add-user", {
-      pageTitle: "Add user",
-      path: "/"
+exports.postEditUser = (req, res, next) => {
+  const userId = req.body.userId;
+  const emailUp = req.body.email;
+  const birthdayUp = req.body.birthday;
+  const phoneUp = req.body.phone;
+  const roleUp = req.body.role;
+  const addressUp = req.body.address;
+  const delete_atUp = req.body.delete_at;
+  const image = req.file;
+  
+	console.log("TCL: exports.postEditUser -> image", image);
+  console.log("TCL: exports.postEditUser -> userId", userId);
+  
+  User.findById(userId)
+  .then(user => {
+    user.email = emailUp;
+    user.birthday = birthdayUp;
+    user.phone = phoneUp;
+    user.role = roleUp;
+    user.address = addressUp;
+    user.delete_at = delete_atUp;
+    user.update_at = Date();
+
+    if (image) {
+      user.imageUrl = "/" + image.path;
+    } else {
+      user.imageUrl = "https://ucarecdn.com/5d276379-552f-4a08-97e7-744a15f71477/ava.png";
+    }
+
+    return user.save();
+  })
+  .then(result => {
+    console.log("Updated user!");
+    return res.redirect("/admin/users");
+  })
+  .catch(err => {
+		console.log("TCL: exports.getEditUser -> err", err)
+  });
+};
+
+exports.postDeleteUser = (req, res, next) => {
+  const userId = req.body.userId;
+  const delete_atUp = new Date();
+	console.log("TCL: exports.postDeleteUser -> delete_atUp", delete_atUp)
+  
+  User.findById(userId)
+  .then(user => {
+    user.delete_at = delete_atUp;
+    return user.save();
+  })
+  .then(result => {
+    console.log("Deleted user!");
+    return res.redirect("/admin/users");
+  })
+  .catch(err => {
+		console.log("TCL: exports.postDeleteUser -> err", err)
   });
 };
 
 exports.getProducts = (req, res, next) => {
-  res.render("admin/products", {
-      pageTitle: "All Products",
-      path: "/"
+  Product.find()
+  .then(products => {
+    //console.log(products);
+    res.render("admin/product-list", {
+      pageTitle: "ALL PRODUCTS",
+      products: products
   });
+  })
 };
 
 exports.getAddProduct = (req, res, next) => {
-  const product = new Product({
-    name: "hot clothes ",
-    category: "women",
-    imageUrl:"https://ucarecdn.com/24adb98d-e833-4b75-bb62-35240f9a9d88/watches-10.jpg",
-    price: "200",
-    size:["XL","S","M","L"],
-    description: "huhu",
-    userId: req.user
-  });
-  product.save();
-  console.log("Add get sucessfully");
-  res.redirect("/");
-};
-exports.getUserList = (req, res, next) => {
-  console.log("GET User list!");
-
-  res.render("admin/index", {
-      pageTitle: "user list",
-      path: "/"
-  });
+  res.render("admin/product-add", {
+    pageTitle: "Add Product",
+    path: "/"
+});
 };
 
-exports.getUserEdit = (req, res, next) => {
-  console.log("GET User edit!");
-
-  res.render("admin/user-edit", {
-      pageTitle: "user edit",
-      path: "/"
-  });
-};
-
-
-exports.getUserDetail = (req, res, next) => {
-  console.log("GET User detail!");
-
-  res.render("admin/user-detail", {
-      pageTitle: "user detail",
-      path: "/"
-  });
-};
-
-exports.getProductsList = (req, res, next) => {
-  console.log("GET Product List!");
-
-  res.render("admin/product-list", {
-      pageTitle: "product list",
-      path: "/"
-  });
-};
-
-exports.getProductsEdit = (req, res, next) => {
-  console.log("GET Product Edit!");
-
-  res.render("admin/product-edit", {
-      pageTitle: "product edit",
-      path: "/"
-  });
-};
-exports.getProductsDetail = (req, res, next) => {
-  console.log("GET Product Detail!");
-
-  res.render("admin/product-detail", {
-      pageTitle: "product detail",
+exports.getOrders = (req, res, next) => {
+  res.render("admin/order-list", {
+      pageTitle: "All Orders",
       path: "/"
   });
 };
