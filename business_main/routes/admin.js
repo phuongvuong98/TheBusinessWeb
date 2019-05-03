@@ -10,7 +10,11 @@ const router = express.Router();
 
 router.get("/", adminController.getIndex);
 
+router.get("/user", adminController.getUser);
 
+router.get("/add-user", adminController.getAddUser);
+
+router.get("/products", adminController.getProducts);
 
 // /admin/add-product => GET
 router.get('/add-product', adminController.getAddProduct);

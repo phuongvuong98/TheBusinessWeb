@@ -7,6 +7,27 @@ exports.getIndex = (req, res, next) => {
   });
 };
 
+exports.getUser = (req, res, next) => {
+  res.render("admin/user-list", {
+      pageTitle: "User",
+      path: "/"
+  });
+};
+
+exports.getAddUser = (req, res, next) => {
+  res.render("admin/add-user", {
+      pageTitle: "Add user",
+      path: "/"
+  });
+};
+
+exports.getProducts = (req, res, next) => {
+  res.render("admin/products", {
+      pageTitle: "All Products",
+      path: "/"
+  });
+};
+
 exports.getAddProduct = (req, res, next) => {
   const product = new Product({
     name: "hot clothes ",
