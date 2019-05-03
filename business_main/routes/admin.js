@@ -8,11 +8,15 @@ const isAuth = require('../middleware/is-auth');
 
 const router = express.Router();
 
+router.get("/", adminController.getIndex);
+
+
+
 // /admin/add-product => GET
 router.get('/add-product', adminController.getAddProduct);
 // // /admin/products => GET
 // router.get('/products', adminController.getProducts);
-router.get("/user-list", adminController.getUserList);
+router.get("/index", adminController.getUserList);
 router.get("/user-edit", adminController.getUserEdit);
 router.get("/user-detail", adminController.getUserDetail);
 router.get("/product-list", adminController.getProductsList);

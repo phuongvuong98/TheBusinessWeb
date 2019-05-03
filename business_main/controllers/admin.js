@@ -1,5 +1,11 @@
 const Product = require("../models/product");
 
+exports.getIndex = (req, res, next) => {
+  res.render("admin/index", {
+      pageTitle: "Admin Page",
+      path: "/"
+  });
+};
 
 exports.getAddProduct = (req, res, next) => {
   const product = new Product({
@@ -13,13 +19,12 @@ exports.getAddProduct = (req, res, next) => {
   });
   product.save();
   console.log("Add get sucessfully");
-
   res.redirect("/");
 };
 exports.getUserList = (req, res, next) => {
   console.log("GET User list!");
 
-  res.render("admin/user-list", {
+  res.render("admin/index", {
       pageTitle: "user list",
       path: "/"
   });
