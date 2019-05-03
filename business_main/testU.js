@@ -46,7 +46,6 @@ function handler(method) {
   };
 }
 
-
 var path = 'product-01.jpg';
 // Upload file
 uploadcare.file.upload(fs.createReadStream(path), function(err,res){
