@@ -24,7 +24,6 @@
     "csurf": "^1.10.0",
     "duplexer": "^0.1.1",
     "ejs": "^2.6.1",
-    "ejs-lint": "^0.3.0",
     "express": "^4.16.4",
     "express-handlebars": "^3.0.0",
     "express-session": "^1.16.1",
