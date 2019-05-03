@@ -1,9 +1,7 @@
 const path = require("path");
+
 const express = require("express");
 const bodyParser = require("body-parser");
-const session = require('express-session');
-const MongoDBStore = require('connect-mongodb-session')(session);
-const flash = require('connect-flash');
 
 const mongoose = require("mongoose");
 
@@ -12,12 +10,20 @@ const errorController = require("./controllers/error");
 const User = require("./models/user");
 
 const app = express();
-const MONGODB_URI =
-'mongodb+srv://nodejs:Vuong0935986100@cluster0-aecmg.mongodb.net/test';
 
-const store = new MongoDBStore({
-  uri: MONGODB_URI,
-  collection: 'sessions'
+// Tao middleware cho user khi da start thanh cong SERVER voi PORT
+app.use((req, res, next) => {
+  User.findById("5cb2c8a566c9490c21f88eac")
+    .then(user => {
+      // gan user(tu DB) cho req.user de luu user(mac dinh underfiled trong req)
+      // no chi co thuoc tinh, ko co cac method cua user.
+      //req.user = user;
+      // nen de dung het cac method cua user trong db tao moi NEW USER
+      req.user = user;
+      // chuyen den trang thai moi
+      next(); // can than 2 cai lien tiep la loi
+    })
+    .catch(err => console.log(err));
 });
 
 // Them templating engine de render html, css
@@ -27,47 +33,19 @@ app.set("views", "views");
 const adminRoutes = require("./routes/admin");
 const shopRoutes = require("./routes/shop");
 const utilRoutes = require("./routes/util");
-const authRoutes = require("./routes/auth");
 
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(express.static(path.join(__dirname, 'public')));
-
-// cấu hình cho session
 app.use(
-  session({
-    secret: 'my secret', // secret dùng tạo hash (hash lưu id trong cookie)
-    resave: false, // session sẽ ko lưu với mỗi lệnh request => tốc đô
-    saveUninitialized: false, // chắn chăn ko có session đc save mỗi request
-    store: store
+  bodyParser.urlencoded({
+    extended: false
   })
 );
 
-// them flash de gui ve message error thong qua session
-app.use(flash());
-
-// Tao middleware cho user khi da start thanh cong SERVER voi PORT
-app.use((req, res, next) => {
-  if (!req.session.user) {
-    return next();
-  }
-  User.findById(req.session.user._id)
-    .then(user => {
-      req.user = user;
-      next();
-    })
-    .catch(err => console.log(err));
-});
-
-app.use((req, res, next) => {
-  // gui ve 1 bien trong moi 1 route
-  res.locals.isAuthenticated = req.session.isLoggedIn;
-  next();
-});
+app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/admin", adminRoutes);
 app.use(shopRoutes);
 app.use(utilRoutes);
-app.use(authRoutes);
+
 app.use(errorController.get404);
 
 mongoose.
@@ -77,5 +55,22 @@ mongoose.
   )
   .then(result => {
     console.log("CONNECTED");
+    User.findOne()
+    .then(user => {
+      if (!user) {
+        const user = new User({
+          username: "vuonglegend",
+          password: "1",
+          email: "vuonglegend@gmail.com",
+          address: "Binh Thanh",
+          birthday: "15/08/1998",
+          cart: {
+            items: []
+          },
+          role: "admin"
+        });
+        user.save();
+      }
+    });
     app.listen(3000);
   });

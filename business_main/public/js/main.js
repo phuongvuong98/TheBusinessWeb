@@ -142,19 +142,6 @@
       e.stopPropagation();
   });
 
-  /*==================================================================*/
-  $('.js-change-prod').on('click', () => {
-    var price = $('.num-price').toArray().map(i => i.textContent);
-    var numProd = $('.num-product').val();
-    
-    console.log('price:', price);
-    console.log('numProd:', numProd);
-    console.log("numProd * price", numProd * price);
-    
-
-
-      $('.total-prod').text((price * numProd).toString());
-  });
 
   /*==================================================================
   [ Isotope ]*/
