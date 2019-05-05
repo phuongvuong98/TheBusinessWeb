@@ -3,11 +3,11 @@ const Product = require("../models/product");
 
 exports.getAddProduct = (req, res, next) => {
   const product = new Product({
-    name: "Summer clothes",
-    category: "women",
-    imageUrl: "https://ucarecdn.com/0edf7e6a-23b3-42e3-ac39-7d8c972b232c/product-02.jpg",
-    price: "199",
-    size: ["XL", "M", "L"],
+    name: "Bag " + i.toString(),
+    category: "bag",
+    imageUrl:"https://ucarecdn.com/9a56e72d-841b-4cb2-8ef2-688fee9b4baf/product-01.jpg",
+    price: "120",
+    size:["XL","S","M","L"],
     description: "huhu",
     userId: req.user
   });

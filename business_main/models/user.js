@@ -38,17 +38,29 @@ const userSchema = new Schema({
     type: Date
   },
   delete_at: {
-    type: Date  
+    type: Date
   },
   role: {
     type: String,
     default: "user"
   },
   cart: {
-    items: []
+    items: [
+      {
+        productId: {
+          type: Schema.Types.ObjectId,
+          ref: 'Product',
+          required: true
+        },
+        quantity: { type: Number, required: true }
+      }
+    ],
+    sum: {
+      type: Number,
+      default: 0
+    }
   }
 })
-
 
 
 // class User {
@@ -185,21 +197,29 @@ const userSchema = new Schema({
 //       .toArray()
 //   }
 
-//   static findById(userId) {
-//     const db = getDb();
-//     return db
-//       .collection("users")
-//       .findOne({ _id: new objectId(userId) })
-//       .then(product => {
-//         console.log(product);
-//         return product;
-//       })
-//       .catch(err => {
-//         console.log(err);
-//       });
-//   }
-// }
+userSchema.methods.addToCart = function(product, newQuantity) {
+  const cartProductIndex = this.cart.items.findIndex(cp => {
+    return cp.productId.toString() === product._id.toString();
+  });
+  const updatedCartItems = [...this.cart.items];
 
-// module.exports = User;
+  if (cartProductIndex >= 0) {
+    newQuantity = this.cart.items[cartProductIndex].quantity + 1;
+    updatedCartItems[cartProductIndex].quantity = newQuantity;
+  } else {
+    updatedCartItems.push({
+      productId: product._id,
+      quantity: newQuantity
+    });
+  }
+  this.cart.sum = this.cart.sum + product.price * newQuantity;
+
+  const updatedCart = {
+    items: updatedCartItems,
+    sum: this.cart.sum
+  };
+  this.cart = updatedCart;
+  return this.save();
+};
 
 module.exports = mongoose.model("User", userSchema);

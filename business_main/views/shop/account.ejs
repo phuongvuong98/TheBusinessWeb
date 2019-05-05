@@ -1,7 +1,9 @@
 <%- include('../includes/head.ejs') %>
 <body class="animsition">
 	<%- include('../includes/header.ejs') %>
-	<%- include('../includes/cart.ejs') %>	
+
+	<%- include('../includes/cart-r-side.ejs') %>	
+
 
 	<!-- Title page -->
 	<section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url('images/bg-01.jpg');">
@@ -13,10 +15,12 @@
 
 	<!-- Content page -->
 	<section class="bg0 p-t-104 p-b-116">
+            
             <div class="container">
                 <div class="flex-w flex-tr">
+                    
                     <div class="size-210 bor10 p-lr-70 p-t-55 p-b-70 p-lr-15-lg w-full-md">
-                        <form>
+                        <form method="POST" action="/account">
                                 
                             <h3 class="mtext-105 cl2 txt-center p-b-30">
                                 Change Password
@@ -25,39 +29,41 @@
                                     Username
                             </span>
                             <div class="bor8 m-b-20 how-pos4-parent">
-                                <input class="stext-111 cl2 plh3 size-112 p-l-62 p-r-30" type="text" name="username" placeholder="doanvantuyen2815">
+                                <input class="stext-111 cl2 plh3 size-112 p-l-62 p-r-180" type="email" name="email"  >
                                 
                             </div>
                             <span class="mtext-110 cl2 ">
                                     Old Password
                             </span>
                             <div class="bor8 m-b-20 how-pos4-parent">
-                                    <input class="stext-111 cl2 plh3 size-112 p-l-62 p-r-30" type="text" name="oldpass" placeholder="************">
+                                    <input class="stext-111 cl2 plh3 size-112 p-l-62 p-r-30" type="password" name="oldpass" >
                                     
                             </div>
                             <span class="mtext-110 cl2 ">
                                     New Password
                             </span>
                             <div class="bor8 m-b-20 how-pos4-parent">
-                                    <input class="stext-111 cl2 plh3 size-112 p-l-62 p-r-30" type="text" name="newpass" placeholder="************">
+                                    <input class="stext-111 cl2 plh3 size-112 p-l-62 p-r-30" type="password" name="newpass" >
                                     
                             </div>
                             <span class="mtext-110 cl2 ">
                                     Rewrite New Password
                             </span>
                             <div class="bor8 m-b-20 how-pos4-parent">
-                                    <input class="stext-111 cl2 plh3 size-112 p-l-62 p-r-30" type="text" name="renewpass" placeholder="************">
+                                    <input class="stext-111 cl2 plh3 size-112 p-l-62 p-r-30" type="password" name="renewpass" >
                                     
                             </div>
-    
-                            <button class="flex-c-m stext-101 cl0 size-121 bg3 bor1 hov-btn3 p-lr-15 trans-04 pointer">
+                            
+
+                            <button type="submit" class="flex-c-m stext-101 cl0 size-121 bg3 bor1 hov-btn3 p-lr-15 trans-04 pointer">
                                 Change
                             </button>
-                            <p class="aa-lost-password p-t-40"><a href="#">Lost your password?</a></p>
+                            
                         </form>
                     </div>
     
                     <div class="size-210 bor10 flex-w flex-col-m p-lr-93 p-tb-30 p-lr-15-lg w-full-md">
+                        
                         <h4 class="mtext-105 cl2 txt-center p-b-30">
                                     Your Information
                         </h4>
@@ -71,12 +77,15 @@
                                 <span class="mtext-110 cl2">
                                     Address
                                 </span>
-    
-                                <p class="stext-115 cl6 size-200 p-t-18">
-                                    Ktx A, Linh Trung, Thu Duc, Tp.Ho Chi Minh
-                                </p>
-                                <p class="aa-lost-password"><a href="#">Change</a></p>
+                                
+                                <div class="stext-115 cl1 size-200 p-t-18">
+                                    <input class="form-control" type="text" name = "address" value="<%= currentUser.address %>">
+                                  </div>
+                                  <p class="aa-lost-password"><a href="#">Change</a></p>
+                                
                             </div>
+                            
+                            
                         </div>
     
                         <div class="flex-w w-full p-b-42">
@@ -89,26 +98,26 @@
                                     Telephone Number
                                 </span>
     
-                                <p class="stext-115 cl1 size-200 p-t-18">
-                                    +84 123456789
-                                </p>
+                                <div class="stext-115 cl1 size-200 p-t-18">
+                                    <input class="form-control" type="text" name = "phone" value="<%= currentUser.phone %>">
+                                </div>
                                 <p class="aa-lost-password"><a href="#">Change</a></p>
                             </div>
                         </div>
     
                         <div class="flex-w w-full p-b-42">
                             <span class="fs-18 cl5 txt-center size-211">
-                                <span class="lnr lnr-phone-handset"></span>
+                                <span class="fa fa-birthday-cake" aria-hidden="true"></span>
                             </span>
     
                             <div class="size-212 p-t-2">
                                 <span class="mtext-110 cl2">
-                                    Fax Number
+                                    Birthday
                                 </span>
     
-                                <p class="stext-115 cl1 size-200 p-t-18">
-                                    +84 123 456789
-                                </p>
+                                <div class="stext-115 cl1 size-200 p-t-18">
+                                    <input class="form-control" type="text" name = "birthday" value="<%= currentUser.birthday %>">
+                                </div>
                                 <p class="aa-lost-password"><a href="#">Change</a></p>
                             </div>
                         </div>
@@ -123,16 +132,22 @@
                                     Email
                                 </span>
     
-                                <p class="stext-115 cl1 size-200 p-t-18">
-                                    doanvantuyen2815@gmail.com
-                                </p>
+                                <div class="stext-115 cl1 size-200 p-t-18">
+                                    <input class="form-control" type="text" name = "email2" value="<%= currentUser.email %>" >
+                                </div>
                                 <p class="aa-lost-password"><a href="#">Change</a></p>
                             </div>
                         </div>
-                        
+                        <form method="POST" action="/account">
+                        <button type="submit" class="flex-c-m stext-101 cl0 size-121 bg3 bor1 hov-btn3 p-lr-15 trans-04 pointer">
+                            Change
+                        </button>
+                        </form>
                     </div>
+                   
                 </div>
             </div>
+            
     </section>
 	
 	
