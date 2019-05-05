@@ -18,6 +18,8 @@ router.get("/cart", isAuth, shopController.getCart);
 
 router.post("/cart", isAuth, shopController.postCart);
 
+router.post("/updatecart", isAuth, shopController.postUpdateCart);
+
 router.get("/blog", shopController.getBlog);
 
 router.get("/about", shopController.getAbout);

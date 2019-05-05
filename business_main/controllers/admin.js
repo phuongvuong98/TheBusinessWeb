@@ -132,7 +132,6 @@ exports.postAddProduct = (req, res, next) => {
     imageUrl = "https://ucarecdn.com/5d276379-552f-4a08-97e7-744a15f71477/ava.png";
   }
 
-
   const product = new Product({
     name: name,
     category: category,
@@ -170,6 +169,72 @@ exports.getEditProduct = (req, res, next) => {
 			console.log("TCL: exports.getEditProduct -> err", err)  
     });
 };
+
+exports.postEditProduct = (req, res, next) => {
+  const productId = req.body.productId;
+	console.log("TCL: exports.postEditProduct -> productId", productId);
+
+  const name = req.body.name;
+  const category = req.body.category;
+  const description = req.body.description;
+  const price = req.body.price;
+  const size = req.body.size;
+  const sizeArr = size.split(",");
+  const create_at = new Date();
+  
+  const image = req.file;
+
+  if (image) {
+    imageUrl = "/" + image.path;
+  } else {
+    imageUrl = "https://ucarecdn.com/5d276379-552f-4a08-97e7-744a15f71477/ava.png";
+  }
+
+  Product.findById(productId)
+    .then(product => {
+      if (!product) {
+        return res.redirect('/admin/products');
+      }
+      
+      product.name = name;
+      product.category = category;
+      product.description = description;
+      product.price = price;
+      product.size = sizeArr;
+      product.imageUrl = imageUrl;
+      product.create_at = create_at;
+      product.userId = req.user;
+
+      product.save();
+      
+      return res.redirect("/admin/products");
+    })
+    .catch(err => {
+			console.log("TCL: exports.getEditProduct -> err", err)  
+    });
+};
+
+exports.postDeleteProduct = (req, res, next) => {
+  const productId = req.body.productId;
+	console.log("TCL: exports.postDeleteProduct -> productId", productId)
+  const delete_atUp = new Date();
+	console.log("TCL: exports.postDeleteProduct -> delete_atUp", delete_atUp)
+	
+  
+  Product.findById(productId)
+  .then(product => {
+    product.delete_at = delete_atUp;
+    return product.save();
+  })
+  .then(result => {
+    console.log("Deleted product!");
+    return res.redirect("/admin/products");
+  })
+  .catch(err => {
+		console.log("TCL: exports.postDeleteProduct -> err", err)
+  });
+};
+
 
 exports.getOrders = (req, res, next) => {
   res.render("admin/order-list", {

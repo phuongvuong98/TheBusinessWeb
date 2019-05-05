@@ -83,7 +83,10 @@
                                         </button>
 
 
-                                        <button data-toggle="tooltip" title="Trash" class="pd-setting-ed"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                                        <form action="/admin/delete-product" method="POST">
+                                            <button data-toggle="tooltip" type="submit" title="Trash" class="pd-setting-ed"><a><i class="fa fa-trash" aria-hidden="true"></i></a></button>
+                                            <input type="hidden" name="productId" value="<%= p._id %>">    
+                                        </form>
                                     </td>
                                 </tr>
                                 <% }) %>

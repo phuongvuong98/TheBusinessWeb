@@ -55,7 +55,7 @@ const userSchema = new Schema({
           ref: 'Product',
           required: true
         },
-        quantity: { type: Number, required: true }
+        quantity: { type: Number }
       }
     ],
     sum: {
@@ -66,13 +66,15 @@ const userSchema = new Schema({
 })
 
 userSchema.methods.addToCart = function(product, newQuantity) {
+	console.log("TCL: userSchema.methods.addToCart -> huhu", newQuantity)
   const cartProductIndex = this.cart.items.findIndex(cp => {
     return cp.productId.toString() === product._id.toString();
   });
+  
   const updatedCartItems = [...this.cart.items];
 
   if (cartProductIndex >= 0) {
-    newQuantity = this.cart.items[cartProductIndex].quantity + 1;
+    newQuantity = this.cart.items[cartProductIndex].quantity + newQuantity;
     updatedCartItems[cartProductIndex].quantity = newQuantity;
   } else {
     updatedCartItems.push({
@@ -81,7 +83,7 @@ userSchema.methods.addToCart = function(product, newQuantity) {
     });
   }
   this.cart.sum = this.cart.sum + product.price * newQuantity;
-
+  console.log("TCL: userSchema.methods.addToCart -> updatedCartItems", updatedCartItems)
   const updatedCart = {
     items: updatedCartItems,
     sum: this.cart.sum

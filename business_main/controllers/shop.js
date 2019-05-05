@@ -64,8 +64,8 @@ exports.getCart = (req, res, next) => {
       .execPopulate()
       .then(user => {
         const products = user.cart.items;
-        console.log(products);
-        console.log(user.cart.sum);
+        // console.log(products);
+        // console.log(user.cart.sum);
         
         res.render("shop/cart", {
           path: "/cart",
@@ -78,16 +78,37 @@ exports.getCart = (req, res, next) => {
 };
 
 // them san pham voi vao cart 
-exports.postCart = (req, res, next) => {    
+exports.postCart = (req, res, next) => {   
+    console.log("HUHUHU1"); 
     const productId = req.body.productId;
-    console.log("[ProdId]==>", productId);
+    var newQuantity = req.body.productNumber; 
+    
     Product.findById(productId)
     .then(product => {
-        return req.user.addToCart(product, 1);
+        return req.user.addToCart(product, newQuantity);
     })
     .then(result => {
         res.redirect("/cart");
     })
+};
+
+exports.postUpdateCart = (req, res, next) => {    
+    // const productId = req.body.productId;
+    console.log("HUHUHU2");
+    var newQuantity = req.body.productNum; 
+	console.log("TCL: exports.postUpdateCart -> newQuantity", newQuantity);
+	console.log("TCL: exports.postUpdateCart -> newQuantity", req.body);
+    
+    res.redirect("/");
+
+    // Product.findById(productId)
+    // .then(product => {
+    //     return req.user.addToCart(product, newQuantity);
+    // })
+    // .then(result => {
+    //     res.redirect("/cart");
+    // })
+
 };
 
 exports.getBlog = (req, res, next) => {
@@ -116,19 +137,6 @@ exports.getAccount = (req, res, next) => {
         path: "/account",
         pageTitle: "Your Account"
     });
-};
-
-// // them san pham voi vao cart 
-exports.postCart = (req, res, next) => {    
-    const prodId = req.body.productId;
-    console.log("[ProdId]==>", prodId);
-    Product.findById(prodId)
-    .then(product => {
-        return req.user.addToCart(product);
-    })
-    .then(result => {
-        res.redirect("/cart");
-    })
 };
 
 exports.getRegister = (req, res, next) => {
