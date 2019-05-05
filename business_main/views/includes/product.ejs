@@ -70,13 +70,21 @@
 				
 				<!-- Search product -->
 				<div class="dis-none panel-search w-full p-t-10 p-b-15">
-					<div class="bor8 dis-flex p-l-15">
+					<!-- <div class="bor8 dis-flex p-l-15">
 						<button class="size-113 flex-c-m fs-16 cl2 hov-cl1 trans-04">
 							<i class="zmdi zmdi-search"></i>
 						</button>
 
 						<input class="mtext-107 cl2 size-114 plh2 p-r-15" type="text" name="search-product" placeholder="Search">
-					</div>	
+					</div>	 -->
+					<form class="bor8 dis-flex p-l-15" method="POST" action="/search">
+
+						<button type="submit" class="size-113 flex-c-m fs-16 cl2 hov-cl1 trans-04">
+							<i class="zmdi zmdi-search"></i>
+						</button>
+						<input class="mtext-107 cl2 size-114 plh2 p-r-15" type="text" name="search" id="search" placeholder="Search">
+
+					</form>
 				</div>
 
 				<!-- Filter -->
@@ -294,7 +302,10 @@
 									<div class="block2-pic hov-img0">
 										<img src="<%= product.imageUrl %>" alt="IMG-PRODUCT">
 	
-										<a href="#" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
+										<a  href="#"
+											onclick="showdata('<%= product.name %>', '<%= product.price %>','<%= product.description %>',
+											'<%= product.imageUrl %>')"
+											class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
 											Quick View
 										</a>
 									</div>

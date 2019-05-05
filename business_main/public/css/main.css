@@ -1436,7 +1436,7 @@ MESSAGE */
 }
 
 .slick3 {
-  width: 83.333333%;
+  width: 100%;
 }
 
 .slick3-dots li {
@@ -3299,4 +3299,36 @@ input.num-product::-webkit-inner-spin-button {
     padding: 20px;
   }
 
+}
+/*Comment*/
+#comment {
+  border: solid 1px gray;
+  width: 280px;
+  height: 40px;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  display: inline-block;
+}
+
+.c1 {
+  display: inline-block;
+
+}
+
+.c2 {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
+  height: 400px;
+}
+
+.hov-btn2a:hover {
+  border-color: aquamarine;
+  background-color: aqua;
+  color: #27ae60;
+}
+
+.size-100 {
+  min-width: 130px;
+  height: 40px;
 }
