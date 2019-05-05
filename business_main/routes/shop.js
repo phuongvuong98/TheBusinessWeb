@@ -29,7 +29,5 @@ router.get("/account", shopController.getAccount);
 // router.get("/orders", shopController.getOrders);
 
 // router.post("/create-order", shopController.postCreateOrder);
-function escapeRegex(text) {
-    return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
-};
+
 module.exports = router;

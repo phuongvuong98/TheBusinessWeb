@@ -1,8 +1,11 @@
 const Product = require("../models/product");
 
+
 exports.getProducts = (req, res, next) => {
+   // const regex = new RegExp(escapeRegex(req.query.search), 'gi');
+   const name = document.getElementById('search');
     Product.find({
-        
+        name: name
     })
     .then(products => {
       res.render('shop/products', {
@@ -150,3 +153,7 @@ exports.getOrders = (req, res, next) => {
             console.log(err);
         });
 };
+
+// function escapeRegex(text) {
+//     return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+// };
