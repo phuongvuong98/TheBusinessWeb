@@ -38,4 +38,6 @@ router.get("/register", shopController.getRegister);
 
 // router.post("/create-order", shopController.postCreateOrder);
 
+router.post("/search", shopController.searchProduct);
+
 module.exports = router;

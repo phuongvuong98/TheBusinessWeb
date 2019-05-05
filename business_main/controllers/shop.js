@@ -187,3 +187,38 @@ exports.getRegister = (req, res, next) => {
 //             console.log(err);
 //         });
 // };
+exports.searchProduct = (req, res, next) => {
+    var namep = req.body.search;
+    //var regex = RegExp(".*" + namep + ".*");
+
+    Product.find({
+            name: {
+                $regex: namep,
+                $options: 'i'
+            }
+            //  $or: [
+            //     {
+            //         name: {
+            //         $regex: namep,
+            //         $options: 'i'
+            //         }
+            //     },
+            //     {
+            //         price: namep
+            //     }
+            // ]
+
+        })
+        .then(products => {
+            res.render('shop/search', {
+                products: products,
+                pageTitle: 'Result of ' + namep,
+                path: '/products',
+                kind: "all",
+                kindFilter: []
+            });
+        })
+        .catch(err => {
+            console.log(err);
+        });
+};
