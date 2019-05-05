@@ -28,6 +28,7 @@ const adminRoutes = require("./routes/admin");
 const shopRoutes = require("./routes/shop");
 const utilRoutes = require("./routes/util");
 const authRoutes = require("./routes/auth");
+const userInforRoutes = require("./routes/userInfor");
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -61,6 +62,7 @@ app.use((req, res, next) => {
 app.use((req, res, next) => {
   // gui ve 1 bien trong moi 1 route
   res.locals.isAuthenticated = req.session.isLoggedIn;
+  res.locals.currentUser = req.session.user;
   next();
 });
 
@@ -68,6 +70,7 @@ app.use("/admin", adminRoutes);
 app.use(shopRoutes);
 app.use(utilRoutes);
 app.use(authRoutes);
+app.use(userInforRoutes);
 app.use(errorController.get404);
 
 mongoose.
