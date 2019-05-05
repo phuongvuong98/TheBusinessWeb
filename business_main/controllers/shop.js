@@ -64,9 +64,6 @@ exports.getCart = (req, res, next) => {
       .execPopulate()
       .then(user => {
         const products = user.cart.items;
-        // console.log(products);
-        // console.log(user.cart.sum);
-        
         res.render("shop/cart", {
           path: "/cart",
           pageTitle: "Your Cart",
@@ -93,22 +90,36 @@ exports.postCart = (req, res, next) => {
 };
 
 exports.postUpdateCart = (req, res, next) => {    
-    // const productId = req.body.productId;
-    console.log("HUHUHU2");
-    var newQuantity = req.body.productNum; 
-	console.log("TCL: exports.postUpdateCart -> newQuantity", newQuantity);
+    const btnUpdateCart = req.body.btnUpdateCart;
+    const btnCheckout = req.body.btnCheckout;
+    const newQuantityArr = req.body.productNum;
+    const productIdArr = req.body.productId;
+    var newCouple = [];
+
+    for (let i = 0; i < productIdArr.length; i++) {
+        newCouple.push({
+            productId: productIdArr[i],
+            newQuantity: newQuantityArr[i]
+        })
+    }
+    console.log("TCL: exports.postUpdateCart -> newCouple", newCouple)
+	console.log("TCL: exports.postUpdateCart -> productIdArr", productIdArr)
+	console.log("TCL: exports.postUpdateCart -> btnUpdateCart", btnUpdateCart) 
 	console.log("TCL: exports.postUpdateCart -> newQuantity", req.body);
     
-    res.redirect("/");
-
-    // Product.findById(productId)
-    // .then(product => {
-    //     return req.user.addToCart(product, newQuantity);
-    // })
-    // .then(result => {
-    //     res.redirect("/cart");
-    // })
-
+    if (btnUpdateCart == '1') {
+        var promise1 = new Promise(function(resolve, reject) {
+            setTimeout(function() {
+            resolve(req.user.updateCart(newCouple));
+            }, 100);
+        });
+        
+        promise1.then(function(value) {
+            console.log(value);
+            return res.redirect("/cart");
+            // expected output: "foo"
+        });
+    }
 };
 
 exports.getBlog = (req, res, next) => {

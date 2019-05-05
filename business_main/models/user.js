@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 
+const Product = require("../models/product");
+
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
@@ -55,7 +57,7 @@ const userSchema = new Schema({
           ref: 'Product',
           required: true
         },
-        quantity: { type: Number }
+        quantity: { type: Number}
       }
     ],
     sum: {
@@ -65,143 +67,7 @@ const userSchema = new Schema({
   }
 })
 
-
-// class User {
-//   constructor(username, email, cart, id) {
-//     this.name = username;
-//     this.email = email;
-//     this.cart = cart; // cart = {[items: {}]}
-//     this._id = id;
-//   }
-
-//   save() {
-//     const db = getDb();
-//     return db
-//       .collection("users")
-//       .insertOne(this)
-//       .then(results => {
-//         console.log(results);
-//       })
-//       .catch(err => {
-//         console.log(err);
-//       });
-//   }
-
-//   addToCart(product) {
-//     // khoi tao cart item.
-
-//     // if (!this.cart.hasOwnProperty(items)) {
-//     //   this.cart.items = {};
-//     // }
-
-//     let newQuantity = 1;
-//     let updateCartItems = [...this.cart.items];
-
-//     const cartProductIndex = this.cart.items.findIndex(cp => {
-//       return cp.prodId.toString() === product._id.toString();
-//     });
-
-//     if (cartProductIndex >= 0) {
-//       newQuantity = this.cart.items[cartProductIndex].quantity + 1;
-//       updateCartItems[cartProductIndex].quantity = newQuantity;
-//     } else {
-//       updateCartItems.push({
-//         prodId: new objectId(product._id),
-//         quantity: 1
-//       });
-//     }
-
-//     //...qq: tach qq ra
-//     const updateCart = {
-//       items: updateCartItems
-//     };
-
-//     // const updateCart = { items: [{prodId: product._id, quantity: 1}]};
-//     console.log("TCL: User -> addToCart -> updateCart", updateCart);
-
-//     const db = getDb();
-//     return db.collection("users")
-//       .updateOne(
-//         { _id: new objectId(this._id) },
-//         { $set: { cart: updateCart } }
-//       )
-//   }
-
-//   getCart() {
-//     const db = getDb();
-
-//     const productIds = this.cart.items.map(i => {
-//       return i.prodId;
-//     });
-//     console.log("TCL: User -> getCart -> productIds", productIds);
-//     return db
-//       .collection("products")
-//       .find({ _id: { $in: productIds } })
-//       .toArray()
-//       .then(products => {
-//         return products.map(p => {
-//           return {
-//             ...p,
-//             quantity: this.cart.items.find(i => {
-//               console.log("TCL: User -> getCart -> i", i);
-//               return i.prodId.toString() === p._id.toString();
-//             }).quantity
-//           };
-//         });
-//       });
-//   }
-
-//   deleteItemFromCart(productId) {
-//     const updateCartItems = this.cart.items.filter(item => {
-//       // return true thi giu no lai, false thi bo no di
-//       return item.prodId.toString() !== productId.toString();
-//     });
-//     const db = getDb();
-//     return db
-//       .collection("users")
-//       .updateOne(
-//         { _id: new objectId(this._id) },
-//         { $set: { cart: { items: updateCartItems } } }
-//       );
-//   }
-
-//   addOrder() {
-//     // vi lich su order rat nhieu nen lam 1 bang rieng de quan li
-//     // them cac lien ket cua order voi user va cart
-//     const db = getDb();
-//     return this.getCart()
-//       .then(products => {
-// 				console.log("TCL: User -> addOrder -> products", products)
-//         const order = {
-//           items: products,
-//           user: {
-//             _id: new objectId(this._id),
-//             name: this.name,
-//             email: this.email
-//           }
-//         };
-//         return db.collection("orders")
-//       .insertOne(order);
-//       })
-//       .then(result => {
-//         this.cart = {items: []};
-//         return db.collection("users")
-//           .updateOne(
-//             { _id: new objectId(this._id) },
-//             { $set: { cart: { items: [] } } }
-//           );
-//       })
-//   }
-  
-//   getOrders() {
-//     const db = getDb();
-//     return db.collection("orders")
-//       .find({"user._id" : new objectId(this._id)})
-//       .toArray()
-//   }
-
 userSchema.methods.addToCart = function(product, newQuantity) {
-	console.log("TCL: userSchema.methods.addToCart -> huhu", newQuantity)
   const cartProductIndex = this.cart.items.findIndex(cp => {
     return cp.productId.toString() === product._id.toString();
   });
@@ -224,6 +90,37 @@ userSchema.methods.addToCart = function(product, newQuantity) {
     sum: this.cart.sum
   };
   this.cart = updatedCart;
+  return this.save();
+};
+
+userSchema.methods.updateCart = function(newCouple) {
+  const updatedCartItems = [...this.cart.items];
+  var newSum = 0;
+  Product.find()
+  .then(products => {
+    updatedCartItems.forEach((element, index) => {
+      products.forEach(item => {
+        if (item._id.toString() == updatedCartItems[index].productId.toString()) {
+          for (let i = 0; i < newCouple.length; i++) {
+            if (newCouple[i].productId.toString() == updatedCartItems[index].productId.toString()) {
+              updatedCartItems[index].quantity = newCouple[i].newQuantity;
+              newSum = newSum + parseFloat(item.price) * parseFloat(newCouple[i].newQuantity);
+              console.log("BenTrong: userSchema.methods.updateCart -> newSum", newSum);  
+            }
+          }
+        }
+      })
+    })
+    return newSum;
+  })
+  .then(newSum => {
+    console.log("Final: userSchema.methods.updateCart -> newSum", newSum);
+    const updatedCart = {
+      items: updatedCartItems,
+      sum: newSum
+    };
+    this.cart = updatedCart;
+  })
   return this.save();
 };
 

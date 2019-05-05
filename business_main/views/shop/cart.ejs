@@ -21,10 +21,9 @@
 		
 
 	<!-- Shoping Cart -->
-	<form class="bg0 p-t-75 p-b-85">
+	<form class="bg0 p-t-75 p-b-85" action="/updatecart" method="POST">
 		<div class="container">
 			<div class="row">
-				<form action="/updatecart" method="POST">
 				<div class="col-lg-10 col-xl-7 m-lr-auto m-b-50">
 					<div class="m-l-25 m-r--38 m-lr-0-xl">
 						<div class="wrap-table-shopping-cart">
@@ -54,7 +53,7 @@
 											</div>
 
 											<input class="mtext-104 cl3 txt-center num-product" type="number" name="productNum" id="productNum" value="<%= item.quantity %>">
-
+											
 											<div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
 												<i class="fs-16 zmdi zmdi-plus"></i>
 											</div>
@@ -62,7 +61,7 @@
 									</td>
 									<td class="column-5 total-prod"><%= item.quantity * item.productId.price %></td>
 								</tr>
-
+								<input type="hidden" name="productId" value="<%= item.productId._id %>">
 								<% }) %>
 								<% } %>
 
@@ -74,7 +73,7 @@
 							</div>
 
 							<div class="flex-c-m stext-101 cl2 size-119 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-10 translate">
-								<button type="submit">
+								<button type="submit" name="btnUpdateCart" value="1">
 										Update Cart
 								</button>
 							</div>	
@@ -137,9 +136,7 @@
 									</div>
 									
 									<div class="flex-w">
-										<div class="flex-c-m stext-101 cl2 size-115 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer translate">
-											Update Totals
-										</div>
+										
 									</div>
 										
 								</div>
@@ -160,12 +157,12 @@
 							</div>
 						</div>
 
-						<button class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer translate">
+						<button class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer translate" type="submit" name="btnCheckout" value="1">
 							Proceed to Checkout
 						</button>
 					</div>
 				</div>
-				</form>
+				
 			</div>
 		</div>
 	</form>
