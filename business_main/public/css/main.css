@@ -3315,12 +3315,12 @@ input.num-product::-webkit-inner-spin-button {
 
 }
 
-.c2 {
+/* .c2 {
   border-radius: 5px;
   background-color: #f2f2f2;
   padding: 20px;
   height: 400px;
-}
+} */
 
 .hov-btn2a:hover {
   border-color: aquamarine;
