@@ -64,9 +64,6 @@ exports.getCart = (req, res, next) => {
       .execPopulate()
       .then(user => {
         const products = user.cart.items;
-        console.log(products);
-        console.log(user.cart.sum);
-        
         res.render("shop/cart", {
           path: "/cart",
           pageTitle: "Your Cart",
@@ -78,16 +75,51 @@ exports.getCart = (req, res, next) => {
 };
 
 // them san pham voi vao cart 
-exports.postCart = (req, res, next) => {    
+exports.postCart = (req, res, next) => {   
+    console.log("HUHUHU1"); 
     const productId = req.body.productId;
-    console.log("[ProdId]==>", productId);
+    var newQuantity = req.body.productNumber; 
+    
     Product.findById(productId)
     .then(product => {
-        return req.user.addToCart(product, 1);
+        return req.user.addToCart(product, newQuantity);
     })
     .then(result => {
         res.redirect("/cart");
     })
+};
+
+exports.postUpdateCart = (req, res, next) => {    
+    const btnUpdateCart = req.body.btnUpdateCart;
+    const btnCheckout = req.body.btnCheckout;
+    const newQuantityArr = req.body.productNum;
+    const productIdArr = req.body.productId;
+    var newCouple = [];
+
+    for (let i = 0; i < productIdArr.length; i++) {
+        newCouple.push({
+            productId: productIdArr[i],
+            newQuantity: newQuantityArr[i]
+        })
+    }
+    console.log("TCL: exports.postUpdateCart -> newCouple", newCouple)
+	console.log("TCL: exports.postUpdateCart -> productIdArr", productIdArr)
+	console.log("TCL: exports.postUpdateCart -> btnUpdateCart", btnUpdateCart) 
+	console.log("TCL: exports.postUpdateCart -> newQuantity", req.body);
+    
+    if (btnUpdateCart == '1') {
+        var promise1 = new Promise(function(resolve, reject) {
+            setTimeout(function() {
+            resolve(req.user.updateCart(newCouple));
+            }, 100);
+        });
+        
+        promise1.then(function(value) {
+            console.log(value);
+            return res.redirect("/cart");
+            // expected output: "foo"
+        });
+    }
 };
 
 exports.getBlog = (req, res, next) => {
@@ -116,19 +148,6 @@ exports.getAccount = (req, res, next) => {
         path: "/account",
         pageTitle: "Your Account"
     });
-};
-
-// // them san pham voi vao cart 
-exports.postCart = (req, res, next) => {    
-    const prodId = req.body.productId;
-    console.log("[ProdId]==>", prodId);
-    Product.findById(prodId)
-    .then(product => {
-        return req.user.addToCart(product);
-    })
-    .then(result => {
-        res.redirect("/cart");
-    })
 };
 
 exports.getRegister = (req, res, next) => {
@@ -179,3 +198,38 @@ exports.getRegister = (req, res, next) => {
 //             console.log(err);
 //         });
 // };
+exports.searchProduct = (req, res, next) => {
+    var namep = req.body.search;
+    //var regex = RegExp(".*" + namep + ".*");
+
+    Product.find({
+            name: {
+                $regex: namep,
+                $options: 'i'
+            }
+            //  $or: [
+            //     {
+            //         name: {
+            //         $regex: namep,
+            //         $options: 'i'
+            //         }
+            //     },
+            //     {
+            //         price: namep
+            //     }
+            // ]
+
+        })
+        .then(products => {
+            res.render('shop/search', {
+                products: products,
+                pageTitle: 'Result of ' + namep,
+                path: '/products',
+                kind: "all",
+                kindFilter: []
+            });
+        })
+        .catch(err => {
+            console.log(err);
+        });
+};

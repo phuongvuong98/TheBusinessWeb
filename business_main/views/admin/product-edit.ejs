@@ -55,15 +55,23 @@
                                             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                                 <div class="review-content-section">
                                                     <div class="input-group mg-b-pro-edt">
-                                                        <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
+                                                        <span class="input-group-addon"><i class="fa fa-pencil" aria-hidden="true"></i></span>
                                                         <input type="text" name="name" id="name" value="<% if (editing) { %><%= product.name %><% } %>" class="form-control" placeholder="Name">
                                                     </div>
                                                     <div class="input-group mg-b-pro-edt">
                                                         <span class="input-group-addon"><i class="fa fa-pencil" aria-hidden="true"></i></span>
-                                                        <input type="text" name="category" id="category" value="<% if (editing) { %><%= product.category %><% } %>" class="form-control" placeholder="Category">
+                                                        <select class="form-control form-control-sm">
+                                                            <% if (editing) { %>
+                                                                <option><%= product.category %></option>
+                                                            <% } %>
+                                                                <% list_cate.forEach(p=>{ %>
+                                                                <option><%= p %></option>
+                                                                <% }) %>
+                                                            
+                                                        </select>
                                                     </div>
                                                     <div class="input-group mg-b-pro-edt">
-                                                        <span class="input-group-addon"><i class="fa fa-usd" aria-hidden="true"></i></span>
+                                                        <span class="input-group-addon"><i class="fa fa-pencil" aria-hidden="true"></i></span>
                                                         <input type="text" name="description" id="description" value="<% if (editing) { %><%= product.description %><% } %>" class="form-control" placeholder="Description">
                                                     </div>
                                                 </div>
@@ -71,15 +79,15 @@
                                             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">   
                                                 <div class="review-content-section">
                                                         <div class="input-group mg-b-pro-edt">
-                                                                <span class="input-group-addon"><i class="fa fa-sticky-note-o" aria-hidden="true"></i></span>
+                                                                <span class="input-group-addon"><i class="fa fa-usd" aria-hidden="true"></i></span>
                                                                 <input type="number" name="price" id="price" value="<% if (editing) { %><%= product.price %><% } %>" class="form-control" placeholder="Price">
                                                             </div>
                                                         <div class="input-group mg-b-pro-edt">
-                                                                <span class="input-group-addon"><i class="fa fa-qrcode" aria-hidden="true"></i></span>
+                                                                <span class="input-group-addon"><i class="fa fa-pencil" aria-hidden="true"></i></span>
                                                                 <input type="text" name="size" id="size" value="<% if (editing) { %><%= product.size %><% } %>" class="form-control" placeholder="Size">
                                                             </div>
                                                         <div class="input-group mg-b-pro-edt">
-                                                        <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
+                                                        <span class="input-group-addon"><i class="fa fa-eraser" aria-hidden="true"></i></span>
                                                         <input type="text" name="delete_at" id="delete_at" value="<% if (editing) { %> <%= product.delete_at == null ? '' : product.delete_at.toDateString() %> <% }  %>" class="form-control" placeholder="Delete_At">
                                                         <input type="hidden" value="<% if (editing) { %><%= product._id %><% } %>%>" name="productId">
                                                     </div>

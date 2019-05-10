@@ -142,20 +142,6 @@
       e.stopPropagation();
   });
 
-  /*==================================================================*/
-  $('.js-change-prod').on('click', () => {
-    var price = $('.num-price').toArray().map(i => i.textContent);
-    var numProd = $('.num-product').val();
-    
-    console.log('price:', price);
-    console.log('numProd:', numProd);
-    console.log("numProd * price", numProd * price);
-    
-
-
-      $('.total-prod').text((price * numProd).toString());
-  });
-
   /*==================================================================
   [ Isotope ]*/
   var $topeContainer = $('.isotope-grid');
@@ -247,11 +233,21 @@
   $('.btn-num-product-down').on('click', function(){
       var numProduct = Number($(this).next().val());
       if(numProduct > 0) $(this).next().val(numProduct - 1);
+
+      
   });
 
   $('.btn-num-product-up').on('click', function(){
       var numProduct = Number($(this).prev().val());
       $(this).prev().val(numProduct + 1);
+
+    //   console.log($('#productNumber').val());
+    //   console.log($('#priceNumber').val());
+    //   $('.total-prod').text();
+
+    //   $('.table_row').toArray().forEach(row => {
+          
+    //   })
   });
 
   /*==================================================================
