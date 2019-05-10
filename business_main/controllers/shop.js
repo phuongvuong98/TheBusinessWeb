@@ -24,7 +24,7 @@ exports.getProduct = (req, res, next) => {
     .then(products => {
         Product.findById(productId)
         .then((product) => {
-            console.log("Get product sucessfully");
+            console.log("Get product successfully");
             res.render("shop/product-detail", {
                 product: product,
                 products: products,
@@ -74,9 +74,23 @@ exports.getCart = (req, res, next) => {
       .catch(err => console.log(err));
 };
 
+exports.getJsonCart = (req, res, next) => {
+    req.user
+    .populate("cart.items.productId")
+    .execPopulate()
+    .then(user => {
+        res.json({
+            "sumPrice" : user.cart.sum,
+            "products": user.cart.items
+        })
+    })
+    .catch(err => console.log(err));
+
+};
+
 // them san pham voi vao cart 
 exports.postCart = (req, res, next) => {   
-    console.log("HUHUHU1"); 
+    console.log("Add Product to Cart");
     const productId = req.body.productId;
     var newQuantity = req.body.productNumber; 
     
