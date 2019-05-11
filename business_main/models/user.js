@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 
+const Product = require("../models/product");
+
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
@@ -30,6 +32,9 @@ const userSchema = new Schema({
   imageUrl: {
     type: String
   },
+  phone: {
+    type: String
+  },
   create_at: {
     type: Date,
     default: Date.now
@@ -52,7 +57,7 @@ const userSchema = new Schema({
           ref: 'Product',
           required: true
         },
-        quantity: { type: Number, required: true }
+        quantity: { type: Number}
       }
     ],
     sum: {
@@ -201,10 +206,11 @@ userSchema.methods.addToCart = function(product, newQuantity) {
   const cartProductIndex = this.cart.items.findIndex(cp => {
     return cp.productId.toString() === product._id.toString();
   });
+  
   const updatedCartItems = [...this.cart.items];
 
   if (cartProductIndex >= 0) {
-    newQuantity = this.cart.items[cartProductIndex].quantity + 1;
+    newQuantity = this.cart.items[cartProductIndex].quantity + newQuantity;
     updatedCartItems[cartProductIndex].quantity = newQuantity;
   } else {
     updatedCartItems.push({
@@ -213,12 +219,43 @@ userSchema.methods.addToCart = function(product, newQuantity) {
     });
   }
   this.cart.sum = this.cart.sum + product.price * newQuantity;
-
+  console.log("TCL: userSchema.methods.addToCart -> updatedCartItems", updatedCartItems)
   const updatedCart = {
     items: updatedCartItems,
     sum: this.cart.sum
   };
   this.cart = updatedCart;
+  return this.save();
+};
+
+userSchema.methods.updateCart = function(newCouple) {
+  const updatedCartItems = [...this.cart.items];
+  var newSum = 0;
+  Product.find()
+  .then(products => {
+    updatedCartItems.forEach((element, index) => {
+      products.forEach(item => {
+        if (item._id.toString() == updatedCartItems[index].productId.toString()) {
+          for (let i = 0; i < newCouple.length; i++) {
+            if (newCouple[i].productId.toString() == updatedCartItems[index].productId.toString()) {
+              updatedCartItems[index].quantity = newCouple[i].newQuantity;
+              newSum = newSum + parseFloat(item.price) * parseFloat(newCouple[i].newQuantity);
+              console.log("BenTrong: userSchema.methods.updateCart -> newSum", newSum);  
+            }
+          }
+        }
+      })
+    })
+    return newSum;
+  })
+  .then(newSum => {
+    console.log("Final: userSchema.methods.updateCart -> newSum", newSum);
+    const updatedCart = {
+      items: updatedCartItems,
+      sum: newSum
+    };
+    this.cart = updatedCart;
+  })
   return this.save();
 };
 
