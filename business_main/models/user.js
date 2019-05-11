@@ -94,7 +94,7 @@ userSchema.methods.addToCart = function(product, newQuantity) {
 };
 
 userSchema.methods.updateCart = function(newCouple) {
-  const updatedCartItems = [...this.cart.items];
+  var updatedCartItems = [...this.cart.items]; // Change const -> var to change value index
   var newSum = 0;
   Product.find()
   .then(products => {
@@ -119,9 +119,12 @@ userSchema.methods.updateCart = function(newCouple) {
       items: updatedCartItems,
       sum: newSum
     };
+    console.log("Object cart: ");
+    console.log(JSON.stringify(updatedCart))
     this.cart = updatedCart;
+    return this.save();
   })
-  return this.save();
+
 };
 
 module.exports = mongoose.model("User", userSchema);
