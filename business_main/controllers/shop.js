@@ -106,10 +106,16 @@ exports.postCart = (req, res, next) => {
 exports.postUpdateCart = (req, res, next) => {    
     const btnUpdateCart = req.body.btnUpdateCart;
     const btnCheckout = req.body.btnCheckout;
+    console.log("Update cart and checkout");
+    console.log(btnUpdateCart);
+    console.log(btnCheckout);
     const newQuantityArr = req.body.productNum;
     const productIdArr = req.body.productId;
     var newCouple = [];
 
+    if (typeof productIdArr === "undefined"){
+        return res.redirect("/cart");
+    }
     for (let i = 0; i < productIdArr.length; i++) {
         newCouple.push({
             productId: productIdArr[i],
@@ -122,10 +128,10 @@ exports.postUpdateCart = (req, res, next) => {
 	console.log("TCL: exports.postUpdateCart -> newQuantity", req.body);
     
     if (btnUpdateCart == '1') {
-        var promise1 = new Promise(function(resolve, reject) {
+        let promise1 = new Promise(function(resolve, reject) {
             setTimeout(function() {
             resolve(req.user.updateCart(newCouple));
-            }, 100);
+            }, 500);
         });
         
         promise1.then(function(value) {
@@ -134,6 +140,20 @@ exports.postUpdateCart = (req, res, next) => {
             // expected output: "foo"
         });
     }
+
+    if (btnCheckout == 1){
+        console.log("Checkout product");
+
+        let oderPromise = new Promise(function (resolve, reject) {
+            setTimeout(function() {
+                resolve(req.user.orderProduct());
+            }, 500);
+        });
+        oderPromise.then(function() {
+            return res.redirect("/cart");
+        });
+    }
+
 };
 
 exports.getBlog = (req, res, next) => {

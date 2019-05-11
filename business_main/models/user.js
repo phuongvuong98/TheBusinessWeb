@@ -64,8 +64,9 @@ const userSchema = new Schema({
       type: Number,
       default: 0
     }
-  }
-})
+  },
+  productOrder: []
+});
 
 userSchema.methods.addToCart = function(product, newQuantity) {
   const cartProductIndex = this.cart.items.findIndex(cp => {
@@ -110,7 +111,7 @@ userSchema.methods.updateCart = function(newCouple) {
           }
         }
       })
-    })
+    });
     return newSum;
   })
   .then(newSum => {
@@ -126,5 +127,20 @@ userSchema.methods.updateCart = function(newCouple) {
   })
 
 };
+
+// Order product, complete save product from cart to order
+userSchema.methods.orderProduct = function() {
+  let itemsCart = this.cart;
+  let productOrder = this.productOrder
+  productOrder.unshift(itemsCart);
+  this.productOrder = productOrder;
+  this.cart = {
+    items: [],
+    sum: 0
+  };
+  return this.save();
+
+};
+
 
 module.exports = mongoose.model("User", userSchema);
