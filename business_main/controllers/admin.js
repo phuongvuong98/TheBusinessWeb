@@ -237,9 +237,34 @@ exports.postDeleteProduct = (req, res, next) => {
 
 
 exports.getOrders = (req, res, next) => {
-  res.render("admin/order-list", {
-      pageTitle: "All Orders",
-      path: "/"
-  });
+  User.find()
+      .populate("cart.items.productId")
+    .then(users => {
+      const orderList = [];
+      for (let i = 0; i < users.length; i++) {
+        let user = users[i];
+        let productOrder = user.productOrder || []
+        for (let i = 0; i < productOrder.length; i++){
+          let items = productOrder[i].items;
+
+          orderList.push({
+            user: user.email,
+            sumPrice: productOrder[i].sum,
+            itemsOrder: items
+          })
+        }
+      }
+      console.log("Order List: ");
+      console.log(orderList)
+      res.render("admin/order-list", {
+        pageTitle: "All Orders",
+        path: "/",
+        orders: orderList
+      });
+    })
+    .catch(err => {
+      console.log(err);
+    });
+
 };
 
