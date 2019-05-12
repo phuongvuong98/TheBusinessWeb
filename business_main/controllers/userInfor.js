@@ -30,12 +30,15 @@ exports.postChangePassword = (req, res, next) => {
         console.log(1);
         console.log(req.flash('error'));  
         req.flash('error', 'Invalid email or password.');
-        return res.redirect('/account');
-      }
+        req.session.errM = true;
+        res.redirect('/account');
+        req.session.errM = false;
+      } else{
       if (newpass!=renewpass){
         console.log(1);
         console.log(req.flash('error'));  
         req.flash('error', 'Password khong khop');
+        req.session.errP = true;
         return res.redirect('/account');
       }
       bcrypt
@@ -43,6 +46,8 @@ exports.postChangePassword = (req, res, next) => {
         .then(doMatch => {
           
           if (doMatch) {
+            req.session.errM = false;
+            req.session.errP = false;
             req.session.isLoggedIn = true;
             req.session.user = user;
             return bcrypt
@@ -62,6 +67,7 @@ exports.postChangePassword = (req, res, next) => {
           console.log(err);
           res.redirect('/account');
         });
+      }
     })
     .catch(err => console.log(err));
     }

@@ -17,6 +17,12 @@
 	<section class="bg0 p-t-104 p-b-116">
             
             <div class="container">
+                <% if (errMessage == true){ %>
+                <div class="user-message user-message--error m-b-20">Invalid email or password</div>
+                <% }%>
+                <% if (errPass == true){ %>
+                    <div class="user-message user-message--error m-b-20">Password khong khop</div>
+                <% }%>
                 <div class="flex-w flex-tr">
                     
                     <div class="size-210 bor10 p-lr-70 p-t-55 p-b-70 p-lr-15-lg w-full-md">
