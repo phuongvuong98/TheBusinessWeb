@@ -63,7 +63,8 @@ exports.getCart = (req, res, next) => {
       .populate("cart.items.productId")
       .execPopulate()
       .then(user => {
-        const products = user.cart.items;
+        let products = user.cart.items;
+        console.log(products);
         res.render("shop/cart", {
           path: "/cart",
           pageTitle: "Your Cart",
@@ -106,12 +107,17 @@ exports.postCart = (req, res, next) => {
 exports.postUpdateCart = (req, res, next) => {    
     const btnUpdateCart = req.body.btnUpdateCart;
     const btnCheckout = req.body.btnCheckout;
+
+    const newQuantityArr = req.body.productNum;
+    const productIdArr = req.body.productId;
+
     console.log("Update cart and checkout");
     console.log(btnUpdateCart);
     console.log(btnCheckout);
-    const newQuantityArr = req.body.productNum;
-    const productIdArr = req.body.productId;
-    var newCouple = [];
+    console.log(newQuantityArr);
+    console.log(newQuantityArr);
+
+    let newCouple = [];
 
     if (typeof productIdArr === "undefined"){
         return res.redirect("/cart");
@@ -124,33 +130,35 @@ exports.postUpdateCart = (req, res, next) => {
     }
     console.log("TCL: exports.postUpdateCart -> newCouple", newCouple)
 	console.log("TCL: exports.postUpdateCart -> productIdArr", productIdArr)
-	console.log("TCL: exports.postUpdateCart -> btnUpdateCart", btnUpdateCart) 
-	console.log("TCL: exports.postUpdateCart -> newQuantity", req.body);
+	console.log("TCL: exports.postUpdateCart -> btnUpdateCart", btnUpdateCart)
     
     if (btnUpdateCart == '1') {
-        let promise1 = new Promise(function(resolve, reject) {
-            setTimeout(function() {
-            resolve(req.user.updateCart(newCouple));
-            }, 500);
+        console.log("[SHOP CONTROLLER] Update Cart");
+
+        let promiseUpdateCart = new Promise(function (resolve, reject){
+            resolve(req.user.updateCart(newCouple))
         });
-        
-        promise1.then(function(value) {
-            console.log(value);
-            return res.redirect("/cart");
-            // expected output: "foo"
+
+        //Please use timeout > 3s to save Db successfully
+        promiseUpdateCart.then(function(rs){
+            setTimeout(function () {
+                return res.redirect("/cart");
+            }, 3000)
         });
     }
 
     if (btnCheckout == 1){
-        console.log("Checkout product");
+        console.log("[SHOP CONTROLLER] Checkout Cart");
 
         let oderPromise = new Promise(function (resolve, reject) {
-            setTimeout(function() {
-                resolve(req.user.orderProduct());
-            }, 500);
+            resolve(req.user.orderProduct());
         });
+
+        //Please use timeout > 3s to save Db successfully
         oderPromise.then(function() {
-            return res.redirect("/cart");
+            setTimeout(function() {
+                return res.redirect("/cart");
+            }, 3000);
         });
     }
 
