@@ -18,11 +18,13 @@ exports.getChangePassword = (req, res, next) => {
 };
 
 exports.postChangePassword = (req, res, next) => {
-    const email = req.body.email;
     const password = req.body.oldpass;
     const newpass = req.body.newpass;
     const renewpass = req.body.renewpass;
-    User.findOne({ email: email })
+    const kindChange = req.body.kindChange;
+    if (kindChange.includes("pw")){
+    const email = req.body.email;
+      User.findOne({ email: email })
     .then(user => {
       if (!user) {
         console.log(1);
@@ -62,20 +64,13 @@ exports.postChangePassword = (req, res, next) => {
         });
     })
     .catch(err => console.log(err));
-};
-
-exports.getChangeAddress = (req, res, next) => {
-  res.render('shop/account', {
-      path: '/account',
-      pageTitle: 'Your Information',
-  });
-};
-
-
-exports.postChangeAddress = (req, res, next) => {
-  const email = req.body.email2;
-  const address = req.body.address;
-  User.findOne({ email: email })
+    }
+    if (kindChange.includes("if")){
+      const address = req.body.address;
+      const email = req.body.email2;
+      const phone = req.body.phone;
+      const birthday = req.body.birthday;
+      User.findOne({ email: email })
   .then(user => {
     if (!user) {
       console.log(email);
@@ -85,9 +80,14 @@ exports.postChangeAddress = (req, res, next) => {
     }
     req.session.user = user;
     user.address = address;
+    user.phone = phone;
+    user.birthday = birthday;
+    user.email = email;
     user.save();
     return res.redirect('/account');
     
   })
   .catch(err => console.log(err));
+    }
 };
+

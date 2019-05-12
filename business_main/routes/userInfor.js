@@ -10,8 +10,5 @@ router.get('/account', accountController.getChangePassword);
 
 router.post('/account', accountController.postChangePassword);
 
-router.get('/account', accountController.getChangeAddress);
-
-router.post('/account', accountController.postChangeAddress);
 
 module.exports = router;
