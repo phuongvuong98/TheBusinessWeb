@@ -6,7 +6,7 @@
 	<!-- Title page -->
 	<section class="bg-img1 txt-center p-lr-15 p-tb-92" style="background-image: url('images/bg-01.jpg');">
 		<h2 class="ltext-105 cl0 txt-center">
-			Login 
+			Sign up
 		</h1>
 	</section>	
 
@@ -19,26 +19,27 @@
                 <% } %>
                 <div class="flex-w flex-tr justify-content-center">
                     <div class="size-210 bor10 p-lr-70 p-t-55 p-b-70 p-lr-15-lg w-full-md" >
-                        <form method="POST" action="/login">
+                        <form method="POST" action="/update">
+                            
                             <span class="mtext-110 cl2 ">
-                                Email
+                                Enter New Password
                             </span>
                             <div class="bor8 m-b-20 how-pos4-parent">
-                                <input type="email" class="stext-110 cl2 plh3 size-112 p-l-10 p-r-10 w-full" name="email">
-                                
+                                <input type="password" class="stext-110 cl2 plh3 size-112 p-l-10 p-r-10 w-full" name="password" id="password">                            
                             </div>
+
                             <span class="mtext-110 cl2 ">
-                                Password
+                                Rewrite New Password
                             </span>
                             <div class="bor8 m-b-20 how-pos4-parent">
-                                <input type="password" class="stext-110 cl2 plh3 size-112 p-l-10 p-r-10 w-full" name="password">                            
+                                <input type="password" class="stext-110 cl2 plh3 size-112 p-l-10 p-r-10 w-full" name="confirmPassword" id="confirmPassword">                            
                             </div>
 
                             <button type="submit" class="flex-c-m stext-101 cl0 size-121 bg3 bor1 hov-btn3 p-lr-15 trans-04 pointer">
-                                Login
+                                Update
                             </button>
-                        
-                            <p class="aa-lost-password p-t-40"><a href="/forgot">Forget the password?</a></p>
+
+                            
                         </form>
                     </div>
                 </div>
