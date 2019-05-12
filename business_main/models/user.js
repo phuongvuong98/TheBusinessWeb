@@ -130,14 +130,18 @@ userSchema.methods.updateCart = function(newCouple) {
 
 // Order product, complete save product from cart to order
 userSchema.methods.orderProduct = function() {
-  let itemsCart = this.cart;
-  let productOrder = this.productOrder
-  productOrder.unshift(itemsCart);
-  this.productOrder = productOrder;
+  let itemsCart = JSON.parse(JSON.stringify(this.cart));
+  // let productOrder = this.productOrder
+  this.productOrder.unshift(itemsCart);
+  // console.log(productOrder);
+  // this.productOrder = productOrder;
   this.cart = {
     items: [],
     sum: 0
   };
+  console.log("[USER MODEL] productOrder and cart: ");
+  console.log(this.productOrder);
+  console.log(this.cart);
   return this.save();
 
 };
