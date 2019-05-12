@@ -13,13 +13,15 @@
 	});
 </script> -->
 <script>
-	function showdata(a, b, c, d) {
+	function showdata(a, b, c, d, productId) {
 		// var x = "https://i.pximg.net/img-master/img/2016/04/16/20/46/13/56380673_p0_master1200.jpg";
 		var link = d.toString();
 		document.getElementById("indata1").innerHTML = a;
 		document.getElementById("indata2").innerHTML = b;
 		document.getElementById("indata3").innerHTML = c;
 		document.getElementById("indata4").src = link;
+		$("#productQuantity").val(1);
+		$("#productId").val(productId);
 	}
 </script>
 <div class="wrap-modal1 js-modal1 p-t-60 p-b-20">
@@ -136,15 +138,15 @@
 										</div>
 
 										<input class="mtext-104 cl3 txt-center num-product" type="number"
-											name="num-product" value="1">
+											   name="productNumber" id="productQuantity" value="1">
 
 										<div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
 											<i class="fs-16 zmdi zmdi-plus"></i>
 										</div>
 									</div>
-
-									<button
-										class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
+									<input type="hidden" id="productId" name="productId" value="">
+									<button onclick="postCartModal()"
+										class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">
 										Add to cart
 									</button>
 								</div>
@@ -197,3 +199,44 @@
 		</div>
 	</div>
 </div>
+<script>
+	function postCartModal() {
+		var quantity = $("#productQuantity").val();
+		var productId = $("#productId").val();
+		var productName = $('#indata1').text();
+
+		$.ajax({
+			url: "/cart",
+			type: "POST",
+			data: {
+				productId: productId,
+				productNumber: quantity
+			},
+			success: function (res) {
+				swal(productName, " is added to cart !", "success");
+				refreshCartOrder();
+			},
+			error: function (err) {
+				console.log(err)
+				swal("Failed", "success");
+			}
+		});
+
+	}
+
+	function refreshCartOrder(){
+		$.ajax({
+			url: '/api/cart',
+			type: 'GET',
+			dataType: 'json',
+		}).done(function(res){
+			const sumPrice = res.sumPrice;
+			const products = res.products;
+			console.log(products.length)
+			$('#shopCart').attr('data-notify', products.length);
+			$('#sumPrice').html(sumPrice)
+			$('#cart-product-list').html(TemplateCartRSide.createProductList(products));
+		});
+	}
+</script>
+	
