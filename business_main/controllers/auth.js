@@ -40,7 +40,12 @@ exports.postLogin = (req, res, next) => {
         console.log(1);
         console.log(req.flash('error'));  
         req.flash('error', 'Invalid email or password.');
-        return res.redirect('/login');
+        
+        // luu tren session truoc khi show message.
+        return req.session.save(err => {
+          console.log(err);
+          return res.redirect('/login');
+        });
       }
       bcrypt
         .compare(password, user.password)

@@ -93,6 +93,8 @@ app.use((req, res, next) => {
   // gui ve 1 bien trong moi 1 route
   res.locals.isAuthenticated = req.session.isLoggedIn;
   res.locals.currentUser = req.session.user;
+  res.locals.errMessage = req.session.errM;
+  res.locals.errPass = req.session.errP;
   next();
 });
 
