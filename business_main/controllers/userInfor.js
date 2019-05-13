@@ -28,13 +28,19 @@ exports.postChangePassword = (req, res, next) => {
         console.log(1);
         console.log(req.flash('error'));  
         req.flash('error', 'Invalid email or password.');
-        return res.redirect('/account');
+        return req.session.save(err => {
+          console.log(err);
+          res.redirect('/account');
+        })
       }
       if (newpass!=renewpass){
         console.log(1);
         console.log(req.flash('error'));  
-        req.flash('error', 'Password khong khop');
-        return res.redirect('/account');
+        req.flash('error', "Password don't match confirmation!");
+        return req.session.save(err => {
+          console.log(err);
+          res.redirect('/account');
+        });
       }
       bcrypt
         .compare(password, user.password)
@@ -54,7 +60,10 @@ exports.postChangePassword = (req, res, next) => {
         });
           }
           req.flash('error', 'Invalid email or password.');
-          res.redirect('/account');
+          return req.session.save(err => {
+            console.log(err);
+            res.redirect('/account');
+          });
         })
         .catch(err => {
           console.log(err);
@@ -81,7 +90,10 @@ exports.postChangeAddress = (req, res, next) => {
       console.log(email);
       console.log(req.flash('error'));  
       req.flash('error', 'Invalid email password.');
-      return res.redirect('/account');
+      return req.session.save(err => {
+        console.log(err);
+        res.redirect('/account');
+      })
     }
     req.session.user = user;
     user.address = address;

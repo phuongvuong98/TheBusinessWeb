@@ -44,7 +44,10 @@ exports.postLogin = (req, res, next) => {
         console.log(1);
         console.log(req.flash('error'));  
         req.flash('error', 'Invalid email or password.');
-        return res.redirect('/login');
+        return req.session.save(err => {
+          console.log(err);
+          res.redirect('/login');
+        })
       }
       bcrypt
         .compare(password, user.password)
@@ -66,7 +69,10 @@ exports.postLogin = (req, res, next) => {
             });
           }
           req.flash('error', 'Invalid email or password.');
-          res.redirect('/login');
+          return req.session.save(err => {
+            console.log(err);
+            res.redirect('/login');
+          })
         })
         .catch(err => {
           console.log(err);
@@ -126,11 +132,14 @@ exports.getForgot = (req, res, next) => {
   } else {
       message = null;
   }
-  res.render('auth/forgot', {
+  return res.session.save(err => {
+    console.log(err);
+    res.render('auth/forgot', {
       path: '/forgot',
       pageTitle: 'Forgot your password',
       errorMessage: message
   });
+  })
 };
 
 exports.getVerify = (req, res, next) => {
@@ -248,18 +257,20 @@ exports.getUpdatePass = (req, res, next) => {
   });
 };
 exports.postUpdatePass = (req, res, next) => {
-    
   //const email2 = req.body.email2;
   const newpass = req.body.password;
   const renewpass = req.body.confirmPassword;
   const email = req.session.email;
   User.findOne({ email: email })
   .then(user => {
-    if (newpass!=renewpass){
+    if (newpass != renewpass){
       console.log(1);
       console.log(req.flash('error'));  
-      req.flash('error', 'Password khong khop');
-      return res.redirect('/reset');
+      req.flash('error', "Password don't match confirmation!");
+      return res.session.save(err => {
+        console.log(err);
+        res.redirect('/reset');
+      });
     }
     if (newpass == renewpass){
       return bcrypt
