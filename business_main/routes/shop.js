@@ -28,8 +28,6 @@ router.get("/about", shopController.getAbout);
 
 router.get("/contact", shopController.getContact);
 
-router.get("/account", shopController.getAccount);
-
 router.post("/cart", shopController.postCart);
 
 router.get("/register", shopController.getRegister);

@@ -10,7 +10,7 @@ exports.getChangePassword = (req, res, next) => {
     } else {
         message = null;
     }
-    res.render('shop/account', {
+    return res.render('shop/account', {
         path: '/account',
         pageTitle: 'Your Information',
         errorMessage: message
@@ -30,21 +30,24 @@ exports.postChangePassword = (req, res, next) => {
         console.log(1);
         console.log(req.flash('error'));  
         req.flash('error', 'Invalid email or password.');
-        req.session.errM = true;
-        res.redirect('/account');
-        req.session.errM = false;
-      } else{
-      if (newpass!=renewpass){
+        return req.session.save(err => {
+          console.log(err);
+          res.redirect('/account');
+        })
+      }
+      if (newpass != renewpass){
         console.log(1);
         console.log(req.flash('error'));  
-        req.flash('error', 'Password khong khop');
-        req.session.errP = true;
-        return res.redirect('/account');
+        req.flash('error', "Password don't match confirmation!");
+        return req.session.save(err => {
+          console.log(err);
+          res.redirect('/account');
+        });
       }
       bcrypt
         .compare(password, user.password)
         .then(doMatch => {
-          
+             
           if (doMatch) {
             req.session.errM = false;
             req.session.errP = false;
@@ -61,13 +64,15 @@ exports.postChangePassword = (req, res, next) => {
         });
           }
           req.flash('error', 'Invalid email or password.');
-          res.redirect('/account');
+          return req.session.save(err => {
+            console.log(err);
+            res.redirect('/account');
+          });
         })
         .catch(err => {
           console.log(err);
           res.redirect('/account');
         });
-      }
     })
     .catch(err => console.log(err));
     }
@@ -82,7 +87,10 @@ exports.postChangePassword = (req, res, next) => {
       console.log(email);
       console.log(req.flash('error'));  
       req.flash('error', 'Invalid email password.');
-      return res.redirect('/account');
+      return req.session.save(err => {
+        console.log(err);
+        res.redirect('/account');
+      })
     }
     req.session.user = user;
     user.address = address;
