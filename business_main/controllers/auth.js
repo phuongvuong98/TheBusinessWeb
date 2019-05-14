@@ -101,7 +101,8 @@ exports.postSignup = (req, res, next) => {
           const user = new User({
             email: email,
             password: hashedPassword,
-            cart: { items: [] }
+            cart: { items: [],
+            imageUrl: "https: //ucarecdn.com/5d276379-552f-4a08-97e7-744a15f71477/ava.png" }
           });
           return user.save();
         })

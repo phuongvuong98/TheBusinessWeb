@@ -24,8 +24,21 @@ const userSchema = new Schema({
     require: true
   },
   commentBox: {
-    //items: [{productId:"sss",comment:"huhu"}]
-    items: []
+    items: [
+      {
+        productId: {
+          type: Schema.Types.ObjectId,
+          ref: 'Product',
+          required: true
+        },
+        stars:{
+          type: Number
+        },
+        commentlist: [{
+          type: String
+        } ]      
+      }
+    ] ////7777777777777777777777777777777777777777777777777777777777777777
   },
   imageUrl: {
     type: String
@@ -92,4 +105,41 @@ userSchema.methods.addToCart = function(product, newQuantity) {
   return this.save();
 };
 
+
+userSchema.methods.addToComment = function (product, comment, ratting) {
+  
+  const userCommentList = this.commentBox.items.findIndex(cp => {
+  return cp.productId.toString() === product._id.toString();
+  });
+  console.log(comment, ratting);
+  const updateComment = [...this.commentBox.items];
+  //console.log("​updateComment", updateComment);
+
+    if (userCommentList >= 0) {
+      console.log("kkkk", comment);
+      this.commentBox.items[userCommentList].commentlist.push(comment);
+			console.log("​userSchema.methods.addToComment -> this.commentBox.items[userCommentList].commentlist", this.commentBox.items[userCommentList].commentlist);
+      var temp = this.commentBox.items[userCommentList].commentlist;
+			console.log("​userSchema.methods.addToComment -> temp", temp);
+			console.log("​userSchema.methods.addToComment -> comment", comment);
+		  //console.log("​userSchema.methods.addToComment -> this.commentBox.items[userCommentList].commentlist", this.commentBox.items[userCommentList].commentlist);
+      updateComment[userCommentList].commentlist = temp;
+			//console.log("​userSchema.methods.addToComment -> updateComment", updateComment);
+			//console.log("​userSchema.methods.addToComment -> comment", comment);
+    } else {
+      updateComment.push({
+        productId: product._id,
+        stars: ratting,
+        commentlist: [comment]
+      });
+    }
+
+
+  //console.log("​updateComment", updateComment);
+  this.commentBox.items = updateComment;
+
+
+  return this.save();
+};
 module.exports = mongoose.model("User", userSchema);
+
