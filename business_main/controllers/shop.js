@@ -143,13 +143,6 @@ exports.getContact = (req, res, next) => {
     });
 };
 
-exports.getAccount = (req, res, next) => {
-    res.render("shop/account", {
-        path: "/account",
-        pageTitle: "Your Account"
-    });
-};
-
 exports.getRegister = (req, res, next) => {
     res.render("shop/register", {
         path: "/register",
@@ -157,47 +150,6 @@ exports.getRegister = (req, res, next) => {
     });
 };
 
-
-// exports.postCartDeleteProduct = (req, res, next) => {
-//     const prodId = req.body.productId;
-//     req.user
-//         .deleteItemFromCart(prodId)
-//         .then(result => {
-//             console.log(result);
-//             res.redirect("/cart");
-//         })
-//         .catch(err => {
-//             console.log(err);
-//         });
-// };
-
-// exports.postCreateOrder = (req, res, next) => {
-//     // truy cap vao 1 user
-//     req.user
-//         .addOrder()
-//         .then(() => {
-//             return res.redirect("/cart");
-//         })
-//         .catch(err => {
-//             console.log(err);
-//         });
-// };
-
-// exports.getOrders = (req, res, next) => {
-//     req.user
-//         // truy cap bang product trong cart (1 user co nhieu ORDER)
-//         .getOrders()
-//         .then(orders => {
-//             res.render("shop/orders", {
-//                 path: "/orders",
-//                 pageTitle: "Your Orders",
-//                 orders: orders
-//             });
-//         })
-//         .catch(err => {
-//             console.log(err);
-//         });
-// };
 exports.searchProduct = (req, res, next) => {
     var namep = req.body.search;
     //var regex = RegExp(".*" + namep + ".*");
@@ -207,18 +159,6 @@ exports.searchProduct = (req, res, next) => {
                 $regex: namep,
                 $options: 'i'
             }
-            //  $or: [
-            //     {
-            //         name: {
-            //         $regex: namep,
-            //         $options: 'i'
-            //         }
-            //     },
-            //     {
-            //         price: namep
-            //     }
-            // ]
-
         })
         .then(products => {
             res.render('shop/search', {

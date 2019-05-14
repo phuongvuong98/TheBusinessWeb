@@ -10,7 +10,7 @@ exports.getChangePassword = (req, res, next) => {
     } else {
         message = null;
     }
-    res.render('shop/account', {
+    return res.render('shop/account', {
         path: '/account',
         pageTitle: 'Your Information',
         errorMessage: message
@@ -33,7 +33,7 @@ exports.postChangePassword = (req, res, next) => {
           res.redirect('/account');
         })
       }
-      if (newpass!=renewpass){
+      if (newpass != renewpass){
         console.log(1);
         console.log(req.flash('error'));  
         req.flash('error', "Password don't match confirmation!");
@@ -45,7 +45,7 @@ exports.postChangePassword = (req, res, next) => {
       bcrypt
         .compare(password, user.password)
         .then(doMatch => {
-          
+             
           if (doMatch) {
             req.session.isLoggedIn = true;
             req.session.user = user;
@@ -69,6 +69,7 @@ exports.postChangePassword = (req, res, next) => {
           console.log(err);
           res.redirect('/account');
         });
+      
     })
     .catch(err => console.log(err));
 };

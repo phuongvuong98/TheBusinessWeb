@@ -17,6 +17,9 @@
 	<section class="bg0 p-t-104 p-b-116">
             
             <div class="container">
+                <% if (errorMessage) { %>
+                    <div class="user-message user-message--error m-b-20"><%= errorMessage %></div>
+                <% } %>
                 <div class="flex-w flex-tr">
                     <div class="size-210 bor10 p-lr-70 p-t-55 p-b-70 p-lr-15-lg w-full-md">
                         <form method="POST" action="/account">
@@ -52,20 +55,21 @@
                                     
                             </div>
                             
-
+                            <form>
                             <button type="submit" class="flex-c-m stext-101 cl0 size-121 bg3 bor1 hov-btn3 p-lr-15 trans-04 pointer">
                                 Change
                             </button>
-                            
+                            <input type="hidden" name="kindChange" value="pw">
+                            </form>
                         </form>
                     </div>
-    
+                    
                     <div class="size-210 bor10 flex-w flex-col-m p-lr-93 p-tb-30 p-lr-15-lg w-full-md">
-                        
+                        <form method="POST" action="/account">
                         <h4 class="mtext-105 cl2 txt-center p-b-30">
                                     Your Information
                         </h4>
-                        <div class="flex-w w-full p-b-42">
+                        <div class="flex-w w-full p-b-30">
                             
                             <span class="fs-18 cl5 txt-center size-211">
                                 <span class="lnr lnr-map-marker"></span>
@@ -79,14 +83,13 @@
                                 <div class="stext-115 cl1 size-200 p-t-18">
                                     <input class="form-control" type="text" name = "address" value="<%= currentUser.address %>">
                                   </div>
-                                  <p class="aa-lost-password"><a href="#">Change</a></p>
-                                
+                                  
                             </div>
                             
                             
                         </div>
     
-                        <div class="flex-w w-full p-b-42">
+                        <div class="flex-w w-full p-b-30">
                             <span class="fs-18 cl5 txt-center size-211">
                                 <span class="lnr lnr-phone-handset"></span>
                             </span>
@@ -99,11 +102,11 @@
                                 <div class="stext-115 cl1 size-200 p-t-18">
                                     <input class="form-control" type="text" name = "phone" value="<%= currentUser.phone %>">
                                 </div>
-                                <p class="aa-lost-password"><a href="#">Change</a></p>
+                                
                             </div>
                         </div>
     
-                        <div class="flex-w w-full p-b-42">
+                        <div class="flex-w w-full p-b-30">
                             <span class="fs-18 cl5 txt-center size-211">
                                 <span class="fa fa-birthday-cake" aria-hidden="true"></span>
                             </span>
@@ -116,11 +119,11 @@
                                 <div class="stext-115 cl1 size-200 p-t-18">
                                     <input class="form-control" type="text" name = "birthday" value="<%= currentUser.birthday %>">
                                 </div>
-                                <p class="aa-lost-password"><a href="#">Change</a></p>
+                                
                             </div>
                         </div>
     
-                        <div class="flex-w w-full">
+                        <div class="flex-w w-full p-b-30">
                             <span class="fs-18 cl5 txt-center size-211">
                                 <span class="lnr lnr-envelope"></span>
                             </span>
@@ -133,16 +136,18 @@
                                 <div class="stext-115 cl1 size-200 p-t-18">
                                     <input class="form-control" type="text" name = "email2" value="<%= currentUser.email %>" >
                                 </div>
-                                <p class="aa-lost-password"><a href="#">Change</a></p>
+                                
                             </div>
                         </div>
-                        <form method="POST" action="/account">
+                        <form >
                         <button type="submit" class="flex-c-m stext-101 cl0 size-121 bg3 bor1 hov-btn3 p-lr-15 trans-04 pointer">
                             Change
                         </button>
+                        <input type="hidden" name="kindChange" value="if">
                         </form>
+                    </form>
                     </div>
-                   
+                
                 </div>
             </div>
             
