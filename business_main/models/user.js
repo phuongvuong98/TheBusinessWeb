@@ -64,8 +64,9 @@ const userSchema = new Schema({
       type: Number,
       default: 0
     }
-  }
-})
+  },
+  productOrder: []
+});
 
 userSchema.methods.addToCart = function(product, newQuantity) {
   const cartProductIndex = this.cart.items.findIndex(cp => {
@@ -94,7 +95,7 @@ userSchema.methods.addToCart = function(product, newQuantity) {
 };
 
 userSchema.methods.updateCart = function(newCouple) {
-  const updatedCartItems = [...this.cart.items];
+  var updatedCartItems = [...this.cart.items]; // Change const -> var to change value index
   var newSum = 0;
   Product.find()
   .then(products => {
@@ -110,7 +111,7 @@ userSchema.methods.updateCart = function(newCouple) {
           }
         }
       })
-    })
+    });
     return newSum;
   })
   .then(newSum => {
@@ -119,9 +120,31 @@ userSchema.methods.updateCart = function(newCouple) {
       items: updatedCartItems,
       sum: newSum
     };
+    console.log("Object cart: ");
+    console.log(JSON.stringify(updatedCart))
     this.cart = updatedCart;
+    return this.save();
   })
-  return this.save();
+
 };
+
+// Order product, complete save product from cart to order
+userSchema.methods.orderProduct = function() {
+  let itemsCart = JSON.parse(JSON.stringify(this.cart));
+  // let productOrder = this.productOrder
+  this.productOrder.unshift(itemsCart);
+  // console.log(productOrder);
+  // this.productOrder = productOrder;
+  this.cart = {
+    items: [],
+    sum: 0
+  };
+  console.log("[USER MODEL] productOrder and cart: ");
+  console.log(this.productOrder);
+  console.log(this.cart);
+  return this.save();
+
+};
+
 
 module.exports = mongoose.model("User", userSchema);

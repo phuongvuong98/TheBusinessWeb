@@ -1,6 +1,6 @@
 const Product = require("../models/product");
 const User = require("../models/user");
-
+const Order = require("../models/order");
 exports.getIndex = (req, res, next) => {
   res.render("admin/index", {
       pageTitle: "Admin Page",
@@ -148,8 +148,8 @@ exports.postAddProduct = (req, res, next) => {
 };
 
 exports.getEditProduct = (req, res, next) => {
-  const editMode = req.query.edit;
-  if (!editMode) {
+  const editMode = req.query.edit; //edit trong product-edit.ejs
+  if (!editMode) { //check edit them vao(admin) hay edit chỉ để xem thôi tin
     return res.redirect('/admin/products');
   }
   const productId = req.params.productId;
@@ -237,9 +237,116 @@ exports.postDeleteProduct = (req, res, next) => {
 
 
 exports.getOrders = (req, res, next) => {
-  res.render("admin/order-list", {
-      pageTitle: "All Orders",
-      path: "/"
-  });
+  User.find()
+      .populate("cart.items.productId")
+    .then(users => {
+      const orderList = [];
+      for (let i = 0; i < users.length; i++) {
+        let user = users[i];
+        let productOrder = user.productOrder || []
+        for (let i = 0; i < productOrder.length; i++){
+          let items = productOrder[i].items;
+
+          orderList.push({
+            user: user.email,
+            sumPrice: productOrder[i].sum,
+            itemsOrder: items
+          })
+        }
+      }
+      console.log("Order List: ");
+      console.log(orderList)
+      res.render("admin/order-list", {
+        pageTitle: "All Orders",
+        path: "/",
+        orders: orderList
+      });
+    })
+    .catch(err => {
+      console.log(err);
+    });
+
 };
 
+
+
+// exports.getOrders = (req, res, next) => {
+  
+//   Order.find()
+//   .then(orders => {
+//     res.render("admin/order-list", {
+//       pageTitle: "ALL ORDERS",
+//       orders: orders
+//   });
+//   })
+// };
+
+// exports.getAddOrder = (req, res, next) => {
+//   res.render("admin/order-list", {
+//     pageTitle: "ADD ORDERS",
+//     editing: false
+//   });
+// };
+
+// exports.postAddOrders = (req, res, next) => {
+//   const status = req.body.status;
+//   const category = req.body.category;
+//   const description = req.body.description;
+//   const price = req.body.price;
+//   const size = req.body.size;
+//   const sizeArr = size.split(",");
+//   const create_at = new Date();
+  
+  
+
+//   const order = new Order({
+//     userId: req.user,
+//     productId : req.product,
+//     status : status,
+//     create_at: create_at,
+//   });
+//   product.save();
+  
+//   return res.redirect("/admin/products");
+// };
+
+// exports.getEditOrders = (req, res, next) => {
+
+// };
+
+// exports.postDeleteOrders = (req, res, next) => {
+
+// };
+
+
+// exports.postAddProduct = (req, res, next) => {
+//   const name = req.body.name;
+//   const category = req.body.category;
+//   const description = req.body.description;
+//   const price = req.body.price;
+//   const size = req.body.size;
+//   const sizeArr = size.split(",");
+//   const create_at = new Date();
+  
+//   const image = req.file;
+
+//   if (image) {
+//     imageUrl = "/" + image.path;
+//   } else {
+//     imageUrl = "https://ucarecdn.com/5d276379-552f-4a08-97e7-744a15f71477/ava.png";
+//   }
+
+//   const product = new Product({
+//     name: name,
+//     category: category,
+//     description: description,
+//     price: price,
+//     size: sizeArr,
+//     imageUrl: imageUrl,
+//     create_at: create_at,
+//     userId: req.user
+//   });
+//   product.save();
+  
+//   return res.redirect("/admin/products");
+// };

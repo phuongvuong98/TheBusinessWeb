@@ -32,6 +32,23 @@ router.post("/delete-product", adminController.postDeleteProduct);
 
 router.get("/orders", adminController.getOrders);
 
+//router.get("/add-orders", adminController.getAddOrders);
+
+router.post("/add-orders", adminController.postAddOrders);
+
+// router.get("/edit-orders/:orderId", adminController.getEditOrders);
+
+// router.post("/edit-orders", adminController.postEditOrders);
+
+// router.post("/delete-orders", adminController.postDeleteOrders);
+
+
+
+
+
+
+
+
 // router.get('/products', adminController.getProducts);
 
 // // /admin/add-product => POST

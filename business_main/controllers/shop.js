@@ -24,7 +24,7 @@ exports.getProduct = (req, res, next) => {
     .then(products => {
         Product.findById(productId)
         .then((product) => {
-            console.log("Get product sucessfully");
+            console.log("Get product successfully");
             res.render("shop/product-detail", {
                 product: product,
                 products: products,
@@ -63,7 +63,8 @@ exports.getCart = (req, res, next) => {
       .populate("cart.items.productId")
       .execPopulate()
       .then(user => {
-        const products = user.cart.items;
+        let products = user.cart.items;
+        console.log(products);
         res.render("shop/cart", {
           path: "/cart",
           pageTitle: "Your Cart",
@@ -74,12 +75,26 @@ exports.getCart = (req, res, next) => {
       .catch(err => console.log(err));
 };
 
+exports.getJsonCart = (req, res, next) => {
+    req.user
+    .populate("cart.items.productId")
+    .execPopulate()
+    .then(user => {
+        res.json({
+            "sumPrice" : user.cart.sum,
+            "products": user.cart.items
+        })
+    })
+    .catch(err => console.log(err));
+
+};
+
 // them san pham voi vao cart 
-exports.postCart = (req, res, next) => {   
-    console.log("HUHUHU1"); 
+exports.postCart = (req, res, next) => {  
+    console.log("Add Product to Cart");
     const productId = req.body.productId;
     var newQuantity = req.body.productNumber; 
-    
+
     Product.findById(productId)
     .then(product => {
         return req.user.addToCart(product, newQuantity);
@@ -88,14 +103,25 @@ exports.postCart = (req, res, next) => {
         res.redirect("/cart");
     })
 };
-
 exports.postUpdateCart = (req, res, next) => {    
     const btnUpdateCart = req.body.btnUpdateCart;
     const btnCheckout = req.body.btnCheckout;
+
     const newQuantityArr = req.body.productNum;
     const productIdArr = req.body.productId;
-    var newCouple = [];
 
+
+    console.log("Update cart and checkout");
+    console.log(btnUpdateCart);
+    console.log(btnCheckout);
+    console.log(newQuantityArr);
+    console.log(newQuantityArr);
+
+    let newCouple = [];
+
+    if (typeof productIdArr === "undefined"){
+        return res.redirect("/cart");
+    }
     for (let i = 0; i < productIdArr.length; i++) {
         newCouple.push({
             productId: productIdArr[i],
@@ -103,23 +129,39 @@ exports.postUpdateCart = (req, res, next) => {
         })
     }
     console.log("TCL: exports.postUpdateCart -> newCouple", newCouple)
-	console.log("TCL: exports.postUpdateCart -> productIdArr", productIdArr)
-	console.log("TCL: exports.postUpdateCart -> btnUpdateCart", btnUpdateCart) 
-	console.log("TCL: exports.postUpdateCart -> newQuantity", req.body);
-    
+    console.log("TCL: exports.postUpdateCart -> productIdArr", productIdArr)
+    console.log("TCL: exports.postUpdateCart -> btnUpdateCart", btnUpdateCart)
+
     if (btnUpdateCart == '1') {
-        var promise1 = new Promise(function(resolve, reject) {
-            setTimeout(function() {
-            resolve(req.user.updateCart(newCouple));
-            }, 100);
+        console.log("[SHOP CONTROLLER] Update Cart");
+
+        let promiseUpdateCart = new Promise(function (resolve, reject){
+            resolve(req.user.updateCart(newCouple))
         });
-        
-        promise1.then(function(value) {
-            console.log(value);
-            return res.redirect("/cart");
-            // expected output: "foo"
+
+        //Please use timeout > 3s to save Db successfully
+        promiseUpdateCart.then(function(rs){
+            setTimeout(function () {
+                return res.redirect("/cart");
+            }, 3000)
         });
     }
+
+    if (btnCheckout == 1){
+        console.log("[SHOP CONTROLLER] Checkout Cart");
+
+        let oderPromise = new Promise(function (resolve, reject) {
+            resolve(req.user.orderProduct());
+        });
+        
+        //Please use timeout > 3s to save Db successfully
+        oderPromise.then(function() {
+            setTimeout(function() {
+                return res.redirect("/cart");
+            }, 3000);
+        });
+    }
+
 };
 
 exports.getBlog = (req, res, next) => {
@@ -158,6 +200,7 @@ exports.getRegister = (req, res, next) => {
 };
 
 
+
 // exports.postCartDeleteProduct = (req, res, next) => {
 //     const prodId = req.body.productId;
 //     req.user
@@ -170,7 +213,6 @@ exports.getRegister = (req, res, next) => {
 //             console.log(err);
 //         });
 // };
-
 // exports.postCreateOrder = (req, res, next) => {
 //     // truy cap vao 1 user
 //     req.user
@@ -182,7 +224,6 @@ exports.getRegister = (req, res, next) => {
 //             console.log(err);
 //         });
 // };
-
 // exports.getOrders = (req, res, next) => {
 //     req.user
 //         // truy cap bang product trong cart (1 user co nhieu ORDER)
@@ -201,7 +242,6 @@ exports.getRegister = (req, res, next) => {
 exports.searchProduct = (req, res, next) => {
     var namep = req.body.search;
     //var regex = RegExp(".*" + namep + ".*");
-
     Product.find({
             name: {
                 $regex: namep,
@@ -218,7 +258,6 @@ exports.searchProduct = (req, res, next) => {
             //         price: namep
             //     }
             // ]
-
         })
         .then(products => {
             res.render('shop/search', {
