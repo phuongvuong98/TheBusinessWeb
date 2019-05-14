@@ -109,10 +109,31 @@ exports.getProducts = (req, res, next) => {
 };
 
 exports.getAddProduct = (req, res, next) => {
-  res.render("admin/product-edit", {
-    pageTitle: "ADD PRODUCT",
-    editing: false
-});
+  const list_cate = [];
+  Product.find().exec(function(err, data){
+    
+    for (var product of data){
+      var check = true;
+      for( var x of list_cate){
+        if(x == product.category){
+          check = false;
+          break;
+        }
+      }
+      if(check == true){
+        list_cate.push(product.category);
+        //console.log(list_cate.length);
+      }
+    
+    }
+    res.render("admin/product-edit", {
+      pageTitle: "ADD PRODUCT",
+      editing: false,
+      list_cate: list_cate
+    });
+    //console.log(list_cate.length);
+  });
+  
 };
 
 exports.postAddProduct = (req, res, next) => {
@@ -159,11 +180,34 @@ exports.getEditProduct = (req, res, next) => {
       if (!product) {
         return res.redirect('/admin/products');
       }
-      res.render('admin/product-edit', {
-        pageTitle: 'EDIT PRODUCT',
+      Product.find().exec(function(err, data){
+        const list_cate = [];
+        for (var pro of data){
+          var check = true;
+          for( var x of list_cate){
+            if((x == pro.category)){
+              check = false;
+              break;
+            }
+          }
+          if(check == true){
+            list_cate.push(pro.category);
+            //console.log(list_cate.length);
+          }
+          
+        }
+        list_cate.splice(list_cate.indexOf(product.category), 1);
+        //console.log(list_cate.length);
+        res.render("admin/product-edit", {
+        pageTitle: "EDIT PRODUCT",
         editing: editMode,
-        product: product
+        product: product,
+        list_cate: list_cate
+        });
+        
+        //console.log(list_cate.length);
       });
+      
     })
     .catch(err => {
 			console.log("TCL: exports.getEditProduct -> err", err)  
