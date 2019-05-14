@@ -60,7 +60,7 @@ exports.postEditUser = (req, res, next) => {
     user.address = addressUp;
     user.delete_at = delete_atUp;
     user.update_at = Date();
-
+    
     if (image) {
       user.imageUrl = "/" + image.path;
     } else {

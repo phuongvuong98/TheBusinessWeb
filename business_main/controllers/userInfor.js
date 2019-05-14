@@ -13,15 +13,20 @@ exports.getChangePassword = (req, res, next) => {
     return res.render('shop/account', {
         path: '/account',
         pageTitle: 'Your Information',
-        errorMessage: message
+        errorMessage: message,
+        user: req.user
     });
 };
 
 exports.postChangePassword = (req, res, next) => {
+    console.log("AHIHI");
     const password = req.body.oldpass;
     const newpass = req.body.newpass;
     const renewpass = req.body.renewpass;
     const kindChange = req.body.kindChange;
+    const image = req.file;
+		console.log("TCL: exports.postChangePassword -> image", image)
+    
     if (kindChange.includes("pw")){
     const email = req.body.email;
       User.findOne({ email: email })
@@ -97,6 +102,13 @@ exports.postChangePassword = (req, res, next) => {
     user.phone = phone;
     user.birthday = birthday;
     user.email = email;
+
+    if (image) {
+      user.imageUrl = "/" + image.path;
+    } else {
+      user.imageUrl = "https://ucarecdn.com/5d276379-552f-4a08-97e7-744a15f71477/ava.png";
+    }
+
     user.save();
     return res.redirect('/account');
     

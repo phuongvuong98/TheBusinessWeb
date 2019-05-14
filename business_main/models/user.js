@@ -26,8 +26,21 @@ const userSchema = new Schema({
     require: true
   },
   commentBox: {
-    //items: [{productId:"sss",comment:"huhu"}]
-    items: []
+    items: [
+      {
+        productId: {
+          type: Schema.Types.ObjectId,
+          ref: 'Product',
+          required: true
+        },
+        stars:{
+          type: Number
+        },
+        commentlist: [{
+          type: String
+        } ]      
+      }
+    ] ////7777777777777777777777777777777777777777777777777777777777777777
   },
   imageUrl: {
     type: String
@@ -94,57 +107,41 @@ userSchema.methods.addToCart = function(product, newQuantity) {
   return this.save();
 };
 
-userSchema.methods.updateCart = function(newCouple) {
-  var updatedCartItems = [...this.cart.items]; // Change const -> var to change value index
-  var newSum = 0;
-  Product.find()
-  .then(products => {
-    updatedCartItems.forEach((element, index) => {
-      products.forEach(item => {
-        if (item._id.toString() == updatedCartItems[index].productId.toString()) {
-          for (let i = 0; i < newCouple.length; i++) {
-            if (newCouple[i].productId.toString() == updatedCartItems[index].productId.toString()) {
-              updatedCartItems[index].quantity = newCouple[i].newQuantity;
-              newSum = newSum + parseFloat(item.price) * parseFloat(newCouple[i].newQuantity);
-              console.log("BenTrong: userSchema.methods.updateCart -> newSum", newSum);  
-            }
-          }
-        }
-      })
-    });
-    return newSum;
-  })
-  .then(newSum => {
-    console.log("Final: userSchema.methods.updateCart -> newSum", newSum);
-    const updatedCart = {
-      items: updatedCartItems,
-      sum: newSum
-    };
-    console.log("Object cart: ");
-    console.log(JSON.stringify(updatedCart))
-    this.cart = updatedCart;
-    return this.save();
-  })
 
-};
+userSchema.methods.addToComment = function (product, comment, ratting) {
+  
+  const userCommentList = this.commentBox.items.findIndex(cp => {
+  return cp.productId.toString() === product._id.toString();
+  });
+  console.log(comment, ratting);
+  const updateComment = [...this.commentBox.items];
+  //console.log("​updateComment", updateComment);
 
-// Order product, complete save product from cart to order
-userSchema.methods.orderProduct = function() {
-  let itemsCart = JSON.parse(JSON.stringify(this.cart));
-  // let productOrder = this.productOrder
-  this.productOrder.unshift(itemsCart);
-  // console.log(productOrder);
-  // this.productOrder = productOrder;
-  this.cart = {
-    items: [],
-    sum: 0
-  };
-  console.log("[USER MODEL] productOrder and cart: ");
-  console.log(this.productOrder);
-  console.log(this.cart);
+    if (userCommentList >= 0) {
+      console.log("kkkk", comment);
+      this.commentBox.items[userCommentList].commentlist.push(comment);
+			console.log("​userSchema.methods.addToComment -> this.commentBox.items[userCommentList].commentlist", this.commentBox.items[userCommentList].commentlist);
+      var temp = this.commentBox.items[userCommentList].commentlist;
+			console.log("​userSchema.methods.addToComment -> temp", temp);
+			console.log("​userSchema.methods.addToComment -> comment", comment);
+		  //console.log("​userSchema.methods.addToComment -> this.commentBox.items[userCommentList].commentlist", this.commentBox.items[userCommentList].commentlist);
+      updateComment[userCommentList].commentlist = temp;
+			//console.log("​userSchema.methods.addToComment -> updateComment", updateComment);
+			//console.log("​userSchema.methods.addToComment -> comment", comment);
+    } else {
+      updateComment.push({
+        productId: product._id,
+        stars: ratting,
+        commentlist: [comment]
+      });
+    }
+
+
+  //console.log("​updateComment", updateComment);
+  this.commentBox.items = updateComment;
+
+
   return this.save();
-
 };
-
-
 module.exports = mongoose.model("User", userSchema);
+

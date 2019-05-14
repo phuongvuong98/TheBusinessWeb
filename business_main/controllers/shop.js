@@ -1,5 +1,5 @@
 const Product = require("../models/product");
-
+const User = require("../models/user");
 exports.getProducts = (req, res, next) => {
     Product.find()
     .then(products => {
@@ -19,22 +19,27 @@ exports.getProducts = (req, res, next) => {
 exports.getProduct = (req, res, next) => {
     const productId = req.params.productId;
     console.log("[GET DETAILED PRODUCT]:", productId);
-
-    Product.find()
-    .then(products => {
-        Product.findById(productId)
-        .then((product) => {
-            console.log("Get product successfully");
-            res.render("shop/product-detail", {
-                product: product,
-                products: products,
-                pageTitle: product.title,
-                path: "/products"
-            });
-        })
-        .catch(err => {
-            console.log(err)
-        });
+    User.find()
+    .then(users => {
+        Product.find()
+            .then(products => {
+                Product.findById(productId)
+                    .then((product) => {
+                        
+                        console.log("Get product sucessfully");
+                        res.render("shop/product-detail", {
+                            product: product,
+                            products: products,
+                            pageTitle: product.title,
+                            path: "/products",
+                            users: users,
+                            userr: req.user
+                        });
+                    })
+                    .catch(err => {
+                        console.log(err)
+                    });
+            })
     })
     .catch(err => {
         console.log(err);
@@ -215,3 +220,24 @@ exports.searchProduct = (req, res, next) => {
             console.log(err);
         });
 };
+
+exports.getComment = (req, res, next) => {
+    var ratting = req.body.rating;
+    var comment = req.body.review;
+    var pid = req.params.productId;
+    Product.findById(pid)
+        .then(product => {  
+            return req.user.addToComment(product, comment, ratting);
+            
+        })
+        .then(result => {
+            res.redirect("/products/"+pid);
+        });
+        
+};
+
+// exports.printComment = (req, res, next) => {
+//     res.render( "/shop/product-detail", {
+//         user11: "Chong duc anh"
+//     });
+// };

@@ -40,4 +40,8 @@ router.get("/register", shopController.getRegister);
 
 router.post("/search", shopController.searchProduct);
 
+router.post("/products/:productId", shopController.getComment);
+
+// router.get("/product-detail", shopController.printComment);
+
 module.exports = router;
