@@ -5,7 +5,10 @@ const Schema = mongoose.Schema;
 const ProductSchema = new Schema({
   name: String,
   category: String,
-  imageUrl: String,
+  imageUrl: {
+    type: String,
+    default: "https://ucarecdn.com/5d276379-552f-4a08-97e7-744a15f71477/ava.png"
+  },
   price: Number,
   size: [],
   description: String,

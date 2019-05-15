@@ -78,7 +78,7 @@ exports.getCart = (req, res, next) => {
           pageTitle: "Your Cart",
           products: products,
           sum: user.cart.sum,
-          userr: req.user
+          userr: null
         });
       })
       .catch(err => console.log(err));
