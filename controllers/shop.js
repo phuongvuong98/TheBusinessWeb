@@ -77,7 +77,8 @@ exports.getCart = (req, res, next) => {
           path: "/cart",
           pageTitle: "Your Cart",
           products: products,
-          sum: user.cart.sum
+          sum: user.cart.sum,
+          userr: req.user
         });
       })
       .catch(err => console.log(err));
@@ -175,21 +176,24 @@ exports.postUpdateCart = (req, res, next) => {
 exports.getBlog = (req, res, next) => {
     res.render("shop/blog", {
         path: "/blog",
-        pageTitle: "Blog"
+        pageTitle: "Blog",
+        userr: null
     });
 };
 
 exports.getAbout = (req, res, next) => {
     res.render("shop/about", {
         path: "/about",
-        pageTitle: "About us"
+        pageTitle: "About us",
+        userr: null
     });
 };
 
 exports.getContact = (req, res, next) => {
     res.render("shop/contact", {
         path: "/contact",
-        pageTitle: "Contact us"
+        pageTitle: "Contact us",
+        userr: null
     });
 };
 
