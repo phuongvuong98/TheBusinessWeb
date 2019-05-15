@@ -31,7 +31,8 @@ exports.getWomen = (req, res, next) => {
             pageTitle: "Women",
             products: newProd,
             kind: "women",
-            kindFilter: [""]
+            kindFilter: [""],
+            userr: null
         });
     })
     .catch(err => {
@@ -61,7 +62,8 @@ exports.postWomen = (req, res, next) => {
                 pageTitle: "Women",
                 products: newProd,
                 kind: "women",
-                kindFilter: kindFilter
+                kindFilter: kindFilter,
+                userr: null
             });
         })
         .catch(err => {
@@ -78,7 +80,8 @@ exports.getMen = (req, res, next) => {
             pageTitle: "Men",
             products: newProd,
             kind: "men",
-            kindFilter: [""]
+            kindFilter: [""],
+            userr: null
         });
     })
     .catch(err => {
@@ -105,7 +108,8 @@ exports.postMen = (req, res, next) => {
                 pageTitle: "Men",
                 products: newProd,
                 kind: "men",
-                kindFilter: kindFilter
+                kindFilter: kindFilter,
+                userr: null
             });
         })
         .catch(err => {
@@ -149,7 +153,8 @@ exports.postBag = (req, res, next) => {
                 pageTitle: "Bag",
                 products: newProd,
                 kind: "bag",
-                kindFilter: kindFilter
+                kindFilter: kindFilter,
+                userr: null
             });
         })
         .catch(err => {
@@ -166,7 +171,8 @@ exports.getShoes = (req, res, next) => {
             pageTitle: "Shoes",
             products: newProd,
             kind: "shoes",
-            kindFilter: [""]
+            kindFilter: [""],
+            userr: null
         });
     })
     .catch(err => {
@@ -193,7 +199,8 @@ exports.postShoes = (req, res, next) => {
                 pageTitle: "Shoes",
                 products: newProd,
                 kind: "shoes",
-                kindFilter: kindFilter
+                kindFilter: kindFilter,
+                userr: null
             });
         })
         .catch(err => {
@@ -210,7 +217,8 @@ exports.getWatches = (req, res, next) => {
             pageTitle: "Watches",
             products: newProd,
             kind: "watches",
-            kindFilter: [""]
+            kindFilter: [""],
+            userr: null
         });
     })
     .catch(err => {
@@ -237,7 +245,8 @@ exports.postWatches = (req, res, next) => {
                 pageTitle: "Watches",
                 products: newProd,
                 kind: "watches",
-                kindFilter: kindFilter
+                kindFilter: kindFilter,
+                userr: null
             });
         })
         .catch(err => {
