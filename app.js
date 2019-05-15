@@ -24,7 +24,7 @@ const store = new MongoDBStore({
 // chinh image dc luu trong server va ten cua no
 const fileStorage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, 'images');
+    cb(null, express.static(path.join(__dirname, 'images')));
   },
   filename: (req, file, cb) => {
     cb(null, new Date().toISOString() + '-' + file.originalname);
