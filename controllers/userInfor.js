@@ -14,7 +14,8 @@ exports.getChangePassword = (req, res, next) => {
         path: '/account',
         pageTitle: 'Your Information',
         errorMessage: message,
-        user: req.user
+        user: req.user,
+        userr: null
     });
 };
 
