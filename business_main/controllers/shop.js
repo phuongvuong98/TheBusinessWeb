@@ -1,18 +1,19 @@
 const Product = require("../models/product");
 const User = require("../models/user");
 exports.getProducts = (req, res, next) => {
-    Product.find()
+ Product.find()
     .then(products => {
-      res.render('shop/products', {
-        products: products,
-        pageTitle: 'All Products',
-        path: '/products',
-        kind: "all",
-        kindFilter: []
-      });
+            res.render('shop/products', {
+            products: products,
+            userr: req.user,
+            pageTitle: 'All Products',
+            path: '/products',
+            kind: "all",
+            kindFilter: []
+       });
     })
     .catch(err => {
-      console.log(err);
+         console.log(err);
     });
 };
 
@@ -37,30 +38,32 @@ exports.getProduct = (req, res, next) => {
                         });
                     })
                     .catch(err => {
-                        console.log(err)
+                        console.log(err);
                     });
-            })
+            });
     })
     .catch(err => {
         console.log(err);
-    })
+    });
 };
 
 exports.getIndex = (req, res, next) => {
-    Product.find()
-    .then(products => {
-      //console.log(products);
-      res.render('shop/index', {
-        products: products,
-        pageTitle: 'Shop',
-        path: '/',
-        kind: "all",
-        kindFilter: []
-      });
-    })
-    .catch(err => {
-      console.log(err);
-    });
+            Product.find()
+            .then(products => {
+            //console.log(products);
+            res.render('shop/index', {
+                products: products,
+                userr: req.user,
+                pageTitle: 'Shop',
+                path: '/',
+                kind: "all",
+                kindFilter: []
+            });
+            })
+            .catch(err => {
+            console.log(err);
+            });
+        
 };
 
 exports.getCart = (req, res, next) => {
@@ -236,8 +239,4 @@ exports.getComment = (req, res, next) => {
         
 };
 
-// exports.printComment = (req, res, next) => {
-//     res.render( "/shop/product-detail", {
-//         user11: "Chong duc anh"
-//     });
-// };
+
