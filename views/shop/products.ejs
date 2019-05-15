@@ -3,7 +3,7 @@
 	<%- include('../includes/header.ejs') %>
 	<%- include('../includes/cart-r-side.ejs') %>		
 	
-	<%- include('../includes/product.ejs', {products: products}) %>
+	<%- include('../includes/product.ejs', {products: products, userr: userr}) %>
 	<%- include('../includes/footer.ejs') %>			
 
 	<!-- Back to top -->
@@ -13,5 +13,5 @@
 		</span>
 	</div>
 	
-	<%- include('../includes/modal.ejs') %>
+	<%- include('../includes/modal.ejs', {userr: userr}) %>
 <%- include('../includes/end.ejs') %>
