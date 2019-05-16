@@ -18,7 +18,7 @@ exports.getLogin = (req, res, next) => {
         path: '/login',
         pageTitle: 'Login',
         errorMessage: message,
-        userr: req.user
+        userr: null
     });
 };
 
@@ -32,7 +32,8 @@ exports.getSignup = (req, res, next) => {
     res.render('auth/signup', {
         path: '/signup',
         pageTitle: 'Sign up',
-        errorMessage: message
+        errorMessage: message,
+        userr: null
     });
 };
 
@@ -136,12 +137,13 @@ exports.getForgot = (req, res, next) => {
   } else {
       message = null;
   }
-  return res.session.save(err => {
+  return req.session.save(err => {
     console.log(err);
     res.render('auth/forgot', {
       path: '/forgot',
       pageTitle: 'Forgot your password',
-      errorMessage: message
+      errorMessage: message,
+      userr: null
   });
   })
 };
@@ -157,7 +159,8 @@ exports.getVerify = (req, res, next) => {
   res.render('auth/verify', {
       path: '/verify',
       pageTitle: 'Verify Code',
-      errorMessage: message
+      errorMessage: message,
+      userr: null
   });
 };
 
@@ -224,7 +227,8 @@ exports.getReset = (req, res, next) => {
   res.render('auth/reset', {
       path: '/reset',
       pageTitle: 'Reset Your Password',
-      errorMessage: message
+      errorMessage: message,
+      userr: null
   });
 };
 
@@ -257,7 +261,8 @@ exports.getUpdatePass = (req, res, next) => {
   res.render('auth/login', {
       path: '/login',
       pageTitle: 'Login',
-      errorMessage: message
+      errorMessage: message,
+      userr: null
   });
 };
 exports.postUpdatePass = (req, res, next) => {

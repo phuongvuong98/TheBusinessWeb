@@ -200,7 +200,8 @@ exports.getContact = (req, res, next) => {
 exports.getRegister = (req, res, next) => {
     res.render("shop/register", {
         path: "/register",
-        pageTitle: "Rigister"
+        pageTitle: "Register",
+        userr: null
     });
 };
 
@@ -220,7 +221,8 @@ exports.searchProduct = (req, res, next) => {
                 pageTitle: 'Result of ' + namep,
                 path: '/products',
                 kind: "all",
-                kindFilter: []
+                kindFilter: [],
+                userr: null
             });
         })
         .catch(err => {

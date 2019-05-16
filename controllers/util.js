@@ -126,7 +126,8 @@ exports.getBag = (req, res, next) => {
             pageTitle: "Bag",
             products: newProd,
             kind: "bag",
-            kindFilter: [""]
+            kindFilter: [""],
+            userr: null
         });
     })
     .catch(err => {
