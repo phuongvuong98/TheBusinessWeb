@@ -2,10 +2,6 @@ const User = require("../models/user");
 
 const bcrypt = require("bcryptjs");
 
-var nodemailer = require('nodemailer');
-
-var rn = require('random-number');
-
 exports.getLogin = (req, res, next) => {
     // message duoc lay trong flash
     let message = req.flash('error');
@@ -17,8 +13,7 @@ exports.getLogin = (req, res, next) => {
     res.render('auth/login', {
         path: '/login',
         pageTitle: 'Login',
-        errorMessage: message,
-        userr: null
+        errorMessage: message
     });
 };
 
@@ -32,8 +27,7 @@ exports.getSignup = (req, res, next) => {
     res.render('auth/signup', {
         path: '/signup',
         pageTitle: 'Sign up',
-        errorMessage: message,
-        userr: null
+        errorMessage: message
     });
 };
 
@@ -73,10 +67,7 @@ exports.postLogin = (req, res, next) => {
             });
           }
           req.flash('error', 'Invalid email or password.');
-          return req.session.save(err => {
-            console.log(err);
-            res.redirect('/login');
-          })
+          res.redirect('/login');
         })
         .catch(err => {
           console.log(err);
@@ -115,8 +106,7 @@ exports.postSignup = (req, res, next) => {
           const user = new User({
             email: email,
             password: hashedPassword,
-            cart: { items: [],
-            imageUrl: "https: //ucarecdn.com/5d276379-552f-4a08-97e7-744a15f71477/ava.png" }
+            cart: { items: [] }
           });
           return user.save();
         })
@@ -127,172 +117,4 @@ exports.postSignup = (req, res, next) => {
     .catch(err => {
       console.log(err);
     });
-};
-
-exports.getForgot = (req, res, next) => {
-  // message duoc lay trong flash
-  let message = req.flash('error');
-  if (message.length > 0) {
-      message = message[0];
-  } else {
-      message = null;
-  }
-  return req.session.save(err => {
-    console.log(err);
-    res.render('auth/forgot', {
-      path: '/forgot',
-      pageTitle: 'Forgot your password',
-      errorMessage: message,
-      userr: null
-  });
-  })
-};
-
-exports.getVerify = (req, res, next) => {
-  // message duoc lay trong flash
-  let message = req.flash('error');
-  if (message.length > 0) {
-      message = message[0];
-  } else {
-      message = null;
-  }
-  res.render('auth/verify', {
-      path: '/verify',
-      pageTitle: 'Verify Code',
-      errorMessage: message,
-      userr: null
-  });
-};
-
-exports.postVerify = (req, res, next)=>{
-  const email = req.body.email;
-  req.session.email = email;
-  User.findOne({ email: email })
-  .then(user => {
-    if (!user) {
-      console.log(1);
-      console.log(req.flash('error'));  
-      req.flash('error', 'Invalid email');
-      return res.redirect('/forgot');
-    }
-    var gen = rn.generator({
-      min:  100000
-    , max:  999999
-    , integer: true
-    })
-    const code = gen();
-    req.session.codeVerify = code;
-    //user.codeVerify = code;
-    //console.log(user.c);
-    //user.save();
-      var transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-          user: 'supergogetavegito@gmail.com',
-          pass: 'gokukamehameha'
-        }
-      });
-      var mailOptions = {
-        to: user.email,
-        from: 'supergogetavegito@gmail.com',
-        subject: 'Node.js Password Reset',
-        text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
-          'Please enter your code: ' + code + '\n' +
-          'If you did not request this, please ignore this email and your password will remain unchanged.\n'
-      };
-      transporter.sendMail(mailOptions, function(err) {
-        if (err) {
-          console.log(err);
-        } else {
-          console.log('Email sent: ' + email);
-          
-          res.redirect('/verify');
-        }
-        
-      });
-    
-  }
-  )
-  .catch(err => console.log(err));
-};
-
-exports.getReset = (req, res, next) => {
-  // message duoc lay trong flash
-  let message = req.flash('error');
-  if (message.length > 0) {
-      message = message[0];
-  } else {
-      message = null;
-  }
-  res.render('auth/reset', {
-      path: '/reset',
-      pageTitle: 'Reset Your Password',
-      errorMessage: message,
-      userr: null
-  });
-};
-
-exports.postReset = (req, res, next) => {
-  // huy session khi user dang xuat
-  const code1 = req.body.verifyCode;
-  const code2 = req.session.codeVerify;
-  const email = req.session.email;
-
-  //const password = req.body.password;
-  //console.log(req.session.codeVerify);
-    User.findOne({ email: email })
-    .then(user => {
-      if(code1 == code2){
-        res.redirect('/reset');
-      }
-      else{
-        console.log(req.flash('error'));  
-        req.flash('error', 'Invalid code');
-        return res.redirect('/verify');
-      }
-      
-    })
-  
-};
-
-exports.getUpdatePass = (req, res, next) => {
-  // message duoc lay trong flash
-  
-  res.render('auth/login', {
-      path: '/login',
-      pageTitle: 'Login',
-      errorMessage: message,
-      userr: null
-  });
-};
-exports.postUpdatePass = (req, res, next) => {
-  //const email2 = req.body.email2;
-  const newpass = req.body.password;
-  const renewpass = req.body.confirmPassword;
-  const email = req.session.email;
-  User.findOne({ email: email })
-  .then(user => {
-    if (newpass != renewpass){
-      console.log(1);
-      console.log(req.flash('error'));  
-      req.flash('error', "Password don't match confirmation!");
-      return res.session.save(err => {
-        console.log(err);
-        res.redirect('/reset');
-      });
-    }
-    if (newpass == renewpass){
-      return bcrypt
-            .hash(newpass, 12)
-            .then(hashedPassword => {
-              user.password = hashedPassword;
-            return user.save();
-      })
-      .then(result => {
-        res.redirect("/login");
-      });
-    }
-  })
-  .catch(err => console.log(err));
-
 };

@@ -8,29 +8,29 @@ const isAuth = require('../middleware/is-auth');
 
 const router = express.Router();
 
-router.get("/", isAuth ,adminController.getIndex);
+router.get("/", adminController.getIndex);
 
-router.get("/users", isAuth, adminController.getUser);
+router.get("/users", adminController.getUser);
 
-router.get("/edit-user/:userId", isAuth,  adminController.getEditUser);
+router.get("/edit-user/:userId", adminController.getEditUser);
 
-router.post("/edit-user", isAuth,  adminController.postEditUser);
+router.post("/edit-user", adminController.postEditUser);
 
-router.post("/deleteUser", isAuth,  adminController.postDeleteUser);
+router.post("/deleteUser", adminController.postDeleteUser);
 
-router.get("/products", isAuth,  adminController.getProducts);
+router.get("/products", adminController.getProducts);
 
-router.get("/add-product", isAuth,  adminController.getAddProduct);
+router.get("/add-product", adminController.getAddProduct);
 
-router.post("/add-product", isAuth,  adminController.postAddProduct);
+router.post("/add-product", adminController.postAddProduct);
 
-router.get("/edit-product/:productId", isAuth,  adminController.getEditProduct);
+router.get("/edit-product/:productId", adminController.getEditProduct);
 
-router.post("/edit-product", isAuth,  adminController.postEditProduct);
+router.post("/edit-product", adminController.postEditProduct);
 
-router.post("/delete-product", isAuth,  adminController.postDeleteProduct);
+router.post("/delete-product", adminController.postDeleteProduct);
 
-router.get("/orders", isAuth,  adminController.getOrders);
+router.get("/orders", adminController.getOrders);
 
 // router.get('/products', adminController.getProducts);
 
