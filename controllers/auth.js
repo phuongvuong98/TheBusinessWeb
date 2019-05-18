@@ -13,7 +13,8 @@ exports.getLogin = (req, res, next) => {
     res.render('auth/login', {
         path: '/login',
         pageTitle: 'Login',
-        errorMessage: message
+        errorMessage: message,
+        userr: null
     });
 };
 
@@ -27,7 +28,8 @@ exports.getSignup = (req, res, next) => {
     res.render('auth/signup', {
         path: '/signup',
         pageTitle: 'Sign up',
-        errorMessage: message
+        errorMessage: message,
+        userr: null
     });
 };
 
