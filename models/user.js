@@ -196,4 +196,3 @@ userSchema.methods.addToComment = function (product, comment, ratting) {
   return this.save();
 };
 module.exports = mongoose.model("User", userSchema);
-
