@@ -116,14 +116,21 @@ exports.postCart = (req, res, next) => {
 exports.postUpdateCart = (req, res, next) => {    
     const btnUpdateCart = req.body.btnUpdateCart;
     const btnCheckout = req.body.btnCheckout;
-
-    const newQuantityArr = req.body.productNum;
-    const productIdArr = req.body.productId;
+    var newQuantityArr = [];
+    var productIdArr = [];
+    if (typeof req.body.productId == 'string') {
+        newQuantityArr = req.body.productNum.split(",");
+        productIdArr = req.body.productId.split(",");
+    } else {
+        newQuantityArr = req.body.productNum;
+        productIdArr = req.body.productId;
+    }
 
     console.log("Update cart and checkout");
     console.log(btnUpdateCart);
     console.log(btnCheckout);
-    console.log(newQuantityArr);
+
+    console.log(productIdArr);
     console.log(newQuantityArr);
 
     let newCouple = [];

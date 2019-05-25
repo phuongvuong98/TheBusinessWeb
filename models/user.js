@@ -90,7 +90,7 @@ userSchema.methods.addToCart = function(product, newQuantity) {
   const updatedCartItems = [...this.cart.items];
 
   if (cartProductIndex >= 0) {
-    newQuantity = this.cart.items[cartProductIndex].quantity + newQuantity;
+    newQuantity = parseFloat(this.cart.items[cartProductIndex].quantity) + parseFloat(newQuantity);
     updatedCartItems[cartProductIndex].quantity = newQuantity;
   } else {
     updatedCartItems.push({
