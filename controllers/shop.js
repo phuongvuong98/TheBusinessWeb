@@ -48,21 +48,21 @@ exports.getProduct = (req, res, next) => {
 };
 
 exports.getIndex = (req, res, next) => {
-            Product.find()
-            .then(products => {
-            //console.log(products);
-            res.render('shop/index', {
-                products: products,
-                userr: req.user,
-                pageTitle: 'Shop',
-                path: '/',
-                kind: "all",
-                kindFilter: []
-            });
-            })
-            .catch(err => {
-            console.log(err);
-            });
+    Product.find()
+    .then(products => {
+    //console.log(products);
+    res.render('shop/index', {
+        products: products,
+        userr: req.user,
+        pageTitle: 'Shop',
+        path: '/',
+        kind: "all",
+        kindFilter: []
+    });
+    })
+    .catch(err => {
+    console.log(err);
+    });
         
 };
 
@@ -78,7 +78,7 @@ exports.getCart = (req, res, next) => {
           pageTitle: "Your Cart",
           products: products,
           sum: user.cart.sum,
-          userr: null
+          userr: req.user
         });
       })
       .catch(err => console.log(err));
@@ -177,7 +177,7 @@ exports.getBlog = (req, res, next) => {
     res.render("shop/blog", {
         path: "/blog",
         pageTitle: "Blog",
-        userr: null
+        userr: req.user
     });
 };
 
@@ -185,7 +185,7 @@ exports.getAbout = (req, res, next) => {
     res.render("shop/about", {
         path: "/about",
         pageTitle: "About us",
-        userr: null
+        userr: req.user
     });
 };
 
@@ -193,7 +193,7 @@ exports.getContact = (req, res, next) => {
     res.render("shop/contact", {
         path: "/contact",
         pageTitle: "Contact us",
-        userr: null
+        userr: req.user
     });
 };
 
@@ -201,7 +201,7 @@ exports.getRegister = (req, res, next) => {
     res.render("shop/register", {
         path: "/register",
         pageTitle: "Register",
-        userr: null
+        userr: req.user
     });
 };
 
@@ -222,7 +222,7 @@ exports.searchProduct = (req, res, next) => {
                 path: '/products',
                 kind: "all",
                 kindFilter: [],
-                userr: null
+                userr: req.user
             });
         })
         .catch(err => {

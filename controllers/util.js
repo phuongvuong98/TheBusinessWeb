@@ -32,7 +32,7 @@ exports.getWomen = (req, res, next) => {
             products: newProd,
             kind: "women",
             kindFilter: [""],
-            userr: null
+            userr: req.user
         });
     })
     .catch(err => {
@@ -63,7 +63,7 @@ exports.postWomen = (req, res, next) => {
                 products: newProd,
                 kind: "women",
                 kindFilter: kindFilter,
-                userr: null
+                userr: req.user
             });
         })
         .catch(err => {
@@ -81,7 +81,7 @@ exports.getMen = (req, res, next) => {
             products: newProd,
             kind: "men",
             kindFilter: [""],
-            userr: null
+            userr: req.user
         });
     })
     .catch(err => {
@@ -109,7 +109,7 @@ exports.postMen = (req, res, next) => {
                 products: newProd,
                 kind: "men",
                 kindFilter: kindFilter,
-                userr: null
+                userr: req.user
             });
         })
         .catch(err => {
@@ -127,7 +127,7 @@ exports.getBag = (req, res, next) => {
             products: newProd,
             kind: "bag",
             kindFilter: [""],
-            userr: null
+            userr: req.user
         });
     })
     .catch(err => {
@@ -155,7 +155,7 @@ exports.postBag = (req, res, next) => {
                 products: newProd,
                 kind: "bag",
                 kindFilter: kindFilter,
-                userr: null
+                userr: req.user
             });
         })
         .catch(err => {
@@ -173,7 +173,7 @@ exports.getShoes = (req, res, next) => {
             products: newProd,
             kind: "shoes",
             kindFilter: [""],
-            userr: null
+            userr: req.user
         });
     })
     .catch(err => {
@@ -201,7 +201,7 @@ exports.postShoes = (req, res, next) => {
                 products: newProd,
                 kind: "shoes",
                 kindFilter: kindFilter,
-                userr: null
+                userr: req.user
             });
         })
         .catch(err => {
@@ -219,7 +219,7 @@ exports.getWatches = (req, res, next) => {
             products: newProd,
             kind: "watches",
             kindFilter: [""],
-            userr: null
+            userr: req.user
         });
     })
     .catch(err => {
@@ -247,7 +247,7 @@ exports.postWatches = (req, res, next) => {
                 products: newProd,
                 kind: "watches",
                 kindFilter: kindFilter,
-                userr: null
+                userr: req.user
             });
         })
         .catch(err => {

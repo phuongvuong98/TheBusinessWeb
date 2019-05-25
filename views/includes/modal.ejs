@@ -1,18 +1,4 @@
 <!-- Modal1 -->
-<!-- <script>
-	$(datasend).click(function(){
-	$.post("http://localhost:3000/modal",
-	{
-	name: document.getElementById("data1").value(),
-	price: document.getElementById("data2").value()
-	},
-	function(data, status){
-		document.getElementById("indata1").innerHTML = name,
-		document.getElementById("indata2").innerHTML = price
-	});
-	});
-</script> -->
-
 <script>
 	function showdata(a, b, c, d, productId) {
 		// var x = "https://i.pximg.net/img-master/img/2016/04/16/20/46/13/56380673_p0_master1200.jpg";
@@ -21,6 +7,7 @@
 		document.getElementById("indata2").innerHTML = b;
 		document.getElementById("indata3").innerHTML = c;
 		document.getElementById("indata4").src = link;
+		document.getElementById("indata5").href = link;
 		$("#productQuantity").val(1);
 		$("#productId").val(productId);
 	}
@@ -47,7 +34,7 @@
 										<img src="/images/product-detail-01.jpg" id="indata4" alt="IMG-PRODUCT">
 
 										<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04"
-											href="/images/product-detail-01.jpg">
+											href="/images/product-detail-01.jpg" id="indata5">
 											<i class="fa fa-expand"></i>
 										</a>
 									</div>
@@ -180,26 +167,26 @@
 						<!--  -->
 						<div class="flex-w flex-m p-l-100 p-t-40 respon7">
 							<div class="flex-m bor9 p-r-10 m-r-11">
-								<a href="#"
+								<!-- <a href="#"
 									class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 js-addwish-detail tooltip100"
 									data-tooltip="Add to Wishlist">
 									<i class="zmdi zmdi-favorite"></i>
-								</a>
+								</a> -->
 							</div>
 
 							<a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100"
 								data-tooltip="Facebook">
-								<i class="fa fa-facebook"></i>
+								<i class="zmdi zmdi-facebook" style="font-size: 120%;"></i>
 							</a>
 
 							<a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100"
 								data-tooltip="Twitter">
-								<i class="fa fa-twitter"></i>
+								<i class="zmdi zmdi-twitter" style="font-size: 120%;"></i>
 							</a>
 
 							<a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100"
 								data-tooltip="Google Plus">
-								<i class="fa fa-google-plus"></i>
+								<i class="zmdi zmdi-google-plus" style="font-size: 120%;"></i>
 							</a>
 						</div>
 					</div>

@@ -15,7 +15,7 @@ exports.getChangePassword = (req, res, next) => {
         pageTitle: 'Your Information',
         errorMessage: message,
         user: req.user,
-        userr: null
+        userr: req.user
     });
 };
 
@@ -41,22 +41,21 @@ exports.postChangePassword = (req, res, next) => {
           res.redirect('/account');
         })
       }
-      if (newpass != renewpass){
-        console.log(1);
-        console.log(req.flash('error'));  
-        req.flash('error', "Password don't match confirmation!");
-        return req.session.save(err => {
-          console.log(err);
-          res.redirect('/account');
-        });
-      }
+      
       bcrypt
         .compare(password, user.password)
         .then(doMatch => {
              
           if (doMatch) {
-            req.session.errM = false;
-            req.session.errP = false;
+            if (newpass != renewpass){
+              console.log(1);
+              console.log(req.flash('error'));  
+              req.flash('error', "Password don't match confirmation!");
+              return req.session.save(err => {
+                console.log(err);
+                res.redirect('/account');
+              });
+            }
             req.session.isLoggedIn = true;
             req.session.user = user;
             return bcrypt
