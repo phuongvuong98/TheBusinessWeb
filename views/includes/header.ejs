@@ -18,8 +18,10 @@
 								Sign Up
 							</a>
 						<% } else { %>
-							<a href="/admin" class="flex-c-m trans-04 p-lr-25 translate">
-							Admin</a>
+							
+							<% if(userr.role == "admin"){ %>
+								<a href="/admin" class="flex-c-m trans-04 p-lr-25 translate">Admin</a>
+							<% } %>
 							<form action="/logout" method="POST">
 								<button type="submit" class="flex-c-m trans-04 p-lr-25 translate form-in-a active-top">
 									Logout
@@ -30,7 +32,6 @@
 							<% if(userr){ %>
 								<%= userr.email.substring(0, userr.email.lastIndexOf("@")) %>
 							<% } %>
-							
 						</a>
 						<% } %>
 
