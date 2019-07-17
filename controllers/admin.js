@@ -12,7 +12,8 @@ exports.getUser = (req, res, next) => {
   User.find()
   .then(users => {
     //console.log(users);
-    res.render("admin/user-list", {
+    users = users.filter(u => u.delete_at == undefined);
+    return res.render("admin/user-list", {
       pageTitle: "ALL USERS",
       users: users
   });

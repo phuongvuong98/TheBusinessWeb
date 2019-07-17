@@ -3,7 +3,9 @@ const User = require("../models/user");
 exports.getProducts = (req, res, next) => {
  Product.find()
     .then(products => {
-            res.render('shop/products', {
+            products = products.filter(p => p.delete_at == undefined);
+            console.log(products);
+            return res.render('shop/products', {
             products: products,
             userr: req.user,
             pageTitle: 'All Products',
@@ -50,15 +52,17 @@ exports.getProduct = (req, res, next) => {
 exports.getIndex = (req, res, next) => {
     Product.find()
     .then(products => {
-    //console.log(products);
-    res.render('shop/index', {
-        products: products,
-        userr: req.user,
-        pageTitle: 'Shop',
-        path: '/',
-        kind: "all",
-        kindFilter: []
-    });
+        //console.log(products);
+        products = products.filter(p => p.delete_at == undefined);
+        console.log(products);
+        return res.render('shop/index', {
+            products: products,
+            userr: req.user,
+            pageTitle: 'Shop',
+            path: '/',
+            kind: "all",
+            kindFilter: []
+        });
     })
     .catch(err => {
     console.log(err);
